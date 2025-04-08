@@ -17,6 +17,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void onAndGateClicked();
+    void onOrGateClicked();
+    void onInverterClicked();
+    void onWireClicked();
+
+
 private:
     Ui::MainWindow *ui;
 };
