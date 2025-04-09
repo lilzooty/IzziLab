@@ -8,7 +8,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), andGates{}, orGates{}, inverters{}
 {
     ui->setupUi(this);
 
@@ -41,31 +41,24 @@ MainWindow::~MainWindow()
 
 void MainWindow::onAndGateClicked()
 {
-    // DraggableButton* button = new DraggableButton("AND", this);
-    // QPoint globalMousePos = QCursor::pos();
-    // QPoint widgetPos = this->mapFromGlobal(globalMousePos);
+    andGates.push_back(new DraggableButton("AND", this));
+    QPoint globalMousePos = QCursor::pos();
+    QPoint widgetPos = this->mapFromGlobal(globalMousePos);
 }
 
 void MainWindow::onOrGateClicked()
-{
-    QPushButton* button = new QPushButton("OR", this);
 
+{
+    orGates.push_back(new DraggableButton("OR", this));
     QPoint globalMousePos = QCursor::pos();
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
-
-    button->move(widgetPos);
-    button->show();
 }
 
 void MainWindow::onInverterClicked()
 {
-    QPushButton* button = new QPushButton("NOT", this);
-
+    inverters.push_back(new DraggableButton("NOT", this));
     QPoint globalMousePos = QCursor::pos();
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
-
-    button->move(widgetPos);
-    button->show();
 }
 
 void MainWindow::onWireClicked()
