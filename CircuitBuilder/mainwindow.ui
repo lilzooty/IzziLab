@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
@@ -35,15 +35,16 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionAndGate"/>
-   <addaction name="actionOrGate"/>
-   <addaction name="actionInverter"/>
    <addaction name="actionWire"/>
+   <addaction name="actionInverter"/>
+   <addaction name="actionOrGate"/>
+   <addaction name="actionAndGate"/>
+   <addaction name="actionNorGate"/>
+   <addaction name="actionNandGate"/>
+   <addaction name="actionXorGate"/>
+   <addaction name="actionXnorGate"/>
   </widget>
   <action name="actionAndGate">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>AndGate</string>
    </property>
@@ -52,9 +53,6 @@
    </property>
   </action>
   <action name="actionOrGate">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>OrGate</string>
    </property>
@@ -63,9 +61,6 @@
    </property>
   </action>
   <action name="actionInverter">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>Inverter</string>
    </property>
@@ -79,6 +74,38 @@
    </property>
    <property name="text">
     <string>Wire</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionNandGate">
+   <property name="text">
+    <string>NandGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionNorGate">
+   <property name="text">
+    <string>NorGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionXorGate">
+   <property name="text">
+    <string>XorGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionXnorGate">
+   <property name="text">
+    <string>XnorGate</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

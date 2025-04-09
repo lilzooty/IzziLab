@@ -34,6 +34,9 @@ private:
     vector<DraggableButton*> andGates;
     vector<DraggableButton*> orGates;
     vector<DraggableButton*> inverters;
+    vector<DraggableButton*> norGates;
+    vector<DraggableButton*> nandGates;
+    vector<DraggableButton*> xorGates;
 
 };
 #endif // MAINWINDOW_H
