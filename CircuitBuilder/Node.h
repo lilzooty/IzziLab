@@ -1,21 +1,21 @@
 #ifndef NODE_H
 #define NODE_H
 #include <string>
+enum GateType {
+    INPUT,
+    OUTPUT,
+    OR_GATE,
+    INVERTER,
+    AND_GATE,
+    NOR_GATE,
+    NAND_GATE,
+    XOR_GATE,
+    XNOR_GATE
+};
 
 class Node
 {
 public:
-    enum GateType {
-        INPUT,
-        OUTPUT,
-        OR_GATE,
-        INVERTER,
-        AND_GATE,
-        NOR_GATE,
-        NAND_GATE,
-        XOR_GATE,
-        XNOR_GATE
-    }
 
 
     Node(GateType type);
@@ -24,15 +24,16 @@ public:
      * @brief connnectNode Adds param node n as the output.
      * @return
      */
-    bool connnectNode(Node n);
+    // bool connnectNode(Node n);
 
-    bool deleteInput1();
-    bool deleteInput2();
+    // bool deleteInput1();
+    // bool deleteInput2();
+    bool getSignal();
 
     /**
      * @brief evaluate Converts the input to a value based on the gate type.
      */
-    int evaluate();
+    bool evaluate();
 
 
     /**
@@ -47,10 +48,10 @@ public:
 private:
 
     GateType gateType;
-    Node input1;
-    Node input2;
-    Node output;
-    bool value;
+    Node* input1;
+    Node* input2;
+    Node* output;
+    bool signal;
 
 };
 

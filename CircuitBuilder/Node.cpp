@@ -1,11 +1,11 @@
 #include "Node.h"
 
 
-Node::Node(GateType type): input1(nullptr), input2(nullptr), output(nullptr){}
+Node::Node(GateType type): gateType(type), input1(nullptr), input2(nullptr), output(nullptr), signal(false){}
 
 
-bool getValue(){
-    return value;
+bool Node::getSignal(){
+    return this->signal;
 }
 
 
@@ -13,7 +13,7 @@ bool Node::isFullyConnnected(){
 
     // Inverters only need to have 1 input and 1 output
     if(gateType == INVERTER ){
-        if (input1 != nullptr || input != nullptr ){
+        if (input1 != nullptr || input2 != nullptr ){
             if (output != nullptr){
                 return true;
             }
@@ -44,25 +44,37 @@ bool Node::evaluate(){
     // TODO finish eval for other gate types
     switch(gateType){
 
-        case AND_GATE:
-            value = input1.getValue() && input2.getValue();
-            break;
+    case AND_GATE:
+        signal = input1->getSignal() & input2->getSignal();
+        break;
 
-        case OR_GATE:
-            value = input1.getValue() || input2.getValue();
+    case OR_GATE:
+        signal = input1->getSignal() | input2->getSignal();
 
-        case INVERTER:
-            if(input1 != nullptr){
-                value = !input1.getValue();
-            }
-            else{
-                value = !input2.getValue();
-            }
-            break;
+    case INVERTER:
+        if(input1 != nullptr){
+            signal = !input1->getSignal();
+        }
+        else{
+            signal = !input2->getSignal();
+        }
+        break;
+    case NOR_GATE:
+        signal = !(input1->getSignal() | input2->getSignal());
+        break;
+    case NAND_GATE:
+        signal = !(input1->getSignal() & input2->getSignal());
+        break;
+    case XOR_GATE:
+        signal = (input1->getSignal() ^ input2->getSignal());
+        break;
+    case XNOR_GATE:
+        signal = !(input1->getSignal() ^ input2->getSignal());
+        break;
 
-        default:
-            return false;
-            break;
+    default:
+        return false;
+        break;
 
     }
 
