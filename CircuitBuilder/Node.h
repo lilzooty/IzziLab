@@ -5,6 +5,16 @@
 class Node
 {
 public:
+    enum NodeType {
+        INPUT,
+        OUTPUT,
+        ORGATE,
+        ANDGATE,
+        NORGATE,
+        NANDGATE,
+        XORGATE,
+        XNORGATE
+    }
     Node();
 
     bool addNode(Node n);
@@ -22,10 +32,10 @@ public:
 
 private:
 
-    std::string gateType;
+    NodeType nodeType;
     Node input1;
     Node input2;
-
+    Node output;
     bool value;
 
 };
