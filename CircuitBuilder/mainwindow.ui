@@ -111,6 +111,17 @@
     <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::EditClear"/>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

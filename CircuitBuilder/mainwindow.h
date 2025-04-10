@@ -28,7 +28,11 @@ public slots:
     void onOrGateClicked();
     void onInverterClicked();
     void onWireClicked();
+    void onClearClicked();
     void updatePhysics();
+
+
+private slots:
 
 
 private:
