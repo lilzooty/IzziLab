@@ -23,7 +23,7 @@ private:
 
     QPoint snapToGrid(QPoint& point);
     void updatePhysicsBody(QPoint& newPos);
-    b2Body* getPhysicsBody();
+
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -36,6 +36,7 @@ public:
     QPoint getPosition() { return currentPos; }
     void setPosition(QPoint& pos) { currentPos = pos; }
     void setBody(b2Body* newBody) {body = newBody;}
+    b2Body* getPhysicsBody();
 
 };
 

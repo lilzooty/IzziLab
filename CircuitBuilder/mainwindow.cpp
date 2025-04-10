@@ -20,17 +20,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     QAction* wire = ui->actionWire;
 
+    QAction* clear = ui->actionClear;
+
     QActionGroup *group = new QActionGroup(this);
 
     group->addAction(andGate);
     group->addAction(orGate);
     group->addAction(inverter);
     group->addAction(wire);
+    group->addAction(clear);
 
     connect(ui->actionAndGate, &QAction::triggered, this, &MainWindow::onAndGateClicked);
     connect(ui->actionOrGate, &QAction::triggered, this, &MainWindow::onOrGateClicked);
     connect(ui->actionInverter, &QAction::triggered, this, &MainWindow::onInverterClicked);
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
+    connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
     //physics set up
     // Initialize physics
@@ -89,7 +93,25 @@ void MainWindow::onInverterClicked()
 
 void MainWindow::onWireClicked()
 {
-    return;
+    auto generateRandomVelocity = []() {
+        float x = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
+        float y = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
+
+        x += (x == 0) * (x < 0 ? -1.0f : 1.0f);
+        y += (y == 0) * (y < 0 ? -1.0f : 1.0f);
+
+        return b2Vec2(x, y);
+    };
+
+    auto updateButtonVelocities = [&generateRandomVelocity](const vector<DraggableButton*>& buttons) {
+        for (auto button : buttons) {
+            button->getPhysicsBody()->SetLinearVelocity(generateRandomVelocity());
+        }
+    };
+
+    updateButtonVelocities(andGates);
+    updateButtonVelocities(orGates);
+    updateButtonVelocities(inverters);
 }
 void MainWindow::createPhysicsBody(DraggableButton* button)
 {
@@ -141,3 +163,25 @@ void MainWindow::updatePhysics()
     updateButtons(orGates);
     updateButtons(inverters);
 }
+
+void MainWindow::onClearClicked()
+{
+    // Update all buttons gravity
+    auto updateButtons = [this](const vector<DraggableButton*>& buttons) {
+        for (auto button : buttons) {
+
+                // Convert physics coordinates to screen coordinates
+
+            b2Body* currentBody = button->getPhysicsBody();
+                b2Vec2 vectr(0.5f, 0.9f);
+            currentBody->SetLinearVelocity(vectr);
+
+
+
+        }
+    };
+    updateButtons(andGates);
+    updateButtons(orGates);
+    updateButtons(inverters);
+}
+
