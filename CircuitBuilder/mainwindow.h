@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <vector>
 #include <draggablebutton.h>
+#include <QTimer>
+#include<Box2D/Box2D.h>
 
 using std::vector;
 
@@ -26,10 +28,16 @@ public slots:
     void onOrGateClicked();
     void onInverterClicked();
     void onWireClicked();
+    void updatePhysics();
 
 
 private:
     Ui::MainWindow *ui;
+    //physics members
+    b2World* physicsWorld;
+    QTimer* physicsTimer;
+    float pixelsPerMeter = 30.0f;
+    int GATE_SIZE = 50;
 
     vector<DraggableButton*> andGates;
     vector<DraggableButton*> orGates;
@@ -37,6 +45,10 @@ private:
     vector<DraggableButton*> norGates;
     vector<DraggableButton*> nandGates;
     vector<DraggableButton*> xorGates;
+
+    //physics methods
+    void initializePhysics();
+    void createPhysicsBody(DraggableButton* button);
 
 };
 #endif // MAINWINDOW_H
