@@ -1,6 +1,5 @@
 #ifndef NODE_H
 #define NODE_H
-#include <string>
 enum GateType {
     INPUT,
     OUTPUT,
@@ -21,27 +20,47 @@ public:
     Node(GateType type);
 
     /**
-     * @brief connnectNode Adds param node n as the output.
+     * @brief connnectNode Adds param node n as the output Node.
      * @return
      */
-    // bool connnectNode(Node n);
+    bool connnectNode(Node n);
 
-    // bool deleteInput1();
-    // bool deleteInput2();
+    /**
+     * @brief deleteInput1 Sets current node's input 1 to nullptr
+     * @return
+     */
+    void deleteInput1();
+
+    void deleteInput2();
+
     bool getSignal();
+
+    /**
+     * @return True if node has an output, false otherwise.
+     */
+    bool hasOutput();
 
     /**
      * @brief evaluate Converts the input to a value based on the gate type.
      */
     bool evaluate();
 
+    /**
+     * Returns 0 if no inputs are available.
+     * returns 1 if input 1 is available.
+     * returns 2 if input 2 is available.
+     * returns 3 if bothInputs are available.
+     * @return
+     */
+    int availableInputs();
 
     /**
-     * @return True if node has 2 inputs and an output (unless its an inverter)
+     * @brief addInput
+     * @param input Either 1 or 2 representing which input is being added to.
+     * @return True if sucessfully added, false if adding input failed.
      */
-    bool isFullyConnnected();
+    bool addInput(Node n, int input);
 
-    bool getValue();
 
 
 
