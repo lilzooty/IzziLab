@@ -1,5 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
+
+
 enum GateType {
     INPUT,
     OUTPUT,
@@ -12,6 +14,7 @@ enum GateType {
     XNOR_GATE
 };
 
+// NOTE: currently, the Node class will not override existing node connections. maybe it should?
 class Node
 {
 public:

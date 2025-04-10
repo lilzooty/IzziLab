@@ -16,10 +16,12 @@ bool Node::connnectNode(Node n){
 }
 
 void Node::deleteInput1(){
+    input1->output = nullptr;
     this->input1 = nullptr;
 }
 
 void Node::deleteInput2(){
+    input2->output = nullptr;
     this->input2 = nullptr;
 }
 
@@ -90,13 +92,20 @@ int Node::availableInputs(){
 }
 
 bool Node::addInput(Node n, int input){
+
+    // Reject improper input calls
     if (input > 2 || input < 0){
+        return false;
+    }
+
+    if (n.output != nullptr){
         return false;
     }
 
     if (input == 1){
         if (input1 != nullptr){
             input1 = n;
+            n.output = this;
             return true;
         }
     }
@@ -104,6 +113,7 @@ bool Node::addInput(Node n, int input){
     if (input == 2){
         if (input2 != nullptr){
             input2 = n;
+            n.output = this;
             return true;
         }
     }
