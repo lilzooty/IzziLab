@@ -173,7 +173,7 @@ void MainWindow::onClearClicked()
                 // Convert physics coordinates to screen coordinates
 
             b2Body* currentBody = button->getPhysicsBody();
-                b2Vec2 vectr(0.5f, 0.9f);
+                b2Vec2 vectr(0.0f, 9.8f);
             currentBody->SetLinearVelocity(vectr);
 
 

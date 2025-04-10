@@ -43,6 +43,7 @@
    <addaction name="actionNandGate"/>
    <addaction name="actionXorGate"/>
    <addaction name="actionXnorGate"/>
+   <addaction name="actionClear"/>
   </widget>
   <action name="actionAndGate">
    <property name="text">

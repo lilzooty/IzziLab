@@ -7,7 +7,7 @@ bool Node::connnectNode(Node n){
 
     // Prevent adding to occupied nodes
     if (n.availableInputs() > 0  && this->output == nullptr){
-        this->output = n;
+       // this->output = n;
         return true;
     }
 
@@ -35,9 +35,9 @@ bool Node::hasOutput(){
 
 bool Node::evaluate(){
 
-    if (!isFullyConnnected()){
+   // if (!isFullyConnnected()){
         return false;
-    }
+ //   }
 
     // TODO finish eval for other gate types
     switch(gateType){
@@ -104,7 +104,7 @@ bool Node::addInput(Node n, int input){
 
     if (input == 1){
         if (input1 != nullptr){
-            input1 = n;
+           // input1 = n;
             n.output = this;
             return true;
         }
@@ -112,7 +112,7 @@ bool Node::addInput(Node n, int input){
 
     if (input == 2){
         if (input2 != nullptr){
-            input2 = n;
+          //  input2 = n;
             n.output = this;
             return true;
         }
