@@ -3,11 +3,9 @@
 
 Node::Node(GateType type): gateType(type), input1(nullptr), input2(nullptr), output(nullptr), signal(false){}
 
-
 bool Node::getSignal(){
     return this->signal;
 }
-
 
 bool Node::isFullyConnnected(){
 
@@ -31,9 +29,7 @@ bool Node::isFullyConnnected(){
     }
 
     return false;
-
 }
-
 
 bool Node::evaluate(){
 
@@ -45,11 +41,11 @@ bool Node::evaluate(){
     switch(gateType){
 
     case AND_GATE:
-        signal = input1->getSignal() & input2->getSignal();
+        signal = input1->getSignal() && input2->getSignal();
         break;
 
     case OR_GATE:
-        signal = input1->getSignal() | input2->getSignal();
+        signal = input1->getSignal() || input2->getSignal();
 
     case INVERTER:
         if(input1 != nullptr){
@@ -60,27 +56,23 @@ bool Node::evaluate(){
         }
         break;
     case NOR_GATE:
-        signal = !(input1->getSignal() | input2->getSignal());
+        signal = !(input1->getSignal() || input2->getSignal());
         break;
     case NAND_GATE:
-        signal = !(input1->getSignal() & input2->getSignal());
+        signal = !(input1->getSignal() && input2->getSignal());
         break;
     case XOR_GATE:
-        signal = (input1->getSignal() ^ input2->getSignal());
+        signal = ((input1->getSignal() || input2->getSignal()) && !(input1->getSignal() && input2->getSignal()));
         break;
     case XNOR_GATE:
-        signal = !(input1->getSignal() ^ input2->getSignal());
+        signal = ((input1->getSignal() && input2->getSignal()) || (!input1->getSignal() && !input2->getSignal()));
         break;
 
     default:
         return false;
         break;
-
     }
-
     return true;
-
-
 }
 
 
