@@ -57,6 +57,8 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp \
     Circuit.cpp \
     Node.cpp \
+    TruthTable.cpp \
+    astarpathfinder.cpp \
     draggablebutton.cpp \
     main.cpp \
     mainwindow.cpp
@@ -111,6 +113,8 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     Circuit.h \
     Node.h \
+    TruthTable.h \
+    astarpathfinder.h \
     draggablebutton.h \
     mainwindow.h
 
