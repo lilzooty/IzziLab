@@ -56,6 +56,7 @@ SOURCES += \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
     Node.cpp \
+    astarpathfinder.cpp \
     draggablebutton.cpp \
     main.cpp \
     mainwindow.cpp
@@ -109,6 +110,7 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     Node.h \
+    astarpathfinder.h \
     draggablebutton.h \
     mainwindow.h
 
