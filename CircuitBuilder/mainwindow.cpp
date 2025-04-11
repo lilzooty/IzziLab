@@ -12,27 +12,38 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
     QAction* andGate = ui->actionAndGate;
-
     QAction* orGate = ui->actionOrGate;
-
     QAction* inverter = ui->actionInverter;
-
     QAction* wire = ui->actionWire;
-
     QAction* clear = ui->actionClear;
+    QAction* nandGate = ui->actionNandGate;
+    QAction* norGate = ui->actionNorGate;
+    QAction* xorGate = ui->actionXorGate;
+    QAction* xnorGate = ui->actionXnorGate;
 
     QActionGroup *group = new QActionGroup(this);
 
     group->addAction(andGate);
     group->addAction(orGate);
+    group->addAction(nandGate);
+    group->addAction(norGate);
+    group->addAction(xorGate);
+    group->addAction(xnorGate);
     group->addAction(inverter);
     group->addAction(wire);
     group->addAction(clear);
 
+
     connect(ui->actionAndGate, &QAction::triggered, this, &MainWindow::onAndGateClicked);
     connect(ui->actionOrGate, &QAction::triggered, this, &MainWindow::onOrGateClicked);
     connect(ui->actionInverter, &QAction::triggered, this, &MainWindow::onInverterClicked);
+    connect(ui->actionNandGate, &QAction::triggered, this, &MainWindow::onNandGateClicked);
+    connect(ui->actionNorGate, &QAction::triggered, this, &MainWindow::onNorGateClicked);
+    connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
+    connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
+
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
@@ -55,63 +66,49 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::onAndGateClicked()
-{
-    DraggableButton* newButton = new DraggableButton("AND", this);
-    QPoint globalMousePos = QCursor::pos();
-    QPoint widgetPos = this->mapFromGlobal(globalMousePos);
-    newButton->setPosition(widgetPos);
-    newButton->setGeometry(widgetPos.x(), widgetPos.y(), GATE_SIZE, GATE_SIZE); // Set initial size
-    newButton->show();
-    andGates.push_back(newButton);
-    createPhysicsBody(newButton);
+void MainWindow::onAndGateClicked(){
+    andGates.push_back(createGateButton("AND", ui->actionAndGate->icon()));
 }
-
-void MainWindow::onOrGateClicked()
-{
-    DraggableButton* newButton = new DraggableButton("OR", this);
-    QPoint globalMousePos = QCursor::pos();
-    QPoint widgetPos = this->mapFromGlobal(globalMousePos);
-    newButton->setPosition(widgetPos);
-    newButton->setGeometry(widgetPos.x(), widgetPos.y(), GATE_SIZE, GATE_SIZE); // Set initial size
-    newButton->show();
-    orGates.push_back(newButton);
-    createPhysicsBody(newButton);
+void MainWindow::onOrGateClicked(){
+    orGates.push_back(createGateButton("OR", ui->actionOrGate->icon()));
 }
-
-void MainWindow::onInverterClicked()
-{
-    DraggableButton* newButton = new DraggableButton("NOT", this);
-    QPoint globalMousePos = QCursor::pos();
-    QPoint widgetPos = this->mapFromGlobal(globalMousePos);
-    newButton->setPosition(widgetPos);
-    newButton->setGeometry(widgetPos.x(), widgetPos.y(), GATE_SIZE, GATE_SIZE); // Set initial size
-    newButton->show();
-    inverters.push_back(newButton);
-    createPhysicsBody(newButton);
+void MainWindow::onInverterClicked(){
+    inverters.push_back(createGateButton("NOT", ui->actionInverter->icon()));
+}
+void MainWindow::onNandGateClicked(){
+    nandGates.push_back(createGateButton("NAND", ui->actionNandGate->icon()));
+}
+void MainWindow::onNorGateClicked(){
+    norGates.push_back(createGateButton("NOR", ui->actionNorGate->icon()));
+}
+void MainWindow::onXorGateClicked(){
+    xnorGates.push_back(createGateButton("XOR", ui->actionXorGate->icon()));
+}
+void MainWindow::onXnorGateClicked(){
+    xnorGates.push_back(createGateButton("XNOR", ui->actionXnorGate->icon()));
 }
 
 void MainWindow::onWireClicked()
 {
-    auto generateRandomVelocity = []() {
-        float x = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
-        float y = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
+    // auto generateRandomVelocity = []() {
+    //     float x = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
+    //     float y = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
 
-        x += (x == 0) * (x < 0 ? -1.0f : 1.0f);
-        y += (y == 0) * (y < 0 ? -1.0f : 1.0f);
+    //     x += (x == 0) * (x < 0 ? -1.0f : 1.0f);
+    //     y += (y == 0) * (y < 0 ? -1.0f : 1.0f);
 
-        return b2Vec2(x, y);
-    };
+    //     return b2Vec2(x, y);
+    // };
 
-    auto updateButtonVelocities = [&generateRandomVelocity](const vector<DraggableButton*>& buttons) {
-        for (auto button : buttons) {
-            button->getPhysicsBody()->SetLinearVelocity(generateRandomVelocity());
-        }
-    };
+    // auto updateButtonVelocities = [&generateRandomVelocity](const vector<DraggableButton*>& buttons) {
+    //     for (auto button : buttons) {
+    //         button->getPhysicsBody()->SetLinearVelocity(generateRandomVelocity());
+    //     }
+    // };
 
-    updateButtonVelocities(andGates);
-    updateButtonVelocities(orGates);
-    updateButtonVelocities(inverters);
+    // updateButtonVelocities(andGates);
+    // updateButtonVelocities(orGates);
+    // updateButtonVelocities(inverters);
 }
 void MainWindow::createPhysicsBody(DraggableButton* button)
 {
@@ -129,7 +126,8 @@ void MainWindow::createPhysicsBody(DraggableButton* button)
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.9f;
+    fixtureDef.friction = 1.0f;
+    fixtureDef.restitution = 0.0f;
 
     body->CreateFixture(&fixtureDef);
     button->setProperty("physicsBody", QVariant::fromValue((void*)body));
@@ -144,7 +142,7 @@ void MainWindow::initializePhysics()
 void MainWindow::updatePhysics()
 {
     // Step the physics simulation
-    physicsWorld->Step(1.0f/60.0f, 6, 2);
+    physicsWorld->Step(1.0f/60.0f, 8, 3);  // Increase iteration counts
 
     // Update all buttons positions
     auto updateButtons = [this](const vector<DraggableButton*>& buttons) {
@@ -162,6 +160,10 @@ void MainWindow::updatePhysics()
     updateButtons(andGates);
     updateButtons(orGates);
     updateButtons(inverters);
+    updateButtons(nandGates);
+    updateButtons(norGates);
+    updateButtons(xorGates);
+    updateButtons(xnorGates);
 }
 
 void MainWindow::onClearClicked()
@@ -173,7 +175,7 @@ void MainWindow::onClearClicked()
                 // Convert physics coordinates to screen coordinates
 
             b2Body* currentBody = button->getPhysicsBody();
-                b2Vec2 vectr(0.0f, 9.8f);
+            b2Vec2 vectr(0.0f, 9.8f);
             currentBody->SetLinearVelocity(vectr);
 
 
@@ -183,5 +185,24 @@ void MainWindow::onClearClicked()
     updateButtons(andGates);
     updateButtons(orGates);
     updateButtons(inverters);
+    updateButtons(nandGates);
+    updateButtons(norGates);
+    updateButtons(xorGates);
+    updateButtons(xnorGates);
 }
 
+DraggableButton* MainWindow::createGateButton(const QString& gateType, const QIcon& icon)
+{
+    DraggableButton* newButton = new DraggableButton(gateType, this);
+    QPoint globalMousePos = QCursor::pos();
+    QPoint widgetPos = this->mapFromGlobal(globalMousePos);
+    newButton->setPosition(widgetPos);
+    newButton->setGeometry(widgetPos.x(), widgetPos.y(), GATE_SIZE, GATE_SIZE);
+    newButton->show();
+    createPhysicsBody(newButton);
+
+    newButton->setIconSize(QSize(GATE_SIZE, GATE_SIZE));
+    newButton->setIcon(icon);
+
+    return newButton;
+}

@@ -27,13 +27,14 @@ public slots:
     void onAndGateClicked();
     void onOrGateClicked();
     void onInverterClicked();
+    void onNandGateClicked();
+    void onNorGateClicked();
+    void onXorGateClicked();
+    void onXnorGateClicked();
+
     void onWireClicked();
     void onClearClicked();
     void updatePhysics();
-
-
-private slots:
-
 
 private:
     Ui::MainWindow *ui;
@@ -49,10 +50,12 @@ private:
     vector<DraggableButton*> norGates;
     vector<DraggableButton*> nandGates;
     vector<DraggableButton*> xorGates;
+    vector<DraggableButton*> xnorGates;
 
     //physics methods
     void initializePhysics();
     void createPhysicsBody(DraggableButton* button);
+    DraggableButton* createGateButton(const QString& gateType, const QIcon& icon);
 
 };
 #endif // MAINWINDOW_H
