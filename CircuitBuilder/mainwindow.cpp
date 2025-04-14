@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-<<<<<<< HEAD
     int tileSize = 50;
 
     int width = this->width();
@@ -35,8 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
             grid[row][col] = false;
         }
     }
-=======
->>>>>>> 4f162e5929ca06ed0db368b418b8e35cb7635810
 
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
@@ -131,16 +128,10 @@ void MainWindow::onWireClicked()
     //     }
     // };
 
-<<<<<<< HEAD
-    updateButtonVelocities(andGates);
-    updateButtonVelocities(orGates);
-    updateButtonVelocities(inverters);
 
-=======
     // updateButtonVelocities(andGates);
     // updateButtonVelocities(orGates);
     // updateButtonVelocities(inverters);
->>>>>>> 4f162e5929ca06ed0db368b418b8e35cb7635810
 }
 void MainWindow::createPhysicsBody(DraggableButton* button)
 {
