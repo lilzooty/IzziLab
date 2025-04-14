@@ -44,8 +44,12 @@ public:
 public slots:
     void wireMode();
 
+    void getTwoButtons(DraggableButton *previousButton);
+
 signals:
     void sendButton(DraggableButton *button);
+
+    void sendTwoButtons(DraggableButton *button1, DraggableButton *button2);
 
 
 };

@@ -115,6 +115,8 @@ void Circuit::addNode(GateType gate) {
 }
 
 void Circuit::updateButton(DraggableButton *button) {
+    if (mostRecentButton != nullptr) {
+        emit mostRecentButtonUpdated(mostRecentButton);
+    }
     mostRecentButton = button;
-    emit mostRecentButtonUpdated(mostRecentButton);
 }

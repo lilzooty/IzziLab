@@ -76,7 +76,15 @@ MainWindow::MainWindow(QWidget *parent)
     // DraggableButton* button = new DraggableButton(this);  // or however you set it up
     // connect(ui->actionWire, &QAction::triggered, button, &DraggableButton::wireMode);
 
-    connect(this, &MainWindow::addNode, circuit, &Circuit::addNode);
+    // connect(this, &MainWindow::addNode, circuit, &Circuit::addNode);
+
+    // connect dragbut to circuit
+    for (DraggableButton* btn : draggableButtons) {
+        connect(ui->actionWire, &QAction::triggered, btn, [btn]() {
+            btn->setWireMode(true); // or false depending on logic
+        });
+    // connect circuit to dragbut
+
 
     //physics set up
     // Initialize physics

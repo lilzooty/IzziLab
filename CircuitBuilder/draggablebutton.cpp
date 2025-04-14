@@ -1,7 +1,6 @@
 #include "draggablebutton.h"
 
 DraggableButton::DraggableButton() {
-
 }
 
 DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
@@ -76,4 +75,10 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
 
 void wireMode() {
 
+}
+
+void DraggableButton::getTwoButtons(DraggableButton *previousButton) {
+    if (onWireMode) {
+        emit sendTwoButtons(previousButton, this);
+    }
 }
