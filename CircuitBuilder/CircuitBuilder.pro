@@ -57,6 +57,7 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp \
     Circuit.cpp \
     Node.cpp \
+    TruthTable.cpp \
     astarpathfinder.cpp \
     draggablebutton.cpp \
     main.cpp \
@@ -112,6 +113,7 @@ HEADERS += \
     Box2D/Rope/b2Rope.h \
     Circuit.h \
     Node.h \
+    TruthTable.h \
     astarpathfinder.h \
     draggablebutton.h \
     mainwindow.h
@@ -125,5 +127,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    ../../../Desktop/OR-gate.png \
     Box2D/Box2DConfig.cmake \
     Box2D/CMakeLists.txt
+
+RESOURCES += \
+    rsc.qrc

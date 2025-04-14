@@ -3,7 +3,7 @@
 
 #include "Node.h"
 #include "QVector"
-#include "QHash"
+#include "TruthTable.h"
 
 class Circuit{
 public:
@@ -11,11 +11,18 @@ public:
 
 private:
     QVector<Node> gates;
-    QHash<QVector<int>, int> easyTruthTable;
-    QHash<QVector<int>, int> medTruthTable;
-    QHash<QVector<int>, int> hardTruthTable;
+
+    QVector<TruthTable> easyTables;
+    QVector<TruthTable> medTables;
+    QVector<TruthTable> hardTables;
 
     bool evaluateGates();
 
+    void initializeEasyTruthTables();
+
+    void initializeMedTruthTables();
+
+    void initializeHardTruthTables();
 };
 
+#endif

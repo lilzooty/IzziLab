@@ -7,7 +7,7 @@ DraggableButton::DraggableButton() {
 DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
     : QPushButton(parent), buttonType(buttonType)
 {
-    this->setText(buttonType);
+    this->setToolTip(buttonType);
     setMouseTracking(true);
     this->show();
 }
@@ -61,12 +61,14 @@ b2Body* DraggableButton::getPhysicsBody()
     return body;
 }
 
-void DraggableButton::updatePhysicsBody( QPoint& newPos)
+void DraggableButton::updatePhysicsBody(QPoint& newPos)
 {
     if (b2Body* body = getPhysicsBody()) {
         b2Vec2 physicsPos(newPos.x() / PIXELS_PER_METER,
                           newPos.y() / PIXELS_PER_METER);
-
         body->SetTransform(physicsPos, body->GetAngle());
+
+        // Wake up the body
+        body->SetAwake(true);
     }
 }
