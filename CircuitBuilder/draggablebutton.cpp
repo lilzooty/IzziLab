@@ -19,6 +19,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     }
 
     QPushButton::mousePressEvent(event);
+    emit sendButton(this);
 }
 
 
@@ -71,4 +72,8 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
         // Wake up the body
         body->SetAwake(true);
     }
+}
+
+void wireMode() {
+
 }

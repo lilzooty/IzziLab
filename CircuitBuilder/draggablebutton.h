@@ -15,6 +15,9 @@ private:
     QString buttonType;
     QPoint dragStartPos;
     QPoint currentPos;
+    bool onWireMode = false;
+
+    DraggableButton* previousButton = nullptr;
 
     b2Body* body;
 
@@ -39,6 +42,10 @@ public:
     b2Body* getPhysicsBody();
 
 public slots:
+    void wireMode();
+
+signals:
+    void sendButton(DraggableButton *button);
 
 
 };
