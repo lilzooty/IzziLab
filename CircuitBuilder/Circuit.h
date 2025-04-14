@@ -4,13 +4,25 @@
 #include "Node.h"
 #include "QVector"
 #include "TruthTable.h"
+#include "draggablebutton.h"
+#include <QObject>
 
-class Circuit{
+class Circuit : public QObject {
+
+    Q_OBJECT
+
 public:
-    Circuit();
+    Circuit(QObject *parent = nullptr);
+
+public slots:
+    void addNode(GateType gate);
+
+    void updateButton(DraggableButton *button);
 
 private:
     QVector<Node> gates;
+
+    DraggableButton *mostRecentButton;
 
     QVector<TruthTable> easyTables;
     QVector<TruthTable> medTables;
@@ -23,6 +35,9 @@ private:
     void initializeMedTruthTables();
 
     void initializeHardTruthTables();
+
+signals:
+    void mostRecentButtonUpdated(DraggableButton *button);
 };
 
 #endif

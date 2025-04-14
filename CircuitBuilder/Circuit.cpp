@@ -1,5 +1,9 @@
 #include "Circuit.h"
 
+Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
+
+}
+
 void Circuit::initializeEasyTruthTables(){
     // Lvl 1: input → output
     QVector<QVector<int>> input1 = { {0}, {1} };
@@ -104,4 +108,13 @@ void Circuit::initializeHardTruthTables(){
     // Lvl 8: A NAND B NOR B NAND C
     QVector<int> output_NAND_NOR_NAND = {0, 0, 0, 0, 0, 0, 0, 1};
     hardTables.append(TruthTable(inputs3, output_NAND_NOR_NAND));
+}
+
+void Circuit::addNode(GateType gate) {
+    gates.push_back(Node(gate));
+}
+
+void Circuit::updateButton(DraggableButton *button) {
+    mostRecentButton = button;
+    emit mostRecentButtonUpdated(mostRecentButton);
 }
