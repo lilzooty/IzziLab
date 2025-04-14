@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    circuit = Circuit();
+
     int tileSize = 50;
 
     int width = this->width();
@@ -34,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent)
             grid[row][col] = false;
         }
     }
+
+    QRect rect(400, 400, 250, 250);
 
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
@@ -69,6 +73,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
+    // DraggableButton* button = new DraggableButton(this);  // or however you set it up
+    // connect(ui->actionWire, &QAction::triggered, button, &DraggableButton::wireMode);
+
+    connect(this, &MainWindow::addNode, circuit, &Circuit::addNode);
+
     //physics set up
     // Initialize physics
     initializePhysics();
@@ -90,28 +99,37 @@ MainWindow::~MainWindow()
 
 void MainWindow::onAndGateClicked(){
     andGates.push_back(createGateButton("AND", ui->actionAndGate->icon()));
+    emit addNode(GateType::AND_GATE);
 }
 void MainWindow::onOrGateClicked(){
     orGates.push_back(createGateButton("OR", ui->actionOrGate->icon()));
+    emit addNode(GateType::OR_GATE);
 }
 void MainWindow::onInverterClicked(){
     inverters.push_back(createGateButton("NOT", ui->actionInverter->icon()));
+    emit addNode(GateType::INVERTER);
+
 }
 void MainWindow::onNandGateClicked(){
     nandGates.push_back(createGateButton("NAND", ui->actionNandGate->icon()));
+    emit addNode(GateType::NAND_GATE);
 }
 void MainWindow::onNorGateClicked(){
     norGates.push_back(createGateButton("NOR", ui->actionNorGate->icon()));
+    emit addNode(GateType::NOR_GATE);
 }
 void MainWindow::onXorGateClicked(){
     xnorGates.push_back(createGateButton("XOR", ui->actionXorGate->icon()));
+    emit addNode(GateType::XOR_GATE);
 }
 void MainWindow::onXnorGateClicked(){
     xnorGates.push_back(createGateButton("XNOR", ui->actionXnorGate->icon()));
+    emit addNode(GateType::XNOR_GATE);
 }
 
 void MainWindow::onWireClicked()
 {
+    emit wireMode();
     // auto generateRandomVelocity = []() {
     //     float x = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
     //     float y = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
