@@ -17,6 +17,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton) {
         dragStartPos = event->pos();
     }
+
     QPushButton::mousePressEvent(event);
 }
 

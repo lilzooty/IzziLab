@@ -38,6 +38,9 @@ public:
     void setBody(b2Body* newBody) {body = newBody;}
     b2Body* getPhysicsBody();
 
+public slots:
+
+
 };
 
 #endif // DRAGGABLEBUTTON_H

@@ -5,12 +5,35 @@
 #include <QActionGroup>
 #include <QPushButton>
 #include "draggablebutton.h"
+#include "astarpathfinder.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow), andGates{}, orGates{}, inverters{}
 {
     ui->setupUi(this);
+
+    int tileSize = 50;
+
+    int width = this->width();
+    int height = this->height();
+
+    int cols = width; // / 50;
+    int rows = height; // / 50;
+
+    grid.resize(rows, std::vector<bool>(cols, true));
+
+    int startRow = 25;
+    int endRow = 600;
+
+    int startCol = 0;
+    int endCol = 100;
+
+    for(int row = startRow; row < endRow; row++) {
+        for(int col = startCol; col < endCol; col++) {
+            grid[row][col] = false;
+        }
+    }
 
     QAction* andGate = ui->actionAndGate;
 
@@ -112,6 +135,7 @@ void MainWindow::onWireClicked()
     updateButtonVelocities(andGates);
     updateButtonVelocities(orGates);
     updateButtonVelocities(inverters);
+
 }
 void MainWindow::createPhysicsBody(DraggableButton* button)
 {

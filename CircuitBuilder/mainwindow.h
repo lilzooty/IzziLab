@@ -42,6 +42,7 @@ private:
     QTimer* physicsTimer;
     float pixelsPerMeter = 30.0f;
     int GATE_SIZE = 50;
+    vector<vector<bool>> grid;
 
     vector<DraggableButton*> andGates;
     vector<DraggableButton*> orGates;
