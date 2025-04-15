@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <string>
 #include <Box2D/Box2D.h>
+#include "Gate.h"
 
 
 class DraggableButton : public QPushButton
@@ -27,6 +28,8 @@ private:
     QPoint snapToGrid(QPoint& point);
     void updatePhysicsBody(QPoint& newPos);
 
+    Gate *gate = nullptr;
+
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -35,7 +38,11 @@ protected:
 
 public:
     DraggableButton();
+
+
     explicit DraggableButton(QString buttonType, QWidget *parent = nullptr);
+    DraggableButton(QString buttonType, QWidget *parent = nullptr, Gate* gate);
+
     QPoint getPosition() { return currentPos; }
     void setPosition(QPoint& pos) { currentPos = pos; }
     void setBody(b2Body* newBody) {body = newBody;}
