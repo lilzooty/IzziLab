@@ -21,7 +21,6 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     emit sendButton(this);
 }
 
-
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton) {

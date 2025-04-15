@@ -22,7 +22,6 @@ public slots:
     // updates mostRecentButton
     void updateButton(DraggableButton *button);
 
-  //  bool evaluateCircuit(const QVector<Gate*>& inputNodes, Gate* outputNode, const TruthTable& truthTable);
     bool evaluateCircuit();
 
     //slots
@@ -43,6 +42,7 @@ public slots:
 
     // Handles connections between Circuit and DraggableButton
     void addButton(DraggableButton *button);
+
 
 private:
 
@@ -83,6 +83,8 @@ signals:
 
     // Emitted to DraggableButton to inform it of the "previous" button
     void mostRecentButtonUpdated(DraggableButton *button);
+
+
 };
 
 #endif
