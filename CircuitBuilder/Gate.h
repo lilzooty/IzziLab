@@ -38,6 +38,11 @@ public:
 
     void deleteInput2();
 
+    void removeOutput(Gate* output); // one of these has to be redundant
+
+    void removeInput(Gate* input);
+
+
     void setInput1(Gate* gate);
 
     void setInput2(Gate* gate);
@@ -58,9 +63,6 @@ public:
 
     void addOutput(Gate* output);
 
-    void removeOutput(Gate* output);
-
-    void removeInput(Gate* input);
 
     void removeAllInputs();
 

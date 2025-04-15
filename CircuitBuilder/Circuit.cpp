@@ -1,14 +1,16 @@
 #include "Circuit.h"
 #include "qdebug.h"
 
-Circuit::Circuit() : inputNodes(), output(nullptr), gates(){
+Circuit::Circuit() : inputNodes(), output(nullptr), gates{}, allButtons{}{
     initializeEasyTruthTables();
     initializeMedTruthTables();
     initializeHardTruthTables();
 }
 
-Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
-
+Circuit::Circuit(QObject *parent) : QObject{parent}, gates{}, allButtons{} {
+    initializeEasyTruthTables();
+    initializeMedTruthTables();
+    initializeHardTruthTables();
 }
 
 void Circuit::initializeEasyTruthTables(){
@@ -363,4 +365,10 @@ void Circuit::updateButton(DraggableButton *button) {
         emit mostRecentButtonUpdated(mostRecentButton);
     }
     mostRecentButton = button;
+}
+
+void Circuit::addButton(DraggableButton *button){
+    allButtons.push_back(button);
+    connect(button, &DraggableButton::sendButton, this, &Circuit::updateButton);
+    connect(this, &Circuit::mostRecentButtonUpdated, button, &DraggableButton::getTwoButtons);
 }

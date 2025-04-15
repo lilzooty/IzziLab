@@ -38,7 +38,7 @@ public slots:
     void onClearClicked();
     void updatePhysics();
 
-    //void drawWires(DraggableButton *button1, DraggableButton *button2);
+    void drawWire(DraggableButton *startButton, DraggableButton *endButton);
 
 private:
     Ui::MainWindow *ui;
@@ -48,6 +48,8 @@ private:
     float pixelsPerMeter = 30.0f;
     int GATE_SIZE = 50;
     vector<vector<bool>> grid;
+
+    // The Model
     Circuit circuit;
 
     vector<DraggableButton*> andGates;
@@ -66,9 +68,10 @@ private:
     DraggableButton* createGateButton(const QString& gateType, const QIcon& icon);
 
 signals:
-    void wireMode();
 
     void addNode(GateType gate);
+
+    void addButtonToCircuit(DraggableButton *button);
 
 };
 #endif // MAINWINDOW_H

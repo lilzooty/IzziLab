@@ -49,7 +49,7 @@ public slots:
 signals:
     void sendButton(DraggableButton *button);
 
-    void sendTwoButtons(DraggableButton *button1, DraggableButton *button2);
+    void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton);
 
 
 };

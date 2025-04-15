@@ -5,6 +5,7 @@
 #include "QVector"
 #include "TruthTable.h"
 #include "draggablebutton.h"
+#include <vector>
 #include <QObject>
 
 class Circuit : public QObject {
@@ -18,6 +19,7 @@ public:
 public slots:
     void addNode(GateType gate);
 
+    // updates mostRecentButton
     void updateButton(DraggableButton *button);
 
   //  bool evaluateCircuit(const QVector<Gate*>& inputNodes, Gate* outputNode, const TruthTable& truthTable);
@@ -39,9 +41,16 @@ public slots:
 
     bool isAcyclic(Gate* startNode);
 
+    // Handles connections between Circuit and DraggableButton
+    void addButton(DraggableButton *button);
+
 private:
 
     std::vector<Gate*> inputNodes;
+
+    // Stores all the buttons in the MainWindow
+    std::vector<DraggableButton*> allButtons;
+
     Gate* output;
     QVector<Gate*> gates;
 
@@ -69,7 +78,10 @@ private slots:
    // void onDisconnectNode(Node* fromNode, Node* toNode);
 
    // void onDeleteNode(Node* node);
+
 signals:
+
+    // Emitted to DraggableButton to inform it of the "previous" button
     void mostRecentButtonUpdated(DraggableButton *button);
 };
 

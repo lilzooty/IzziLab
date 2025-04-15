@@ -71,17 +71,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
+    connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
+
     // DraggableButton* button = new DraggableButton(this);  // or however you set it up
     // connect(ui->actionWire, &QAction::triggered, button, &DraggableButton::wireMode);
 
     // connect(this, &MainWindow::addNode, circuit, &Circuit::addNode);
 
-    // connect dragbut to circuit
-    for (DraggableButton* btn : draggableButtons) {
-        connect(ui->actionWire, &QAction::triggered, btn, &DraggableButton::setWireMode);
-           // btn->WireMode(true); // or false depending on logic);
-    // connect circuit to dragbut
-    }
+    // // connect dragbut to circuit
+    // for (DraggableButton* btn : draggableButtons) {
+    //     connect(ui->actionWire, &QAction::triggered, btn, &DraggableButton::setWireMode);
+    // }
 
     //physics set up
     // Initialize physics
@@ -134,7 +134,7 @@ void MainWindow::onXnorGateClicked(){
 
 void MainWindow::onWireClicked()
 {
-    emit wireMode();
+    // emit wireMode();
     // auto generateRandomVelocity = []() {
     //     float x = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
     //     float y = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
@@ -155,6 +155,7 @@ void MainWindow::onWireClicked()
     // updateButtonVelocities(andGates);
     // updateButtonVelocities(orGates);
     // updateButtonVelocities(inverters);
+    return;
 }
 void MainWindow::createPhysicsBody(DraggableButton* button)
 {
@@ -250,5 +251,14 @@ DraggableButton* MainWindow::createGateButton(const QString& gateType, const QIc
     newButton->setIconSize(QSize(GATE_SIZE, GATE_SIZE));
     newButton->setIcon(icon);
 
+    connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
+    connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);
+
+    emit addButtonToCircuit(newButton);
+
     return newButton;
+}
+
+void MainWindow::drawWire(DraggableButton *startButton, DraggableButton *endButton){
+
 }
