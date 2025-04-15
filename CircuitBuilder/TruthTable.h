@@ -10,11 +10,13 @@
 class TruthTable{
 
 public:
+    TruthTable();
+
     TruthTable(const QVector<QVector<int>>& inputs, const QVector<int>& outputs);
 
     QList<QPair<QVector<int>, int>> getRows() const;
 
-    QString getHint();
+    QString getHint() const;
 
     void setHint(QString levelHint);
 
@@ -22,8 +24,6 @@ private:
     QList<QPair<QVector<int>, int>> tableRows;
 
     QString hint;
-
-
 };
 
 #endif //

@@ -1,6 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <QVector>
 
 enum GateType {
     INPUT,
@@ -26,6 +27,7 @@ public:
      * @brief connnectNode Adds param node n as the output Node.
      * @return
      */
+
     bool connnectNode(Node n);
 
     /**
@@ -36,7 +38,38 @@ public:
 
     void deleteInput2();
 
+    void setInput1(Node* node);
+
+    void setInput2(Node* node);
+
     bool getSignal();
+
+    void setSignal(int signal);
+
+    GateType getGateType();
+
+    Node* getInput1();
+
+    Node* getInput2();
+
+    QVector<Node*> getOutputs();
+
+    void deleteOutputs();
+
+    void addOutput(Node* output);
+
+    void removeOutput(Node* output);
+
+    void removeInput(Node* input);
+
+    void removeAllInputs();
+
+    void reset();
+
+    void disconnectAll();
+
+
+
 
     /**
      * @return True if node has an output, false otherwise.
@@ -62,10 +95,7 @@ public:
      * @param input Either 1 or 2 representing which input is being added to.
      * @return True if sucessfully added, false if adding input failed.
      */
-    bool addInput(Node n, int input);
-
-
-
+    bool addInput(Node* n, int input);
 
 private:
 
@@ -75,6 +105,11 @@ private:
     Node* output;
     bool signal;
 
+    bool checkValidConnection(Node* input, int inputSlot) const;
+
+    bool hasOneInput() const;
+
+    QVector<Node*> outputs;
 };
 
 #endif // NODE_H

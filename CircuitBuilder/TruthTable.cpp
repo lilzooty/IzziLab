@@ -6,6 +6,10 @@ TruthTable::TruthTable(const QVector<QVector<int>>& inputs, const QVector<int>& 
     }
 }
 
+TruthTable::TruthTable(){
+    hint = "";
+}
+
 QList<QPair<QVector<int>, int>> TruthTable::getRows() const {
     return tableRows;
 }
@@ -14,7 +18,7 @@ void TruthTable::setHint(QString levelHint){
     hint = levelHint;
 }
 
-QString TruthTable::getHint(){
+QString TruthTable::getHint() const{
     return hint;
 }
 
