@@ -72,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
+    connect(this, &MainWindow::addGate, &circuit, &Circuit::registerNode);
+
 
     // DraggableButton* button = new DraggableButton(this);  // or however you set it up
     // connect(ui->actionWire, &QAction::triggered, button, &DraggableButton::wireMode);
@@ -103,33 +105,33 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onAndGateClicked(){
-    andGates.push_back(createGateButton("AND", ui->actionAndGate->icon()));
-    emit addNode(GateType::AND_GATE);
+    andGates.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
+    // emit addNode(GateType::AND_GATE);
 }
 void MainWindow::onOrGateClicked(){
-    orGates.push_back(createGateButton("OR", ui->actionOrGate->icon()));
-    emit addNode(GateType::OR_GATE);
+    orGates.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
+    // emit addNode(GateType::OR_GATE);
 }
 void MainWindow::onInverterClicked(){
-    inverters.push_back(createGateButton("NOT", ui->actionInverter->icon()));
-    emit addNode(GateType::INVERTER);
+    inverters.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
+    // emit addNode(GateType::INVERTER);
 
 }
 void MainWindow::onNandGateClicked(){
-    nandGates.push_back(createGateButton("NAND", ui->actionNandGate->icon()));
-    emit addNode(GateType::NAND_GATE);
+    nandGates.push_back(createGateButton(GateType::NAND_GATE), ui->actionNandGate->icon()));
+    // emit addNode(GateType::NAND_GATE);
 }
 void MainWindow::onNorGateClicked(){
-    norGates.push_back(createGateButton("NOR", ui->actionNorGate->icon()));
-    emit addNode(GateType::NOR_GATE);
+    norGates.push_back(createGateButton(GateType::NOR_GATE), ui->actionNorGate->icon()));
+    // emit addNode(GateType::NOR_GATE);
 }
 void MainWindow::onXorGateClicked(){
-    xnorGates.push_back(createGateButton("XOR", ui->actionXorGate->icon()));
-    emit addNode(GateType::XOR_GATE);
+    xnorGates.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
+    // emit addNode(GateType::XOR_GATE);
 }
 void MainWindow::onXnorGateClicked(){
-    xnorGates.push_back(createGateButton("XNOR", ui->actionXnorGate->icon()));
-    emit addNode(GateType::XNOR_GATE);
+    xnorGates.push_back(createGateButton(GateType::XNOR_GATE, ui->actionXnorGate->icon()));
+    //emit addNode(GateType::XNOR_GATE);
 }
 
 void MainWindow::onWireClicked()
@@ -238,9 +240,13 @@ void MainWindow::onClearClicked()
     updateButtons(xnorGates);
 }
 
-DraggableButton* MainWindow::createGateButton(const QString& gateType, const QIcon& icon)
+DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
 {
-    DraggableButton* newButton = new DraggableButton(gateType, this);
+    Gate gate(gateType);
+    DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
+
+    emit addGate(&gate);
+
     QPoint globalMousePos = QCursor::pos();
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
     newButton->setPosition(widgetPos);
