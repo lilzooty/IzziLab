@@ -1,5 +1,5 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef GATE_H
+#define GATE_H
 
 #include <QVector>
 
@@ -16,19 +16,19 @@ enum GateType {
 };
 
 // NOTE: currently, the Node class will not override existing node connections. maybe it should?
-class Node
+class Gate
 {
 public:
 
 
-    Node(GateType type);
+    Gate(GateType type);
 
     /**
      * @brief connnectNode Adds param node n as the output Node.
      * @return
      */
 
-    bool connnectNode(Node n);
+    bool connnectNode(Gate g);
 
     /**
      * @brief deleteInput1 Sets current node's input 1 to nullptr
@@ -38,9 +38,9 @@ public:
 
     void deleteInput2();
 
-    void setInput1(Node* node);
+    void setInput1(Gate* gate);
 
-    void setInput2(Node* node);
+    void setInput2(Gate* gate);
 
     bool getSignal();
 
@@ -48,19 +48,19 @@ public:
 
     GateType getGateType();
 
-    Node* getInput1();
+    Gate* getInput1();
 
-    Node* getInput2();
+    Gate* getInput2();
 
-    QVector<Node*> getOutputs();
+    QVector<Gate*> getOutputs();
 
     void deleteOutputs();
 
-    void addOutput(Node* output);
+    void addOutput(Gate* output);
 
-    void removeOutput(Node* output);
+    void removeOutput(Gate* output);
 
-    void removeInput(Node* input);
+    void removeInput(Gate* input);
 
     void removeAllInputs();
 
@@ -95,21 +95,21 @@ public:
      * @param input Either 1 or 2 representing which input is being added to.
      * @return True if sucessfully added, false if adding input failed.
      */
-    bool addInput(Node* n, int input);
+    bool addInput(Gate* n, int input);
 
 private:
 
     GateType gateType;
-    Node* input1;
-    Node* input2;
-    Node* output;
+    Gate* input1;
+    Gate* input2;
+    Gate* output;
     bool signal;
 
-    bool checkValidConnection(Node* input, int inputSlot) const;
+    bool checkValidConnection(Gate* input, int inputSlot) const;
 
     bool hasOneInput() const;
 
-    QVector<Node*> outputs;
+    QVector<Gate*> outputs;
 };
 
-#endif // NODE_H
+#endif // GATE_H

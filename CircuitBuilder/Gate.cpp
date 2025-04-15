@@ -1,35 +1,34 @@
-#include "Node.h"
+#include "Gate.h"
 
 
-Node::Node(GateType type): gateType(type), input1(nullptr), input2(nullptr), output(nullptr), signal(false){}
+Gate::Gate(GateType type): gateType(type), input1(nullptr), input2(nullptr), output(nullptr), signal(false){}
 
-bool Node::connnectNode(Node n){
+bool Gate::connnectNode(Gate g){
 
     // Prevent adding to occupied nodes
-    if (n.availableInputs() > 0  && this->output == nullptr){
+    if (g.availableInputs() > 0  && this->output == nullptr){
        // this->output = n;
         return true;
     }
 
     return false;
-
 }
 
-void Node::deleteInput1(){
+void Gate::deleteInput1(){
     input1->output = nullptr;
     this->input1 = nullptr;
 }
 
-void Node::deleteInput2(){
+void Gate::deleteInput2(){
     input2->output = nullptr;
     this->input2 = nullptr;
 }
 
-bool Node::hasOutput(){
+bool Gate::hasOutput(){
     return output != nullptr;
 }
 
-bool Node::evaluate() {
+bool Gate::evaluate() {
     // Validate required inputs
     if ((gateType == OUTPUT || gateType == INVERTER) && !input1) {
         return false;
@@ -87,7 +86,7 @@ bool Node::evaluate() {
     return true;
 }
 
-int Node::availableInputs(){
+int Gate::availableInputs(){
     int inputs = 0;
 
     if (input1 != nullptr){
@@ -101,44 +100,44 @@ int Node::availableInputs(){
     return inputs;
 }
 
-bool Node::addInput(Node* n, int input){
+bool Gate::addInput(Gate* g, int input){
 
     // Reject improper input calls
     if (input > 2 || input < 1){
         return false;
     }
 
-    if(!n || n == this){
+    if(!g || g == this){
         return false;
     }
 
     if (input == 1 && input1 == nullptr){
-            input1 = n;
-        n->addOutput(this);
+            input1 = g;
+        g->addOutput(this);
             return true;
         }
 
     else if (input == 2 && input2 == nullptr) {
-        input2 = n;
-        n->addOutput(this);
+        input2 = g;
+        g->addOutput(this);
         return true;
 }
     return false;
 }
 
-bool Node::getSignal(){
+bool Gate::getSignal(){
     return this->signal;
 }
 
-void Node::setSignal(int signal){
+void Gate::setSignal(int signal){
     this->signal = signal;
 }
 
-GateType Node::getGateType(){
+GateType Gate::getGateType(){
     return gateType;
 }
 
-bool Node::checkValidConnection(Node* target, int inputSlot) const {
+bool Gate::checkValidConnection(Gate* target, int inputSlot) const {
     if(!target || target == this){
         return false;
     }
@@ -157,46 +156,46 @@ bool Node::checkValidConnection(Node* target, int inputSlot) const {
     return true;
 }
 
-bool Node::hasOneInput() const {
+bool Gate::hasOneInput() const {
     return gateType == INVERTER || gateType == OUTPUT;
 }
 
 
-Node* Node::getInput1(){
+Gate* Gate::getInput1(){
     return input1;
 }
 
-Node* Node::getInput2(){
+Gate* Gate::getInput2(){
     return input2;
 }
 
-void Node::setInput1(Node* node){
-    input1 = node;
+void Gate::setInput1(Gate* gate){
+    input1 = gate;
 }
 
-void Node::setInput2(Node* node){
-    input2 = node;
+void Gate::setInput2(Gate* gate){
+    input2 = gate;
 }
 
-QVector<Node*> Node::getOutputs(){
+QVector<Gate*> Gate::getOutputs(){
     return outputs;
 }
 
-void Node::addOutput(Node* outputNode) {
-    if (outputNode && !outputs.contains(outputNode)) {
-        outputs.append(outputNode);
+void Gate::addOutput(Gate* outputGate) {
+    if (outputGate && !outputs.contains(outputGate)) {
+        outputs.append(outputGate);
     }
 }
 
-void Node::deleteOutputs() {
+void Gate::deleteOutputs() {
     // Disconnect from all output nodes
-    for (Node* output : outputs) {
+    for (Gate* output : outputs) {
         output->removeInput(this);
     }
     outputs.clear();
 }
 
-void Node::removeInput(Node* input) {
+void Gate::removeInput(Gate* input) {
     if (input1 == input) {
         input1 = nullptr;
     }
@@ -205,14 +204,14 @@ void Node::removeInput(Node* input) {
     }
 }
 
-void Node::removeOutput(Node* outputNode){
-    if(!outputNode){
+void Gate::removeOutput(Gate* outputGate){
+    if(!outputGate){
         return;
     }
-    outputs.removeOne(outputNode);
+    outputs.removeOne(outputGate);
 }
 
-void Node::removeAllInputs() {
+void Gate::removeAllInputs() {
     if (input1) {
         input1->removeOutput(this);
         input1 = nullptr;
@@ -223,15 +222,15 @@ void Node::removeAllInputs() {
     }
 }
 
-void Node::reset() {
+void Gate::reset() {
     signal = false;
-    for (Node* output : outputs) {
+    for (Gate* output : outputs) {
         output->reset();
     }
 }
 
-void Node::disconnectAll() {
-    for (Node* out : outputs) {
+void Gate::disconnectAll() {
+    for (Gate* out : outputs) {
         out->removeInput(this);
     }
     outputs.clear();

@@ -1,7 +1,7 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
-#include "Gate.h"
+#include "Node.h"
 #include "QVector"
 #include "TruthTable.h"
 #include "draggablebutton.h"
@@ -13,37 +13,36 @@ class Circuit : public QObject {
 
 public:
     Circuit(QObject *parent = nullptr);
-    Circuit();
 
 public slots:
     void addNode(GateType gate);
 
     void updateButton(DraggableButton *button);
 
-  //  bool evaluateCircuit(const QVector<Gate*>& inputNodes, Gate* outputNode, const TruthTable& truthTable);
+    bool evaluateCircuit(const QVector<Node*>& inputNodes, Node* outputNode, const TruthTable& truthTable);
     bool evaluateCircuit();
 
     //slots
-    void onConnectNode(Gate* fromNode, Gate* toNode, int input);
-    void onDisconnectNode(Gate* fromNode, Gate* toNode);
-    void onDeleteNode(Gate* node);
+    void onConnectNode(Node* fromNode, Node* toNode, int input);
+    void onDisconnectNode(Node* fromNode, Node* toNode);
+    void onDeleteNode(Node* node);
     void onClear();
 
     void setTable(QString mode, int level);
     void setTruthTable(const TruthTable& table);
 
 
-    void registerNode(Gate* node);
+    void registerNode(Node* node);
 
-    bool hasCycle(Gate* node, QSet<Gate*>& visited, QSet<Gate*>& stack);
+    bool hasCycle(Node* node, QSet<Node*>& visited, QSet<Node*>& stack);
 
-    bool isAcyclic(Gate* startNode);
+    bool isAcyclic(Node* startNode);
 
 private:
 
-    std::vector<Gate*> inputNodes;
-    Gate* output;
-    QVector<Gate*> gates;
+    std::vector<Node*> inputNodes;
+    Node* output;
+    QVector<Node*> allNodes;
 
     DraggableButton *mostRecentButton;
 
@@ -57,7 +56,8 @@ private:
 
     void initializeHardTruthTables();
 
-    bool evaluateNodeTree(Gate* node);
+<<<<<<< HEAD
+    bool evaluateNodeTree(Node* node);
 
     TruthTable currTable;
 
@@ -69,8 +69,10 @@ private slots:
    // void onDisconnectNode(Node* fromNode, Node* toNode);
 
    // void onDeleteNode(Node* node);
+=======
 signals:
     void mostRecentButtonUpdated(DraggableButton *button);
+>>>>>>> 51c4b0eca310d837c51d2aa310fa7e7b81e5aca3
 };
 
 #endif

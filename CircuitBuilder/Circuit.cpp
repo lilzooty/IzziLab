@@ -1,10 +1,14 @@
 #include "Circuit.h"
 #include "qdebug.h"
 
-Circuit::Circuit() : inputNodes(), output(nullptr), allNodes(){
+Circuit::Circuit() : inputNodes(), output(nullptr), gates(){
     initializeEasyTruthTables();
     initializeMedTruthTables();
     initializeHardTruthTables();
+}
+
+Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
+
 }
 
 void Circuit::initializeEasyTruthTables(){
@@ -205,7 +209,7 @@ bool Circuit::evaluateCircuit() {
     return true;
 }
 
-bool Circuit::evaluateNodeTree(Node* node) {
+bool Circuit::evaluateNodeTree(Gate* node) {
     if(!node){
         return false;
     }
@@ -241,7 +245,7 @@ bool Circuit::evaluateNodeTree(Node* node) {
     return node->evaluate();
 }
 
-void Circuit::onConnectNode(Node* fromNode, Node* toNode, int input) {
+void Circuit::onConnectNode(Gate* fromNode, Gate* toNode, int input) {
     if (!fromNode || !toNode) {
         return;
     }
@@ -261,19 +265,19 @@ void Circuit::onConnectNode(Node* fromNode, Node* toNode, int input) {
     }
 }
 
-void Circuit::onDisconnectNode(Node* fromNode, Node* toNode) {
+void Circuit::onDisconnectNode(Gate* fromNode, Gate* toNode) {
     if (!fromNode || !toNode) return;
 
     toNode->removeInput(fromNode);
     fromNode->removeOutput(toNode);
 }
 
-void Circuit::onDeleteNode(Node* node){
+void Circuit::onDeleteNode(Gate* node){
     if(!node){
         return;
     }
 
-    for(Node* output: node->getOutputs()){
+    for(Gate* output: node->getOutputs()){
         output->removeInput(node);
     }
 
@@ -284,23 +288,23 @@ void Circuit::onDeleteNode(Node* node){
 }
 
 void Circuit::onClear() {
-    for (Node* node : allNodes) {
+    for (Gate* node : gates) {
         if(node){
             node->disconnectAll();
             delete node;
         }
     }
-    allNodes.clear();
+    gates.clear();
     inputNodes.clear();
     output = nullptr;
 }
 
-void Circuit::registerNode(Node* node) {
-    if (!node || allNodes.contains(node)) {
+void Circuit::registerNode(Gate* node) {
+    if (!node || gates.contains(node)) {
         return;
     }
 
-    allNodes.append(node);
+    gates.append(node);
 
     if (node->getGateType() == INPUT) {
         inputNodes.push_back(node);
@@ -309,7 +313,7 @@ void Circuit::registerNode(Node* node) {
     }
 }
 
-bool Circuit::hasCycle(Node* node, QSet<Node*>& visited, QSet<Node*>& stack) {
+bool Circuit::hasCycle(Gate* node, QSet<Gate*>& visited, QSet<Gate*>& stack) {
     if (!node) return false;
 
     if (stack.contains(node)) return true;
@@ -327,8 +331,8 @@ bool Circuit::hasCycle(Node* node, QSet<Node*>& visited, QSet<Node*>& stack) {
     return false;
 }
 
-bool Circuit::isAcyclic(Node* startNode) {
-    QSet<Node*> visited, recStack;
+bool Circuit::isAcyclic(Gate* startNode) {
+    QSet<Gate*> visited, recStack;
     return !hasCycle(startNode, visited, recStack);
 }
 
@@ -347,4 +351,16 @@ void Circuit::setTable(QString mode, int level){
 
 void Circuit::setTruthTable(const TruthTable& table){
     currTable = table;
+}
+
+void Circuit::addNode(GateType gate) {
+    Gate n(gate);
+    gates.push_back(&n);
+}
+
+void Circuit::updateButton(DraggableButton *button) {
+    if (mostRecentButton != nullptr) {
+        emit mostRecentButtonUpdated(mostRecentButton);
+    }
+    mostRecentButton = button;
 }

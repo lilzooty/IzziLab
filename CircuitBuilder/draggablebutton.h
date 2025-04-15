@@ -15,6 +15,9 @@ private:
     QString buttonType;
     QPoint dragStartPos;
     QPoint currentPos;
+    bool onWireMode = false;
+
+    DraggableButton* previousButton = nullptr;
 
     b2Body* body;
 
@@ -37,6 +40,17 @@ public:
     void setPosition(QPoint& pos) { currentPos = pos; }
     void setBody(b2Body* newBody) {body = newBody;}
     b2Body* getPhysicsBody();
+
+public slots:
+    void setWireMode(bool isWireOn);
+
+    void getTwoButtons(DraggableButton *previousButton);
+
+signals:
+    void sendButton(DraggableButton *button);
+
+    void sendTwoButtons(DraggableButton *button1, DraggableButton *button2);
+
 
 };
 

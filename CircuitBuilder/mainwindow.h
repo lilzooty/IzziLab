@@ -6,6 +6,8 @@
 #include <draggablebutton.h>
 #include <QTimer>
 #include<Box2D/Box2D.h>
+#include "Gate.h"
+#include "Circuit.h"
 
 using std::vector;
 
@@ -27,13 +29,16 @@ public slots:
     void onAndGateClicked();
     void onOrGateClicked();
     void onInverterClicked();
+    void onNandGateClicked();
+    void onNorGateClicked();
+    void onXorGateClicked();
+    void onXnorGateClicked();
+
     void onWireClicked();
     void onClearClicked();
     void updatePhysics();
 
-
-private slots:
-
+    //void drawWires(DraggableButton *button1, DraggableButton *button2);
 
 private:
     Ui::MainWindow *ui;
@@ -42,6 +47,8 @@ private:
     QTimer* physicsTimer;
     float pixelsPerMeter = 30.0f;
     int GATE_SIZE = 50;
+    vector<vector<bool>> grid;
+    Circuit circuit;
 
     vector<DraggableButton*> andGates;
     vector<DraggableButton*> orGates;
@@ -49,10 +56,19 @@ private:
     vector<DraggableButton*> norGates;
     vector<DraggableButton*> nandGates;
     vector<DraggableButton*> xorGates;
+    vector<DraggableButton*> xnorGates;
+
+    vector<DraggableButton*> draggableButtons;
 
     //physics methods
     void initializePhysics();
     void createPhysicsBody(DraggableButton* button);
+    DraggableButton* createGateButton(const QString& gateType, const QIcon& icon);
+
+signals:
+    void wireMode();
+
+    void addNode(GateType gate);
 
 };
 #endif // MAINWINDOW_H

@@ -1,13 +1,12 @@
 #include "draggablebutton.h"
 
 DraggableButton::DraggableButton() {
-
 }
 
 DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
     : QPushButton(parent), buttonType(buttonType)
 {
-    this->setText(buttonType);
+    this->setToolTip(buttonType);
     setMouseTracking(true);
     this->show();
 }
@@ -17,7 +16,9 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton) {
         dragStartPos = event->pos();
     }
+
     QPushButton::mousePressEvent(event);
+    emit sendButton(this);
 }
 
 
@@ -60,12 +61,24 @@ b2Body* DraggableButton::getPhysicsBody()
     return body;
 }
 
-void DraggableButton::updatePhysicsBody( QPoint& newPos)
+void DraggableButton::updatePhysicsBody(QPoint& newPos)
 {
     if (b2Body* body = getPhysicsBody()) {
         b2Vec2 physicsPos(newPos.x() / PIXELS_PER_METER,
                           newPos.y() / PIXELS_PER_METER);
-
         body->SetTransform(physicsPos, body->GetAngle());
+
+        // Wake up the body
+        body->SetAwake(true);
+    }
+}
+
+void DraggableButton::setWireMode(bool isWireMode) {
+    onWireMode = isWireMode;
+}
+
+void DraggableButton::getTwoButtons(DraggableButton *previousButton) {
+    if (onWireMode) {
+        emit sendTwoButtons(previousButton, this);
     }
 }

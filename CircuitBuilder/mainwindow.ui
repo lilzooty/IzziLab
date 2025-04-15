@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
@@ -46,6 +46,10 @@
    <addaction name="actionClear"/>
   </widget>
   <action name="actionAndGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/AND.png</normaloff>:/GATES/AND.png</iconset>
+   </property>
    <property name="text">
     <string>AndGate</string>
    </property>
@@ -54,6 +58,10 @@
    </property>
   </action>
   <action name="actionOrGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/OR.png</normaloff>:/GATES/OR.png</iconset>
+   </property>
    <property name="text">
     <string>OrGate</string>
    </property>
@@ -62,6 +70,10 @@
    </property>
   </action>
   <action name="actionInverter">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/NOT.png</normaloff>:/GATES/NOT.png</iconset>
+   </property>
    <property name="text">
     <string>Inverter</string>
    </property>
@@ -81,6 +93,10 @@
    </property>
   </action>
   <action name="actionNandGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/NAND.png</normaloff>:/GATES/NAND.png</iconset>
+   </property>
    <property name="text">
     <string>NandGate</string>
    </property>
@@ -89,6 +105,10 @@
    </property>
   </action>
   <action name="actionNorGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/NOR.png</normaloff>:/GATES/NOR.png</iconset>
+   </property>
    <property name="text">
     <string>NorGate</string>
    </property>
@@ -97,6 +117,10 @@
    </property>
   </action>
   <action name="actionXorGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/XOR.png</normaloff>:/GATES/XOR.png</iconset>
+   </property>
    <property name="text">
     <string>XorGate</string>
    </property>
@@ -105,6 +129,10 @@
    </property>
   </action>
   <action name="actionXnorGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/XNOR.png</normaloff>:/GATES/XNOR.png</iconset>
+   </property>
    <property name="text">
     <string>XnorGate</string>
    </property>
@@ -124,6 +152,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="rsc.qrc"/>
+ </resources>
  <connections/>
 </ui>
