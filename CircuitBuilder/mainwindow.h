@@ -69,7 +69,10 @@ private:
 
 signals:
 
+    // NO LONGER IN USE?
     void addNode(GateType gate);
+
+    void addGate(Gate* gate);
 
     void addButtonToCircuit(DraggableButton *button);
 
