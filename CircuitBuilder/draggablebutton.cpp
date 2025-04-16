@@ -129,3 +129,7 @@ void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) 
         emit sendTwoButtons(previousButton, this, input);
     }
 }
+
+Gate* DraggableButton::getGate(){
+    return gate;
+}

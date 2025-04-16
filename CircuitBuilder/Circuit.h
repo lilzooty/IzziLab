@@ -25,17 +25,11 @@ public slots:
 
     bool evaluateCircuit();
 
-    //slots
-    void onConnectNode(Gate* fromNode, Gate* toNode, int input);
-    void onDisconnectNode(Gate* fromNode, Gate* toNode);
-    void onDeleteNode(Gate* node);
-    void onClear();
-
     void setTable(QString mode, int level);
     void setTruthTable(const TruthTable& table);
 
 
-    void registerNode(Gate* node);
+    void registerNode(DraggableButton* button);
 
     bool hasCycle(Gate* node, QSet<Gate*>& visited, QSet<Gate*>& stack);
 
@@ -55,7 +49,7 @@ private:
     Gate* output;
     QVector<Gate*> gates;
 
-    QMap<Gate*, QVector<Gate*>> connections;
+    QMap<DraggableButton*, QVector<DraggableButton*>> connections;
 
     DraggableButton *mostRecentOutput;
 
@@ -90,7 +84,13 @@ signals:
     // Also sends the identity of the input that requested a connection.
     void mostRecentOutputUpdated(DraggableButton *button, int input);
 
-    void allConnections(QMap<Gate*, QVector<Gate*>> outputs);
+    void allConnections(QMap<DraggableButton*, QVector<DraggableButton*>> outputs);
+
+    //slots
+    void onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
+    void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton);
+    void onDeleteNode(DraggableButton* button);
+    void onClear();
 };
 
 #endif

@@ -288,8 +288,6 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     return newButton;
 }
 
-
-
 void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
 
 

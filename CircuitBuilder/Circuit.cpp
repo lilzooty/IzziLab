@@ -247,10 +247,13 @@ bool Circuit::evaluateNodeTree(Gate* node) {
     return node->evaluate();
 }
 
-void Circuit::onConnectNode(Gate* fromNode, Gate* toNode, int input) {
-    if (!fromNode || !toNode) {
+void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input) {
+    if(!fromButton || !toButton){
         return;
     }
+
+    Gate* fromNode = fromButton->getGate();
+    Gate* toNode = fromButton->getGate();
 
     if (fromNode->getGateType() == OUTPUT || toNode->getGateType() == INPUT) {
         return;
@@ -268,31 +271,42 @@ void Circuit::onConnectNode(Gate* fromNode, Gate* toNode, int input) {
         fromNode->addOutput(toNode);
     }
 
-    connections.insert(fromNode, fromNode->getOutputs());
+    connections[fromButton].append(toButton);
 }
 
-void Circuit::onDisconnectNode(Gate* fromNode, Gate* toNode) {
+void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton) {
+    Gate* fromNode = fromButton->getGate();
+    Gate* toNode = toButton->getGate();
+
     if (!fromNode || !toNode) return;
 
     toNode->removeInput(fromNode);
     fromNode->removeOutput(toNode);
 
-    connections.insert(fromNode, fromNode->getOutputs());
+    if (connections.contains(fromButton)) {
+        connections[fromButton].removeAll(toButton);
+        if (connections[fromButton].isEmpty()) {
+            connections.remove(fromButton);
+        }
+    }
+}
 }
 
-void Circuit::onDeleteNode(Gate* node){
-    if(!node){
+void Circuit::onDeleteNode(DraggableButton* button){
+    if(!button){
         return;
     }
 
-    for(Gate* output: node->getOutputs()){
-        output->removeInput(node);
+    connections.remove(button);
+    for (auto& targets : connections) {
+        targets.removeAll(button);
     }
 
-    node->removeAllInputs();
-    connections.remove(node);
-    delete node;
-    node = nullptr;
+    Gate* gate = button->getGate();
+    if (gate) {
+        gates.removeAll(gate);
+        delete gate;
+    }
 }
 
 void Circuit::onClear() {
@@ -308,7 +322,8 @@ void Circuit::onClear() {
     output = nullptr;
 }
 
-void Circuit::registerNode(Gate* node) {
+void Circuit::registerNode(DraggableButton* button) {
+    Gate* node = button->getGate();
     if (!node || gates.contains(node)) {
         return;
     }
@@ -320,7 +335,7 @@ void Circuit::registerNode(Gate* node) {
     } else if (node->getGateType() == OUTPUT) {
         output = node;
     }
-    connections.insert(node, node->getOutputs());
+    connections[button];
 }
 
 bool Circuit::hasCycle(Gate* node, QSet<Gate*>& visited, QSet<Gate*>& stack) {

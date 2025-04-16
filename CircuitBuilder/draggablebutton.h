@@ -61,6 +61,8 @@ public:
     void setBody(b2Body* newBody) {body = newBody;}
     b2Body* getPhysicsBody();
 
+    Gate* getGate();
+
 public slots:
     void setWireMode(bool isWireOn);
 
