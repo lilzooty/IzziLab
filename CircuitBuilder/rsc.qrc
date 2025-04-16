@@ -8,4 +8,7 @@
         <file>XNOR.png</file>
         <file>XOR.png</file>
     </qresource>
+    <qresource prefix="/BACKGROUND">
+        <file>BGgrid.jpg</file>
+    </qresource>
 </RCC>

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QAction>
 #include <QToolBar>
+#include <QPainter>
 #include <QActionGroup>
 #include <QPushButton>
 #include "draggablebutton.h"
@@ -94,6 +95,23 @@ MainWindow::MainWindow(QWidget *parent)
     connect(physicsTimer, &QTimer::timeout, this, &MainWindow::updatePhysics);
     physicsTimer->start(16); // 60 FPS approximately
 
+    //background label
+    backgroundGridLabel = new QLabel(ui->centralwidget);
+    backgroundGridLabel->setGeometry(0, 0, 600, 600);
+    backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    // Create the pixmap
+    QPixmap* backgroundPixmap = new QPixmap(backgroundGridLabel->size());
+
+    backgroundPixmap->load(":/BACKGROUND/BGgrid.jpg");
+
+    // Option 1: Scale to a specific size
+    int newWidth = 600;
+    int newHeight = 600;
+    *backgroundPixmap = backgroundPixmap->scaled(newWidth, newHeight, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    backgroundGridLabel->setPixmap(*backgroundPixmap);
+    backgroundGridLabel->show();
+
 }
 
 MainWindow::~MainWindow()
@@ -118,11 +136,11 @@ void MainWindow::onInverterClicked(){
 
 }
 void MainWindow::onNandGateClicked(){
-    nandGates.push_back(createGateButton(GateType::NAND_GATE), ui->actionNandGate->icon()));
+    nandGates.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
     // emit addNode(GateType::NAND_GATE);
 }
 void MainWindow::onNorGateClicked(){
-    norGates.push_back(createGateButton(GateType::NOR_GATE), ui->actionNorGate->icon()));
+    norGates.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
     // emit addNode(GateType::NOR_GATE);
 }
 void MainWindow::onXorGateClicked(){
@@ -213,6 +231,11 @@ void MainWindow::updatePhysics()
     updateButtons(norGates);
     updateButtons(xorGates);
     updateButtons(xnorGates);
+
+    //draw wires
+    if((int)andGates.size() >1 ){
+        drawWire(andGates.at(0),andGates.at(1));
+    }
 }
 
 void MainWindow::onClearClicked()
@@ -265,6 +288,39 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     return newButton;
 }
 
-void MainWindow::drawWire(DraggableButton *startButton, DraggableButton *endButton){
 
+
+void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
+
+
+    QPixmap pixmap(backgroundGridLabel->size());
+
+    // Create the pixmap
+
+    pixmap.load(":/BACKGROUND/BGgrid.jpg");
+
+    // Option 1: Scale to a specific size
+    int newWidth = 600;
+    int newHeight = 600;
+    pixmap = pixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    backgroundGridLabel->setPixmap(pixmap);
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
+
+    QPoint startPos = button1->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+    QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+
+    // Draw a nice routing path using multiple lines
+    int midX = (startPos.x() + endPos.x()) / 2;
+
+    QPoint p1(midX, startPos.y());
+    QPoint p2(midX, endPos.y());
+
+    // Draw three segments for better routing
+    painter.drawLine(startPos, p1);
+    painter.drawLine(p1, p2);
+    painter.drawLine(p2, endPos);
+    backgroundGridLabel->setPixmap(pixmap);
 }
+

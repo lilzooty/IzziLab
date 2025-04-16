@@ -13,7 +13,6 @@ class DraggableButton : public QPushButton
 
 private:
 
-    // should be GateType??
     QString buttonType;
     QPoint dragStartPos;
     QPoint currentPos;
@@ -42,11 +41,7 @@ public:
 
 
     explicit DraggableButton(QString buttonType, QWidget *parent = nullptr);
-<<<<<<< HEAD
     DraggableButton(QString buttonType, QWidget *parent = nullptr, Gate* gate = nullptr);
-=======
-    DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
->>>>>>> ed4b7e3040394c424bbe8168b84415545e7f1050
 
     QPoint getPosition() { return currentPos; }
     void setPosition(QPoint& pos) { currentPos = pos; }
