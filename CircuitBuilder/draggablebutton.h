@@ -28,7 +28,7 @@ private:
     QPoint snapToGrid(QPoint& point);
     void updatePhysicsBody(QPoint& newPos);
 
-    Gate *gate = nullptr;
+    Gate* gate;
 
 
 protected:
@@ -41,7 +41,7 @@ public:
 
 
     explicit DraggableButton(QString buttonType, QWidget *parent = nullptr);
-    DraggableButton(QString buttonType, QWidget *parent = nullptr, Gate* gate);
+    DraggableButton(QString buttonType, QWidget *parent = nullptr, Gate* gate = nullptr);
 
     QPoint getPosition() { return currentPos; }
     void setPosition(QPoint& pos) { currentPos = pos; }

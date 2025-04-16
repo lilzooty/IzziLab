@@ -3,6 +3,8 @@
 
 Gate::Gate(GateType type): gateType(type), input1(nullptr), input2(nullptr), output(nullptr), signal(false){}
 
+Gate::Gate(){}
+
 bool Gate::connnectNode(Gate g){
 
     // Prevent adding to occupied nodes

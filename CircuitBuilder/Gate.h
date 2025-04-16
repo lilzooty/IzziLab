@@ -20,6 +20,8 @@ class Gate
 {
 public:
 
+    Gate();
+
 
     Gate(GateType type);
 

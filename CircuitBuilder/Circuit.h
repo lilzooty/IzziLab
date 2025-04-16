@@ -7,6 +7,7 @@
 #include "draggablebutton.h"
 #include <vector>
 #include <QObject>
+#include <QMap>
 
 class Circuit : public QObject {
 
@@ -54,6 +55,8 @@ private:
     Gate* output;
     QVector<Gate*> gates;
 
+    QMap<Gate*, QVector<Gate*>> connections;
+
     DraggableButton *mostRecentButton;
 
     QVector<TruthTable> easyTables;
@@ -79,12 +82,14 @@ private slots:
 
    // void onDeleteNode(Node* node);
 
+    void onSendConnections();
+
 signals:
 
     // Emitted to DraggableButton to inform it of the "previous" button
     void mostRecentButtonUpdated(DraggableButton *button);
 
-
+    void allConnections(QMap<Gate*, QVector<Gate*>> outputs);
 };
 
 #endif

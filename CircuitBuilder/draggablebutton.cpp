@@ -4,7 +4,7 @@ DraggableButton::DraggableButton() {
 }
 
 DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
-    : QPushButton(parent), buttonType(buttonType)
+    : QPushButton(parent), buttonType(buttonType), gate()
 {
     this->setToolTip(buttonType);
     setMouseTracking(true);

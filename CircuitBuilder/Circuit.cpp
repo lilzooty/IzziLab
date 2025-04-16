@@ -260,11 +260,15 @@ void Circuit::onConnectNode(Gate* fromNode, Gate* toNode, int input) {
     if(input == 1 && !toNode->getInput1()){
         toNode->addInput(fromNode, input);
         fromNode->addOutput(toNode);
+
+
     }
     else if(input == 2 && !toNode->getInput2()){
         toNode->addInput(fromNode, input);
         fromNode->addOutput(toNode);
     }
+
+    connections.insert(fromNode, fromNode->getOutputs());
 }
 
 void Circuit::onDisconnectNode(Gate* fromNode, Gate* toNode) {
@@ -272,6 +276,8 @@ void Circuit::onDisconnectNode(Gate* fromNode, Gate* toNode) {
 
     toNode->removeInput(fromNode);
     fromNode->removeOutput(toNode);
+
+    connections.insert(fromNode, fromNode->getOutputs());
 }
 
 void Circuit::onDeleteNode(Gate* node){
@@ -284,7 +290,7 @@ void Circuit::onDeleteNode(Gate* node){
     }
 
     node->removeAllInputs();
-
+    connections.remove(node);
     delete node;
     node = nullptr;
 }
@@ -298,6 +304,7 @@ void Circuit::onClear() {
     }
     gates.clear();
     inputNodes.clear();
+    connections.clear();
     output = nullptr;
 }
 
@@ -313,6 +320,7 @@ void Circuit::registerNode(Gate* node) {
     } else if (node->getGateType() == OUTPUT) {
         output = node;
     }
+    connections.insert(node, node->getOutputs());
 }
 
 bool Circuit::hasCycle(Gate* node, QSet<Gate*>& visited, QSet<Gate*>& stack) {
@@ -371,4 +379,8 @@ void Circuit::addButton(DraggableButton *button){
     allButtons.push_back(button);
     connect(button, &DraggableButton::sendButton, this, &Circuit::updateButton);
     connect(this, &Circuit::mostRecentButtonUpdated, button, &DraggableButton::getTwoButtons);
+}
+
+void Circuit::onSendConnections(){
+    emit allConnections(connections);
 }
