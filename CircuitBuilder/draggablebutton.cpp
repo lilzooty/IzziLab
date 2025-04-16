@@ -11,6 +11,9 @@ DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
     this->show();
 }
 
+DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
+    : QPushButton(parent), buttonType(buttonType){}
+
 void DraggableButton::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {

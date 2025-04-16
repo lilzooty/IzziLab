@@ -65,7 +65,7 @@ private:
     //physics methods
     void initializePhysics();
     void createPhysicsBody(DraggableButton* button);
-    DraggableButton* createGateButton(const QString& gateType, const QIcon& icon);
+    DraggableButton* createGateButton(GateType gateType, const QIcon& icon);
 
 signals:
 

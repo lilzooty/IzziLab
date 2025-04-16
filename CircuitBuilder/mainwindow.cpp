@@ -118,11 +118,11 @@ void MainWindow::onInverterClicked(){
 
 }
 void MainWindow::onNandGateClicked(){
-    nandGates.push_back(createGateButton(GateType::NAND_GATE), ui->actionNandGate->icon()));
+    nandGates.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
     // emit addNode(GateType::NAND_GATE);
 }
 void MainWindow::onNorGateClicked(){
-    norGates.push_back(createGateButton(GateType::NOR_GATE), ui->actionNorGate->icon()));
+    norGates.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
     // emit addNode(GateType::NOR_GATE);
 }
 void MainWindow::onXorGateClicked(){
