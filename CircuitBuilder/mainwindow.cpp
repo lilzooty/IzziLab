@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QAction>
 #include <QToolBar>
+#include <QPainter>
 #include <QActionGroup>
 #include <QPushButton>
 #include "draggablebutton.h"
@@ -93,6 +94,17 @@ MainWindow::MainWindow(QWidget *parent)
     physicsTimer = new QTimer(this);
     connect(physicsTimer, &QTimer::timeout, this, &MainWindow::updatePhysics);
     physicsTimer->start(16); // 60 FPS approximately
+
+    //background label
+    backgroundGridLabel = new QLabel(ui->centralwidget);
+    backgroundGridLabel->setGeometry(0, 0, 600, 600);
+    backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    // Create the pixmap
+    QPixmap* backgroundPixmap = new QPixmap(backgroundGridLabel->size());
+    backgroundPixmap->fill(Qt::transparent);
+    backgroundGridLabel->setPixmap(*backgroundPixmap);
+    backgroundGridLabel->show();
 
 }
 
@@ -265,6 +277,42 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     return newButton;
 }
 
-void MainWindow::drawWire(DraggableButton *startButton, DraggableButton *endButton){
 
+
+void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
+
+    //in .h file
+    //QLabel* backgroundGridLabel;
+
+    // backgroundGridLabel = new QLabel(ui->centralwidget);
+    // backgroundGridLabel->setGeometry(0, 0, 600, 600);
+    // backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    // // Create the pixmap
+    // QPixmap* backgroundPixmap = new QPixmap(backgroundGridLabel->size());
+    // backgroundPixmap->fill(Qt::transparent);
+    // backgroundGridLabel->setPixmap(*backgroundPixmap);
+    // backgroundGridLabel->show();
+
+    QPixmap pixmap(backgroundGridLabel->size());
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
+
+    QPoint startPos = button1->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+    QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+
+    // Draw a nice routing path using multiple lines
+    int midX = (startPos.x() + endPos.x()) / 2;
+
+    QPoint p1(midX, startPos.y());
+    QPoint p2(midX, endPos.y());
+
+    // Draw three segments for better routing
+    painter.drawLine(startPos, p1);
+    painter.drawLine(p1, p2);
+    painter.drawLine(p2, endPos);
+    backgroundGridLabel->setPixmap(pixmap);
 }
+

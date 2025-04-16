@@ -6,6 +6,7 @@
 #include <draggablebutton.h>
 #include <QTimer>
 #include<Box2D/Box2D.h>
+#include <QLabel>
 #include "Gate.h"
 #include "Circuit.h"
 
@@ -66,6 +67,8 @@ private:
     void initializePhysics();
     void createPhysicsBody(DraggableButton* button);
     DraggableButton* createGateButton(GateType gateType, const QIcon& icon);
+
+    QLabel* backgroundGridLabel;
 
 signals:
 
