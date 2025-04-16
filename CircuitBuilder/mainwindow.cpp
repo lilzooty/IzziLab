@@ -102,7 +102,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Create the pixmap
     QPixmap* backgroundPixmap = new QPixmap(backgroundGridLabel->size());
-    backgroundPixmap->fill(Qt::transparent);
+
+    backgroundPixmap->load(":/BACKGROUND/BGgrid.jpg");
+
+    // Option 1: Scale to a specific size
+    int newWidth = 600;
+    int newHeight = 600;
+    *backgroundPixmap = backgroundPixmap->scaled(newWidth, newHeight, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
     backgroundGridLabel->setPixmap(*backgroundPixmap);
     backgroundGridLabel->show();
 
@@ -225,6 +231,11 @@ void MainWindow::updatePhysics()
     updateButtons(norGates);
     updateButtons(xorGates);
     updateButtons(xnorGates);
+
+    //draw wires
+    if((int)andGates.size() >1 ){
+        drawWire(andGates.at(0),andGates.at(1));
+    }
 }
 
 void MainWindow::onClearClicked()
@@ -281,21 +292,18 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 
 void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
 
-    //in .h file
-    //QLabel* backgroundGridLabel;
-
-    // backgroundGridLabel = new QLabel(ui->centralwidget);
-    // backgroundGridLabel->setGeometry(0, 0, 600, 600);
-    // backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
-
-    // // Create the pixmap
-    // QPixmap* backgroundPixmap = new QPixmap(backgroundGridLabel->size());
-    // backgroundPixmap->fill(Qt::transparent);
-    // backgroundGridLabel->setPixmap(*backgroundPixmap);
-    // backgroundGridLabel->show();
 
     QPixmap pixmap(backgroundGridLabel->size());
-    pixmap.fill(Qt::transparent);
+
+    // Create the pixmap
+
+    pixmap.load(":/BACKGROUND/BGgrid.jpg");
+
+    // Option 1: Scale to a specific size
+    int newWidth = 600;
+    int newHeight = 600;
+    pixmap = pixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    backgroundGridLabel->setPixmap(pixmap);
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
