@@ -12,7 +12,23 @@ DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
 }
 
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
-    : QPushButton(parent), buttonType(buttonType){}
+    : QPushButton(parent), buttonType(buttonType), input1{QPushButton("1", this)}, input2{QPushButton("2", this)},
+
+    output{QPushButton("out", this)}{
+
+    input1.move(this->x() -10 , this->y());
+    input2.move(this->x() -10, this->y() +25);
+    output.move(this->x() + 15, this->y()+12);
+
+    connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
+    connect(&input2, &QPushButton::clicked, this, &DraggableButton::input2Clicked);
+    connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+
+
+}
+
+
+
 
 void DraggableButton::mousePressEvent(QMouseEvent *event)
 {
@@ -20,8 +36,14 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
         dragStartPos = event->pos();
     }
 
+    // if (childAt(event->pos()) == input1){
+    //     qDebug() << "found input1";
+    // }
+    // qDebug() << "found input1";
+
     QPushButton::mousePressEvent(event);
-    emit sendButton(this);
+   // emit sendButton(this);
+
 }
 
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
@@ -36,6 +58,27 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
     }
 
     QPushButton::mouseMoveEvent(event);
+}
+
+
+void DraggableButton::input1Clicked(bool checked){
+
+
+         emit sendButton(this, 1);
+
+
+}
+void DraggableButton::input2Clicked(bool checked){
+
+
+    emit sendButton(this, 2);
+
+}
+void DraggableButton::outputClicked(bool checked){
+
+
+    emit sendButton(this, 3);
+
 }
 
 QPoint DraggableButton::snapToGrid( QPoint& point)
@@ -79,8 +122,10 @@ void DraggableButton::setWireMode(bool isWireMode) {
     onWireMode = isWireMode;
 }
 
-void DraggableButton::getTwoButtons(DraggableButton *previousButton) {
+void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) {
     if (onWireMode) {
-        emit sendTwoButtons(previousButton, this);
+
+
+        emit sendTwoButtons(previousButton, this, input);
     }
 }

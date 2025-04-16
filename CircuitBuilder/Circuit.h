@@ -21,7 +21,7 @@ public slots:
     void addNode(GateType gate);
 
     // updates mostRecentButton
-    void updateButton(DraggableButton *button);
+    void updateOutputButton(DraggableButton *button, int input);
 
     bool evaluateCircuit();
 
@@ -57,7 +57,7 @@ private:
 
     QMap<Gate*, QVector<Gate*>> connections;
 
-    DraggableButton *mostRecentButton;
+    DraggableButton *mostRecentOutput;
 
     QVector<TruthTable> easyTables;
     QVector<TruthTable> medTables;
@@ -87,7 +87,8 @@ private slots:
 signals:
 
     // Emitted to DraggableButton to inform it of the "previous" button
-    void mostRecentButtonUpdated(DraggableButton *button);
+    // Also sends the identity of the input that requested a connection.
+    void mostRecentOutputUpdated(DraggableButton *button, int input);
 
     void allConnections(QMap<Gate*, QVector<Gate*>> outputs);
 };

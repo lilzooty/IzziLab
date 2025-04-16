@@ -368,17 +368,29 @@ void Circuit::addNode(GateType gate) {
     gates.push_back(&n);
 }
 
-void Circuit::updateButton(DraggableButton *button) {
-    if (mostRecentButton != nullptr) {
-        emit mostRecentButtonUpdated(mostRecentButton);
+void Circuit::updateOutputButton(DraggableButton *button, int input) {
+
+    // if recieving an output
+    if (input == 3){
+        mostRecentOutput = button;
     }
-    mostRecentButton = button;
+
+    if (input == 2 || input == 1){
+
+        emit mostRecentOutputUpdated(mostRecentOutput, input);
+    }
+
+
+    // if (mostRecentButton != nullptr) {
+    //     emit mostRecentButtonUpdated(mostRecentButton);
+    // }
+    // mostRecentButton = button;
 }
 
 void Circuit::addButton(DraggableButton *button){
     allButtons.push_back(button);
-    connect(button, &DraggableButton::sendButton, this, &Circuit::updateButton);
-    connect(this, &Circuit::mostRecentButtonUpdated, button, &DraggableButton::getTwoButtons);
+    connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
+    connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
 }
 
 void Circuit::onSendConnections(){

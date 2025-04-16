@@ -19,7 +19,17 @@ private:
     QPoint currentPos;
     bool onWireMode = false;
 
+    // never used?
     DraggableButton* previousButton = nullptr;
+
+
+    QPushButton input1;
+    QPushButton input2;
+
+    QPushButton output;
+
+
+
 
     b2Body* body;
 
@@ -54,12 +64,22 @@ public:
 public slots:
     void setWireMode(bool isWireOn);
 
-    void getTwoButtons(DraggableButton *previousButton);
+    void getTwoButtons(DraggableButton *previousButton, int input);
+
+    void input1Clicked(bool checked);
+    void input2Clicked(bool checked);
+    void outputClicked(bool checked);
 
 signals:
-    void sendButton(DraggableButton *button);
 
-    void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton);
+    /**
+     * @brief sendButton
+     * @param button
+     * @param input 1 if input1, 2 if input2, 3 if output.
+     */
+    void sendButton(DraggableButton *button, int input);
+
+    void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton, int input);
 
 
 };
