@@ -294,7 +294,7 @@ void Circuit::onClear() {
     output = nullptr;
 }
 
-void Circuit::registerNode(DraggableButton* button) {
+void Circuit::registerGate(DraggableButton* button) {
     Gate* node = button->getGate();
     if (!node || gates.contains(node)) {
         return;
@@ -360,6 +360,9 @@ void Circuit::updateOutputButton(DraggableButton *button, int input) {
 }
 
 void Circuit::addButton(DraggableButton *button){
+
+    registerGate(button);
+
     connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
     connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
 }

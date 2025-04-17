@@ -3,32 +3,42 @@
 DraggableButton::DraggableButton() {
 }
 
-DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
-    : QPushButton(parent), buttonType(buttonType), gate()
-{
-    this->setToolTip(buttonType);
-    setMouseTracking(true);
-    this->show();
-}
+
+// NO longer needed??
+// DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
+//     : QPushButton(parent), buttonType(buttonType), gate()
+// {
+//     this->setToolTip(buttonType);
+//     setMouseTracking(true);
+//     this->show();
+// }
 
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
-    : QPushButton(parent), buttonType(buttonType), input1{QPushButton("1", this)}, input2{QPushButton("2", this)},
+    : QPushButton(parent), buttonType(buttonType),
+    input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
+    gate(gate)
+    {
 
-    output{QPushButton("out", this)}{
+
+
+    if (gateType == GateType::INVERTER){
+        input2.hide();
+        input1.move(this->x() +15 , this->y());
+        output.move(this->x() + 15, this->y()+12);
+        connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
+        connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+    }
+    else{
 
     input1.move(this->x() -10 , this->y());
     input2.move(this->x() -10, this->y() +25);
     output.move(this->x() + 15, this->y()+12);
-
     connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
     connect(&input2, &QPushButton::clicked, this, &DraggableButton::input2Clicked);
     connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
-
+    }
 
 }
-
-
-
 
 void DraggableButton::mousePressEvent(QMouseEvent *event)
 {
@@ -119,11 +129,11 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
 }
 
 void DraggableButton::setWireMode(bool isWireMode) {
-    onWireMode = isWireMode;
+    wireModeOn = isWireMode;
 }
 
 void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) {
-    if (onWireMode) {
+    if (wireModeOn) {
 
 
         emit sendTwoButtons(previousButton, this, input);

@@ -15,9 +15,11 @@ private:
 
     // should be GateType??
     QString buttonType;
+
+
     QPoint dragStartPos;
     QPoint currentPos;
-    bool onWireMode = false;
+    bool wireModeOn = false;
 
     // never used?
     DraggableButton* previousButton = nullptr;
@@ -51,7 +53,7 @@ public:
     DraggableButton();
 
 
-    explicit DraggableButton(QString buttonType, QWidget *parent = nullptr);
+    //explicit DraggableButton(QString buttonType, QWidget *parent = nullptr);
 
     DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
 
@@ -62,6 +64,8 @@ public:
     b2Body* getPhysicsBody();
 
     Gate* getGate();
+
+
 
 public slots:
     void setWireMode(bool isWireOn);

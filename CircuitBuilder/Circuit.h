@@ -71,7 +71,7 @@ public slots:
 
    // void onDeleteNode(Node* node);
 
-    void registerNode(DraggableButton* button);
+    void registerGate(DraggableButton* button);
 
     void onSendConnections();
 

@@ -72,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent)
     // connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
+    connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
+
     //physics set up
     // Initialize physics
     initializePhysics();
@@ -210,8 +212,10 @@ void MainWindow::onClearClicked()
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
 {
-    Gate gate(gateType);
+     Gate gate(gateType);
     DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
+
+    emit addButtonToCircuit(newButton, gateType);
 
     QPoint globalMousePos = QCursor::pos();
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);

@@ -64,6 +64,9 @@ private:
 
 signals:
 
+    // Notifies the model to add a new Gate from the supplied button
+    void addButtonToCircuit(DraggableButton* button, GateType gateType);
+
 
 };
 #endif // MAINWINDOW_H
