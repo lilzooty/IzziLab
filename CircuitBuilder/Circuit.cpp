@@ -351,11 +351,24 @@ void Circuit::setTable(QString mode, int level){
 //     gates.push_back(&n);
 // }
 
+
+
 void Circuit::updateOutputButton(DraggableButton *button, int input) {
     if (input == 3) {
         mostRecentOutput = button;
     } else if (input == 1 || input == 2) {
-        emit mostRecentOutputUpdated(mostRecentOutput, input);
+        if (mostRecentOutput != nullptr){
+
+            // make a connection between most recent ouput and this button
+            onConnectNode(mostRecentOutput, button ,input);
+
+            emit mostRecentOutputUpdated(mostRecentOutput, input);
+
+            // maybe even emit connections list now?
+            emit allConnections(connections);
+
+        }
+
     }
 }
 
@@ -365,8 +378,12 @@ void Circuit::addButton(DraggableButton *button){
 
     connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
     connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
+
+    qDebug() << "new button";
 }
 
-void Circuit::onSendConnections(){
-  emit allConnections(connections);
-}
+// void Circuit::onSendConnections(){
+// qDebug() << "wire";
+//     qDebug() << connections;
+//   emit allConnections(connections);
+// }

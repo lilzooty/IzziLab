@@ -74,6 +74,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
 
+    //connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
+
     //physics set up
     // Initialize physics
     initializePhysics();

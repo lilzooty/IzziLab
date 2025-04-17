@@ -17,11 +17,9 @@ public:
     Circuit(QObject *parent = nullptr);
     Circuit();
 
-public slots:
+public :
     // void addNode(GateType gate);
 
-    // updates mostRecentButton
-    void updateOutputButton(DraggableButton *button, int input);
 
     bool evaluateCircuit();
 
@@ -31,8 +29,13 @@ public slots:
 
     bool isAcyclic(Gate* startNode);
 
+    // updates mostRecentOuput when in wire mode
+    void updateOutputButton(DraggableButton *button, int input);
+
     // Handles connections between Circuit and DraggableButton
     void addButton(DraggableButton *button);
+
+     void onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
 
 
 private:
@@ -73,10 +76,9 @@ public slots:
 
     void registerGate(DraggableButton* button);
 
-    void onSendConnections();
+    //void onSendConnections();
 
     //slots
-    void onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
     void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton);
     void onDeleteNode(DraggableButton* button);
     void onClear();
