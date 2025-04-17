@@ -78,6 +78,8 @@ public slots:
 
     //void onSendConnections();
 
+    void onButtonMoved(DraggableButton* button);
+
     //slots
     void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton);
     void onDeleteNode(DraggableButton* button);

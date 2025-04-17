@@ -86,6 +86,7 @@ signals:
     void sendButton(DraggableButton *button, int input);
 
     void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton, int input);
+    void onButtonMoved(DraggableButton* button);
 
 
 };

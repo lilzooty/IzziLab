@@ -389,6 +389,8 @@ void Circuit::addButton(DraggableButton *button){
     connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
     connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
 
+    connect(button, &DraggableButton::onButtonMoved, this, &Circuit::onButtonMoved);  // TO REDRAW WIRES
+
     qDebug() << "new button";
 }
 
@@ -397,3 +399,7 @@ void Circuit::addButton(DraggableButton *button){
 //     qDebug() << connections;
 //   emit allConnections(connections);
 // }
+
+void Circuit::onButtonMoved(DraggableButton* button){
+    emit allConnections(connections);
+}

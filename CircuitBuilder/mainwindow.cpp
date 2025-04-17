@@ -231,48 +231,46 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 }
 
 void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
-
-
     QPainter painter(backgroundPixmap);
-
     painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
-    // erase old lines
+
+    // Clear the pixmap before drawing
     backgroundPixmap->fill(Qt::transparent);
 
-    // iterate through the connections map
-    for( QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> ::iterator i = connections.begin(); i != connections.end(); i++){
+    // Loop through each starting button and its associated connections
+    for (DraggableButton* button1 : connections.keys())
+    {
+        QPoint startPos = button1->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
-        DraggableButton* button1 = i.key();
-        QVector<QPair<DraggableButton*, int>> button1Connections = i.value();
-
-        QPoint startPos = button1->getPosition() -  QPoint(GATE_SIZE/2, -GATE_SIZE/2);
-        // for each connection the button draw the wire accordingly
-
-
-        for( int j = 0; j< (int)button1Connections.size(); j++){
-
-            DraggableButton* button2 = button1Connections.at(j).first;
-          //  int input = button1Connections.at(j).second;   //FIXME for positon
+        // Loop over each connection for button1 using a range-based loop
+        for (const QPair<DraggableButton*, int>& connection : connections.value(button1))
+        {
+            DraggableButton* button2 = connection.first;
+            int input = connection.second;
             QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
-            // Draw a nice routing path using multiple lines
-            int midX = (startPos.x() + endPos.x()) / 2;
+            // Adjust the end position based on the input value
+            QPoint offset;
+            switch (input) {
+            case 1: offset = QPoint(-10, -12); break;
+            case 2: offset = QPoint(-10, 12); break;
+            default: offset = QPoint(0, 0); break;
+            }
+            endPos += offset;
 
+            // Calculate mid-point for routing the wire nicely
+            int midX = (startPos.x() + endPos.x()) / 2;
             QPoint p1(midX, startPos.y());
             QPoint p2(midX, endPos.y());
 
-            // Draw three segments for better routing
+            // Draw three segments: horizontal to mid, vertical, and horizontal to end
             painter.drawLine(startPos, p1);
             painter.drawLine(p1, p2);
             painter.drawLine(p2, endPos);
-
-
         }
     }
 
-
-
-
     backgroundGridLabel->setPixmap(*backgroundPixmap);
+
 }
 

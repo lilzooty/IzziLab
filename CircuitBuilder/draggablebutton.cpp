@@ -66,7 +66,7 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
         move(newPos);
         updatePhysicsBody(newPos);
     }
-
+    emit onButtonMoved(this);
     QPushButton::mouseMoveEvent(event);
 }
 
