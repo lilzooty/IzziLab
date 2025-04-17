@@ -74,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
 
-    //connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
+    connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
 
     //physics set up
     // Initialize physics
@@ -183,7 +183,7 @@ void MainWindow::updatePhysics()
 
     //draw wires
     if((int)draggableButtons.size() >1 ){
-        drawWire(draggableButtons.at(0),draggableButtons.at(1));
+       // FIXME drawWire(draggableButtons.at(0),draggableButtons.at(1));
     }
 }
 
@@ -225,12 +225,13 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     newButton->setIcon(icon);
 
     connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
-    connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);
+    //connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);  FIXME new signal use and signature
 
     return newButton;
 }
 
-void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
+void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
+
 
     QPainter painter(backgroundPixmap);
 
@@ -238,22 +239,39 @@ void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
     // erase old lines
     backgroundPixmap->fill(Qt::transparent);
 
-    QPoint startPos = button1->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
-    QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+    // iterate through the connections map
+    for( QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> ::iterator i = connections.begin(); i != connections.end(); i++){
 
-    //determine leftmost button
+        DraggableButton* button1 = i.key();
+        QVector<QPair<DraggableButton*, int>> button1Connections = i.value();
+
+        QPoint startPos = button1->getPosition() -  QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+        // for each connection the button draw the wire accordingly
 
 
-    // Draw a nice routing path using multiple lines
-    int midX = (startPos.x() + endPos.x()) / 2;
+        for( int j = 0; j< (int)button1Connections.size(); j++){
 
-    QPoint p1(midX, startPos.y());
-    QPoint p2(midX, endPos.y());
+            DraggableButton* button2 = button1Connections.at(j).first;
+          //  int input = button1Connections.at(j).second;   //FIXME for positon
+            QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
-    // Draw three segments for better routing
-    painter.drawLine(startPos, p1);
-    painter.drawLine(p1, p2);
-    painter.drawLine(p2, endPos);
+            // Draw a nice routing path using multiple lines
+            int midX = (startPos.x() + endPos.x()) / 2;
+
+            QPoint p1(midX, startPos.y());
+            QPoint p2(midX, endPos.y());
+
+            // Draw three segments for better routing
+            painter.drawLine(startPos, p1);
+            painter.drawLine(p1, p2);
+            painter.drawLine(p2, endPos);
+
+
+        }
+    }
+
+
+
 
     backgroundGridLabel->setPixmap(*backgroundPixmap);
 }

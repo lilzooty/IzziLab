@@ -222,8 +222,18 @@ void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButt
     if (!fromNode || !toNode || fromNode->getGateType() == OUTPUT || toNode->getGateType() == INPUT) return;
 
     if (toNode->addInput(fromNode, input)) {
-        connections[fromButton].append(qMakePair(toButton, input));
+
+
+    //GEEKER
+    // we dont want to add twice to vector
+
     }
+
+
+   connections[fromButton].append(QPair<DraggableButton*, int>(toButton,input));
+
+    qDebug() << connections[fromButton].size();
+
 }
 
 void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton) {

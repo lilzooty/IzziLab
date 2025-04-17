@@ -38,7 +38,8 @@ public slots:
     void onClearClicked();
     void updatePhysics();
 
-    void drawWire(DraggableButton *startButton, DraggableButton *endButton);
+    void drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+
 
 private:
     Ui::MainWindow *ui;
