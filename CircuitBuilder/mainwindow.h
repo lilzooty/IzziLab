@@ -35,7 +35,6 @@ public slots:
     void onXorGateClicked();
     void onXnorGateClicked();
 
-    void onWireClicked();
     void onClearClicked();
     void updatePhysics();
 
@@ -53,14 +52,7 @@ private:
     // The Model
     Circuit circuit;
 
-    vector<DraggableButton*> andGates;
-    vector<DraggableButton*> orGates;
-    vector<DraggableButton*> inverters;
-    vector<DraggableButton*> norGates;
-    vector<DraggableButton*> nandGates;
-    vector<DraggableButton*> xorGates;
-    vector<DraggableButton*> xnorGates;
-
+    // stores all buttons currently displayed
     vector<DraggableButton*> draggableButtons;
 
     //physics methods
@@ -72,12 +64,6 @@ private:
 
 signals:
 
-    // NO LONGER IN USE?
-    // void addNode(GateType gate);
-
-    // void addGate(Gate* gate);
-
-    // void addButtonToCircuit(DraggableButton *button);
 
 };
 #endif // MAINWINDOW_H

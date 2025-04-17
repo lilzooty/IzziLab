@@ -10,7 +10,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow), andGates{}, orGates{}, inverters{}, circuit{Circuit(parent)}
+    , ui(new Ui::MainWindow), draggableButtons{}, circuit{Circuit(parent)}
 {
     ui->setupUi(this);
 
@@ -69,22 +69,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
     connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
 
-    connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
+    // connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
-
-    //connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
-    //connect(this, &MainWindow::addGate, &circuit, &Circuit::registerNode);
-
-
-    // DraggableButton* button = new DraggableButton(this);  // or however you set it up
-    // connect(ui->actionWire, &QAction::triggered, button, &DraggableButton::wireMode);
-
-    // connect(this, &MainWindow::addNode, circuit, &Circuit::addNode);
-
-    // // connect dragbut to circuit
-    // for (DraggableButton* btn : draggableButtons) {
-    //     connect(ui->actionWire, &QAction::triggered, btn, &DraggableButton::setWireMode);
-    // }
 
     //physics set up
     // Initialize physics
@@ -123,60 +109,30 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onAndGateClicked(){
-    andGates.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
-    // emit addNode(GateType::AND_GATE);
+    //andGates.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
+    draggableButtons.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
 }
 void MainWindow::onOrGateClicked(){
-    orGates.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
-    // emit addNode(GateType::OR_GATE);
+    draggableButtons.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
 }
 void MainWindow::onInverterClicked(){
-    inverters.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
-    // emit addNode(GateType::INVERTER);
+    draggableButtons.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
 
 }
 void MainWindow::onNandGateClicked(){
-    nandGates.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
-    // emit addNode(GateType::NAND_GATE);
+    draggableButtons.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
 }
 void MainWindow::onNorGateClicked(){
-    norGates.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
-    // emit addNode(GateType::NOR_GATE);
+    draggableButtons.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
 }
 void MainWindow::onXorGateClicked(){
-    xnorGates.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
-    // emit addNode(GateType::XOR_GATE);
+    draggableButtons.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
 }
 void MainWindow::onXnorGateClicked(){
-    xnorGates.push_back(createGateButton(GateType::XNOR_GATE, ui->actionXnorGate->icon()));
-    //emit addNode(GateType::XNOR_GATE);
+    draggableButtons.push_back(createGateButton(GateType::XNOR_GATE, ui->actionXnorGate->icon()));
 }
 
-void MainWindow::onWireClicked()
-{
-    // emit wireMode();
-    // auto generateRandomVelocity = []() {
-    //     float x = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
-    //     float y = (std::rand() / static_cast<float>(RAND_MAX)) * 20.0f - 10.0f;
 
-    //     x += (x == 0) * (x < 0 ? -1.0f : 1.0f);
-    //     y += (y == 0) * (y < 0 ? -1.0f : 1.0f);
-
-    //     return b2Vec2(x, y);
-    // };
-
-    // auto updateButtonVelocities = [&generateRandomVelocity](const vector<DraggableButton*>& buttons) {
-    //     for (auto button : buttons) {
-    //         button->getPhysicsBody()->SetLinearVelocity(generateRandomVelocity());
-    //     }
-    // };
-
-
-    // updateButtonVelocities(andGates);
-    // updateButtonVelocities(orGates);
-    // updateButtonVelocities(inverters);
-    return;
-}
 void MainWindow::createPhysicsBody(DraggableButton* button)
 {
     b2BodyDef bodyDef;
@@ -224,17 +180,11 @@ void MainWindow::updatePhysics()
         }
     };
 
-    updateButtons(andGates);
-    updateButtons(orGates);
-    updateButtons(inverters);
-    updateButtons(nandGates);
-    updateButtons(norGates);
-    updateButtons(xorGates);
-    updateButtons(xnorGates);
+    updateButtons(draggableButtons);
 
     //draw wires
-    if((int)andGates.size() >1 ){
-        drawWire(andGates.at(0),andGates.at(1));
+    if((int)draggableButtons.size() >1 ){
+        drawWire(draggableButtons.at(0),draggableButtons.at(1));
     }
 }
 
@@ -254,21 +204,14 @@ void MainWindow::onClearClicked()
 
         }
     };
-    updateButtons(andGates);
-    updateButtons(orGates);
-    updateButtons(inverters);
-    updateButtons(nandGates);
-    updateButtons(norGates);
-    updateButtons(xorGates);
-    updateButtons(xnorGates);
+
+    updateButtons(draggableButtons);
 }
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
 {
     Gate gate(gateType);
     DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
-
-    //emit addGate(&gate);
 
     QPoint globalMousePos = QCursor::pos();
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
@@ -282,8 +225,6 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 
     connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
     connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);
-
-   // emit addButtonToCircuit(newButton);
 
     return newButton;
 }
