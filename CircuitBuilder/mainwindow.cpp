@@ -77,7 +77,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
 
     //physics set up
-    // Initialize physics
     initializePhysics();
 
     // Setup physics update timer
@@ -90,9 +89,8 @@ MainWindow::MainWindow(QWidget *parent)
     backgroundGridLabel->setGeometry(0, 0, 600, 600);
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    // // Create the pixmap
+    // // Create  pixmap
     backgroundPixmap = new QPixmap(backgroundGridLabel->size());
-
     backgroundPixmap->fill(Qt::transparent);
     backgroundGridLabel->setPixmap(*backgroundPixmap);
     backgroundGridLabel->show();
@@ -231,25 +229,25 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 }
 
 void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
+
     QPainter painter(backgroundPixmap);
     painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
 
-    // Clear the pixmap before drawing
     backgroundPixmap->fill(Qt::transparent);
 
-    // Loop through each starting button and its associated connections
+    // Loop through each starting button and its wires
     for (DraggableButton* button1 : connections.keys())
     {
         QPoint startPos = button1->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
-        // Loop over each connection for button1 using a range-based loop
+        // Loop over each connection for button1
         for (const QPair<DraggableButton*, int>& connection : connections.value(button1))
         {
             DraggableButton* button2 = connection.first;
             int input = connection.second;
             QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
-            // Adjust the end position based on the input value
+            // Adjust the end position
             QPoint offset;
             switch (input) {
             case 1: offset = QPoint(-10, -12); break;
@@ -258,12 +256,12 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
             }
             endPos += offset;
 
-            // Calculate mid-point for routing the wire nicely
+            // Calculate mid-point for routing the wire
             int midX = (startPos.x() + endPos.x()) / 2;
             QPoint p1(midX, startPos.y());
             QPoint p2(midX, endPos.y());
 
-            // Draw three segments: horizontal to mid, vertical, and horizontal to end
+            // Draw three segments
             painter.drawLine(startPos, p1);
             painter.drawLine(p1, p2);
             painter.drawLine(p2, endPos);
@@ -271,6 +269,5 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
     }
 
     backgroundGridLabel->setPixmap(*backgroundPixmap);
-
 }
 

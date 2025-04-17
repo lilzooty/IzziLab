@@ -122,8 +122,6 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
         b2Vec2 physicsPos(newPos.x() / PIXELS_PER_METER,
                           newPos.y() / PIXELS_PER_METER);
         body->SetTransform(physicsPos, body->GetAngle());
-
-        // Wake up the body
         body->SetAwake(true);
     }
 }
