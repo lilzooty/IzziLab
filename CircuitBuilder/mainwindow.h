@@ -73,11 +73,11 @@ private:
 signals:
 
     // NO LONGER IN USE?
-    void addNode(GateType gate);
+    // void addNode(GateType gate);
 
-    void addGate(Gate* gate);
+    // void addGate(Gate* gate);
 
-    void addButtonToCircuit(DraggableButton *button);
+    // void addButtonToCircuit(DraggableButton *button);
 
 };
 #endif // MAINWINDOW_H

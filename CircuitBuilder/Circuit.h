@@ -18,7 +18,7 @@ public:
     Circuit();
 
 public slots:
-    void addNode(GateType gate);
+    // void addNode(GateType gate);
 
     // updates mostRecentButton
     void updateOutputButton(DraggableButton *button, int input);
@@ -26,10 +26,6 @@ public slots:
     bool evaluateCircuit();
 
     void setTable(QString mode, int level);
-    void setTruthTable(const TruthTable& table);
-
-
-    void registerNode(DraggableButton* button);
 
     bool hasCycle(Gate* node, QSet<Gate*>& visited, QSet<Gate*>& stack);
 
@@ -43,13 +39,12 @@ private:
 
     std::vector<Gate*> inputNodes;
 
-    // Stores all the buttons in the MainWindow
-    std::vector<DraggableButton*> allButtons;
-
     Gate* output;
     QVector<Gate*> gates;
 
-    QMap<DraggableButton*, QVector<DraggableButton*>> connections;
+    //QMap<DraggableButton*, QVector<DraggableButton*>> connections;
+
+    QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections;
 
     DraggableButton *mostRecentOutput;
 
@@ -69,14 +64,22 @@ private:
 
 
 
-private slots:
+public slots:
     // void onConnectNode(Node* fromNode, Node* toNode, int input);
 
    // void onDisconnectNode(Node* fromNode, Node* toNode);
 
    // void onDeleteNode(Node* node);
 
+    void registerNode(DraggableButton* button);
+
     void onSendConnections();
+
+    //slots
+    void onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
+    void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton);
+    void onDeleteNode(DraggableButton* button);
+    void onClear();
 
 signals:
 
@@ -84,13 +87,7 @@ signals:
     // Also sends the identity of the input that requested a connection.
     void mostRecentOutputUpdated(DraggableButton *button, int input);
 
-    void allConnections(QMap<DraggableButton*, QVector<DraggableButton*>> outputs);
-
-    //slots
-    void onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
-    void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton);
-    void onDeleteNode(DraggableButton* button);
-    void onClear();
+    void allConnections(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
 };
 
 #endif

@@ -72,8 +72,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
-    connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
-    connect(this, &MainWindow::addGate, &circuit, &Circuit::registerNode);
+    //connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
+    //connect(this, &MainWindow::addGate, &circuit, &Circuit::registerNode);
 
 
     // DraggableButton* button = new DraggableButton(this);  // or however you set it up
@@ -268,7 +268,7 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     Gate gate(gateType);
     DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
 
-    emit addGate(&gate);
+    //emit addGate(&gate);
 
     QPoint globalMousePos = QCursor::pos();
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
@@ -283,7 +283,7 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
     connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);
 
-    emit addButtonToCircuit(newButton);
+   // emit addButtonToCircuit(newButton);
 
     return newButton;
 }

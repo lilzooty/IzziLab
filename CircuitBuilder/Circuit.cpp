@@ -1,13 +1,13 @@
 #include "Circuit.h"
 #include "qdebug.h"
 
-Circuit::Circuit() : inputNodes(), output(nullptr), gates{}, allButtons{}{
+Circuit::Circuit() : inputNodes(), output(nullptr), gates{}{
     initializeEasyTruthTables();
     initializeMedTruthTables();
     initializeHardTruthTables();
 }
 
-Circuit::Circuit(QObject *parent) : QObject{parent}, gates{}, allButtons{} {
+Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
     initializeEasyTruthTables();
     initializeMedTruthTables();
     initializeHardTruthTables();
@@ -136,50 +136,13 @@ void Circuit::initializeHardTruthTables(){
     hardTables.append(t8);
 }
 
-// bool Circuit::evaluateCircuit(const QVector<Node*>& inputNodes, Node* outputNode, const TruthTable& truthTable) {
-//     if(!isAcyclic(outputNode)){
-//         return false;
-//     }
-
-//     // Get the truth table rows
-//    // QList<QPair<QVector<int>, int>> rows = truthTable.getRows();
-
-//     QList<QPair<QVector<int>, int>> rows = currTable.getRows();
-
-//     // For each row in the truth table
-//     for (const auto& row : rows) {
-//         const QVector<int>& inputs = row.first;
-//         const int expectedOutput = row.second;
-
-//         // Set input signals
-//         for (int i = 0; i < inputs.size(); ++i) {
-//             if (i < inputNodes.size()) {
-//                 inputNodes[i]->setSignal(inputs[i] == 1);
-//             }
-//         }
-
-//         // Propagate signals through the circuit
-//         bool success = evaluateNodeTree(outputNode);
-//         if (!success) {
-//             return false;
-//         }
-
-//         // Get the final output and compare with expected
-//         bool actualOutput = outputNode->getSignal();
-//         if ((actualOutput && expectedOutput != 1) || (!actualOutput && expectedOutput != 0)) {
-//             return false; // Circuit produces incorrect output
-//         }
-//     }
-//     return true;
-// }
-
 bool Circuit::evaluateCircuit() {
-    if(!isAcyclic(output)){
+    if(!isAcyclic(output) || inputNodes.empty() || !output){
         return false;
     }
 
-    if(inputNodes.empty() || !output){
-        return false;
+    for (Gate* gate : gates) {
+        if (gate) gate->reset();
     }
 
     // Get the truth table rows
@@ -191,7 +154,7 @@ bool Circuit::evaluateCircuit() {
     // For each row in the truth table
     for (const auto& row : rows) {
         const QVector<int>& inputs = row.first;
-        const int expectedOutput = row.second;
+        const bool expectedOutput = row.second;
 
         // Set input signals
         for (int i = 0; i < inputs.size(); ++i) {
@@ -204,8 +167,9 @@ bool Circuit::evaluateCircuit() {
 
         // Get the final output and compare with expected
         bool actualOutput = output->getSignal();
-        if ((actualOutput && expectedOutput != 1) || (!actualOutput && expectedOutput != 0)) {
-            return false; // Circuit produces incorrect output
+
+        if(actualOutput != expectedOutput){
+            return false;
         }
     }
     return true;
@@ -253,25 +217,13 @@ void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButt
     }
 
     Gate* fromNode = fromButton->getGate();
-    Gate* toNode = fromButton->getGate();
+    Gate* toNode = toButton->getGate();
 
-    if (fromNode->getGateType() == OUTPUT || toNode->getGateType() == INPUT) {
-        return;
+    if (!fromNode || !toNode || fromNode->getGateType() == OUTPUT || toNode->getGateType() == INPUT) return;
+
+    if (toNode->addInput(fromNode, input)) {
+        connections[fromButton].append(qMakePair(toButton, input));
     }
-
-    //If attempted connection to input 1 and input 1 is not yet taken
-    if(input == 1 && !toNode->getInput1()){
-        toNode->addInput(fromNode, input);
-        fromNode->addOutput(toNode);
-
-
-    }
-    else if(input == 2 && !toNode->getInput2()){
-        toNode->addInput(fromNode, input);
-        fromNode->addOutput(toNode);
-    }
-
-    connections[fromButton].append(toButton);
 }
 
 void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton) {
@@ -284,22 +236,42 @@ void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toB
     fromNode->removeOutput(toNode);
 
     if (connections.contains(fromButton)) {
-        connections[fromButton].removeAll(toButton);
-        if (connections[fromButton].isEmpty()) {
-            connections.remove(fromButton);
+        QVector<QPair<DraggableButton*, int>>& vec = connections[fromButton];
+        QVector<QPair<DraggableButton*, int>> toRemove;
+
+        for (const auto& pair : vec) {
+            if (pair.first == toButton) {
+                toRemove.append(pair);
+            }
+        }
+        for (const auto& pair : toRemove) {
+            vec.removeAll(pair);
         }
     }
 }
-}
+
 
 void Circuit::onDeleteNode(DraggableButton* button){
     if(!button){
         return;
     }
+    for (auto it = connections.begin(); it != connections.end(); ++it) {
+        QVector<QPair<DraggableButton*, int>>& targets = it.value();
+        QVector<QPair<DraggableButton*, int>> toRemove;
 
-    connections.remove(button);
-    for (auto& targets : connections) {
-        targets.removeAll(button);
+        for (const auto& pair : targets) {
+            if (pair.first == button) {
+                toRemove.append(pair);
+            }
+        }
+
+        for (const auto& pair : toRemove) {
+            targets.removeAll(pair);
+        }
+
+        if (targets.isEmpty()) {
+            connections.remove(it.key());
+        }
     }
 
     Gate* gate = button->getGate();
@@ -374,40 +346,24 @@ void Circuit::setTable(QString mode, int level){
     }
 }
 
-void Circuit::setTruthTable(const TruthTable& table){
-    currTable = table;
-}
-
-void Circuit::addNode(GateType gate) {
-    Gate n(gate);
-    gates.push_back(&n);
-}
+// void Circuit::addNode(GateType gate) {
+//     Gate n(gate);
+//     gates.push_back(&n);
+// }
 
 void Circuit::updateOutputButton(DraggableButton *button, int input) {
-
-    // if recieving an output
-    if (input == 3){
+    if (input == 3) {
         mostRecentOutput = button;
-    }
-
-    if (input == 2 || input == 1){
-
+    } else if (input == 1 || input == 2) {
         emit mostRecentOutputUpdated(mostRecentOutput, input);
     }
-
-
-    // if (mostRecentButton != nullptr) {
-    //     emit mostRecentButtonUpdated(mostRecentButton);
-    // }
-    // mostRecentButton = button;
 }
 
 void Circuit::addButton(DraggableButton *button){
-    allButtons.push_back(button);
     connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
     connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
 }
 
 void Circuit::onSendConnections(){
-    emit allConnections(connections);
+  emit allConnections(connections);
 }

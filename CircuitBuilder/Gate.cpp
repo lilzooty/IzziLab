@@ -17,17 +17,21 @@ bool Gate::connnectNode(Gate g){
 }
 
 void Gate::deleteInput1(){
-    input1->output = nullptr;
-    this->input1 = nullptr;
+    if (input1) {
+        input1->removeOutput(this);
+        input1 = nullptr;
+    }
 }
 
 void Gate::deleteInput2(){
-    input2->output = nullptr;
-    this->input2 = nullptr;
+    if (input2) {
+        input2->removeOutput(this);
+        input2 = nullptr;
+    }
 }
 
 bool Gate::hasOutput(){
-    return output != nullptr;
+    return !outputs.isEmpty();
 }
 
 bool Gate::evaluate() {
@@ -103,27 +107,18 @@ int Gate::availableInputs(){
 }
 
 bool Gate::addInput(Gate* g, int input){
+    if (!g || g == this || input < 1 || input > 2) return false;
 
-    // Reject improper input calls
-    if (input > 2 || input < 1){
-        return false;
-    }
-
-    if(!g || g == this){
-        return false;
-    }
-
-    if (input == 1 && input1 == nullptr){
-            input1 = g;
+    if (input == 1 && !input1) {
+        input1 = g;
         g->addOutput(this);
-            return true;
-        }
-
-    else if (input == 2 && input2 == nullptr) {
+        return true;
+    }
+    else if (input == 2 && !input2) {
         input2 = g;
         g->addOutput(this);
         return true;
-}
+    }
     return false;
 }
 
@@ -131,12 +126,29 @@ bool Gate::getSignal(){
     return this->signal;
 }
 
+GateType Gate::getGateType(){
+    return gateType;
+}
+
+Gate* Gate::getInput1(){
+    return input1;
+}
+
+Gate* Gate::getInput2(){
+    return input2;
+}
+
+
 void Gate::setSignal(int signal){
     this->signal = signal;
 }
 
-GateType Gate::getGateType(){
-    return gateType;
+void Gate::setInput1(Gate* gate){
+    input1 = gate;
+}
+
+void Gate::setInput2(Gate* gate){
+    input2 = gate;
 }
 
 bool Gate::checkValidConnection(Gate* target, int inputSlot) const {
@@ -160,23 +172,6 @@ bool Gate::checkValidConnection(Gate* target, int inputSlot) const {
 
 bool Gate::hasOneInput() const {
     return gateType == INVERTER || gateType == OUTPUT;
-}
-
-
-Gate* Gate::getInput1(){
-    return input1;
-}
-
-Gate* Gate::getInput2(){
-    return input2;
-}
-
-void Gate::setInput1(Gate* gate){
-    input1 = gate;
-}
-
-void Gate::setInput2(Gate* gate){
-    input2 = gate;
 }
 
 QVector<Gate*> Gate::getOutputs(){
@@ -226,18 +221,9 @@ void Gate::removeAllInputs() {
 
 void Gate::reset() {
     signal = false;
-    for (Gate* output : outputs) {
-        output->reset();
-    }
 }
 
 void Gate::disconnectAll() {
-    for (Gate* out : outputs) {
-        out->removeInput(this);
-    }
-    outputs.clear();
-
-    if (input1) input1->removeOutput(this);
-    if (input2) input2->removeOutput(this);
-    input1 = input2 = nullptr;
+    deleteOutputs();
+    removeAllInputs();
 }
