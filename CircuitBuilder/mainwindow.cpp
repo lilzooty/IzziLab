@@ -90,15 +90,10 @@ MainWindow::MainWindow(QWidget *parent)
     backgroundGridLabel->setGeometry(0, 0, 600, 600);
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    // Create the pixmap
-    QPixmap* backgroundPixmap = new QPixmap(backgroundGridLabel->size());
+    // // Create the pixmap
+    backgroundPixmap = new QPixmap(backgroundGridLabel->size());
 
-    backgroundPixmap->load(":/BACKGROUND/BGgrid.jpg");
-
-    // Option 1: Scale to a specific size
-    int newWidth = 600;
-    int newHeight = 600;
-    *backgroundPixmap = backgroundPixmap->scaled(newWidth, newHeight, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+    backgroundPixmap->fill(Qt::transparent);
     backgroundGridLabel->setPixmap(*backgroundPixmap);
     backgroundGridLabel->show();
 
@@ -237,24 +232,17 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 
 void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
 
+    QPainter painter(backgroundPixmap);
 
-    QPixmap pixmap(backgroundGridLabel->size());
-
-    // Create the pixmap
-
-    pixmap.load(":/BACKGROUND/BGgrid.jpg");
-
-    // Option 1: Scale to a specific size
-    int newWidth = 600;
-    int newHeight = 600;
-    pixmap = pixmap.scaled(newWidth, newHeight, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
-    backgroundGridLabel->setPixmap(pixmap);
-    QPainter painter(&pixmap);
-    painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
+    // erase old lines
+    backgroundPixmap->fill(Qt::transparent);
 
     QPoint startPos = button1->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
     QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+
+    //determine leftmost button
+
 
     // Draw a nice routing path using multiple lines
     int midX = (startPos.x() + endPos.x()) / 2;
@@ -266,6 +254,7 @@ void MainWindow::drawWire(DraggableButton *button1, DraggableButton *button2) {
     painter.drawLine(startPos, p1);
     painter.drawLine(p1, p2);
     painter.drawLine(p2, endPos);
-    backgroundGridLabel->setPixmap(pixmap);
+
+    backgroundGridLabel->setPixmap(*backgroundPixmap);
 }
 

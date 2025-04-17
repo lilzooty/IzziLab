@@ -61,6 +61,7 @@ private:
     DraggableButton* createGateButton(GateType gateType, const QIcon& icon);
 
     QLabel* backgroundGridLabel;
+    QPixmap* backgroundPixmap;
 
 signals:
 
