@@ -376,7 +376,6 @@ void Circuit::updateOutputButton(DraggableButton *button, int input) {
 
             // maybe even emit connections list now?
             emit allConnections(connections);
-
         }
 
     }

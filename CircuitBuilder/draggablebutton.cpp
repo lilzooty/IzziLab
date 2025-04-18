@@ -124,12 +124,11 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
 
 void DraggableButton::setWireMode(bool isWireMode) {
     wireModeOn = isWireMode;
+    qDebug() << isWireMode;
 }
 
 void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) {
     if (wireModeOn) {
-
-
         emit sendTwoButtons(previousButton, this, input);
     }
 }

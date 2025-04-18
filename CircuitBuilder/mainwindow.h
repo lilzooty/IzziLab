@@ -35,6 +35,8 @@ public slots:
     void onXorGateClicked();
     void onXnorGateClicked();
 
+    void onWireClicked(bool checked);
+
     void onClearClicked();
     void updatePhysics();
 

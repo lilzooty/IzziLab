@@ -55,7 +55,6 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(xorGate);
     group->addAction(xnorGate);
     group->addAction(inverter);
-    group->addAction(wire);
     group->addAction(clear);
 
 
@@ -67,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
     connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
 
-    // connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
+    connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
@@ -267,5 +266,26 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
     }
 
     backgroundGridLabel->setPixmap(*backgroundPixmap);
+}
+
+void MainWindow::onWireClicked(bool checked) {
+    if (checked) {
+        ui->actionAndGate->setEnabled(false);
+        ui->actionOrGate->setEnabled(false);
+        ui->actionNorGate->setEnabled(false);
+        ui->actionXorGate->setEnabled(false);
+        ui->actionXnorGate->setEnabled(false);
+        ui->actionNandGate->setEnabled(false);
+        ui->actionInverter->setEnabled(false);
+    }
+    else {
+        ui->actionAndGate->setEnabled(true);
+        ui->actionOrGate->setEnabled(true);
+        ui->actionNorGate->setEnabled(true);
+        ui->actionXorGate->setEnabled(true);
+        ui->actionXnorGate->setEnabled(true);
+        ui->actionNandGate->setEnabled(true);
+        ui->actionInverter->setEnabled(true);
+    }
 }
 
