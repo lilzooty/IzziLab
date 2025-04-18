@@ -37,6 +37,8 @@ public slots:
 
     void onWireClicked(bool checked);
 
+    void onDeleteClicked(bool checked);
+
     void onClearClicked();
     void updatePhysics();
 

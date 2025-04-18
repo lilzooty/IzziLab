@@ -36,6 +36,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionWire"/>
+   <addaction name="actionDelete"/>
    <addaction name="actionInverter"/>
    <addaction name="actionOrGate"/>
    <addaction name="actionAndGate"/>
@@ -146,6 +147,17 @@
    </property>
    <property name="text">
     <string>Clear</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Delete</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

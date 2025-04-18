@@ -67,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
 
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
+    connect(ui->actionDelete, &QAction::triggered, this, &MainWindow::onDeleteClicked);
+
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
 
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
@@ -194,12 +196,11 @@ void MainWindow::onClearClicked()
             b2Vec2 vectr(0.0f, 9.8f);
             currentBody->SetLinearVelocity(vectr);
 
-
-
         }
     };
 
     updateButtons(draggableButtons);
+
 }
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
@@ -289,3 +290,27 @@ void MainWindow::onWireClicked(bool checked) {
     }
 }
 
+void MainWindow::onDeleteClicked(bool checked){
+    if (checked){
+        ui->actionAndGate->setEnabled(false);
+        ui->actionOrGate->setEnabled(false);
+        ui->actionNorGate->setEnabled(false);
+        ui->actionXorGate->setEnabled(false);
+        ui->actionXnorGate->setEnabled(false);
+        ui->actionNandGate->setEnabled(false);
+        ui->actionInverter->setEnabled(false);
+        ui->actionWire->setEnabled(false);
+    }
+
+    else {
+        ui->actionAndGate->setEnabled(true);
+        ui->actionOrGate->setEnabled(true);
+        ui->actionNorGate->setEnabled(true);
+        ui->actionXorGate->setEnabled(true);
+        ui->actionXnorGate->setEnabled(true);
+        ui->actionNandGate->setEnabled(true);
+        ui->actionInverter->setEnabled(true);
+        ui->actionWire->setEnabled(false);
+
+    }
+}

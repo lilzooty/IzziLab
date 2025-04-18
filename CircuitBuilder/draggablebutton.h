@@ -31,7 +31,7 @@ private:
     QPushButton output;
 
 
-
+    bool isDelete;
 
     b2Body* body;
 
@@ -71,6 +71,8 @@ public slots:
     void setWireMode(bool isWireOn);
 
     void getTwoButtons(DraggableButton *previousButton, int input);
+
+
 
     void input1Clicked();
     void input2Clicked();
