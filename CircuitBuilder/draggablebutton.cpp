@@ -14,7 +14,7 @@ DraggableButton::DraggableButton() {
 // }
 
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
-    : QPushButton(parent), buttonType(buttonType),
+    : QPushButton(parent),
     input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
     gate(gate)
     {
@@ -71,24 +71,20 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 }
 
 
-void DraggableButton::input1Clicked(bool checked){
-
-
-         emit sendButton(this, 1);
-
-
+void DraggableButton::input1Clicked(){
+    if (wireModeOn) {
+        emit sendButton(this, 1);
+    }
 }
-void DraggableButton::input2Clicked(bool checked){
-
-
-    emit sendButton(this, 2);
-
+void DraggableButton::input2Clicked(){
+    if (wireModeOn) {
+        emit sendButton(this, 2);
+    }
 }
-void DraggableButton::outputClicked(bool checked){
-
-
-    emit sendButton(this, 3);
-
+void DraggableButton::outputClicked(){
+    if (wireModeOn) {
+        emit sendButton(this, 3);
+    }
 }
 
 QPoint DraggableButton::snapToGrid( QPoint& point)

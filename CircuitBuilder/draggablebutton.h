@@ -72,9 +72,9 @@ public slots:
 
     void getTwoButtons(DraggableButton *previousButton, int input);
 
-    void input1Clicked(bool checked);
-    void input2Clicked(bool checked);
-    void outputClicked(bool checked);
+    void input1Clicked();
+    void input2Clicked();
+    void outputClicked();
 
 signals:
 

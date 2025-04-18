@@ -10,7 +10,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow), draggableButtons{}, circuit{Circuit(parent)}
+    , ui(new Ui::MainWindow), circuit{Circuit(parent)}, draggableButtons{}
 {
     ui->setupUi(this);
 
@@ -35,8 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
             grid[row][col] = false;
         }
     }
-
-    QRect rect(400, 400, 250, 250);
 
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
@@ -188,7 +186,7 @@ void MainWindow::updatePhysics()
 void MainWindow::onClearClicked()
 {
     // Update all buttons gravity
-    auto updateButtons = [this](const vector<DraggableButton*>& buttons) {
+    auto updateButtons = [](const vector<DraggableButton*>& buttons) {
         for (auto button : buttons) {
 
                 // Convert physics coordinates to screen coordinates
