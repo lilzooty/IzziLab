@@ -46,14 +46,12 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
         dragStartPos = event->pos();
     }
 
-    // if (childAt(event->pos()) == input1){
-    //     qDebug() << "found input1";
-    // }
-    // qDebug() << "found input1";
-
     QPushButton::mousePressEvent(event);
-   // emit sendButton(this);
 
+    if (isDelete){
+
+        emit deleteMe(this);
+    }
 }
 
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
@@ -124,7 +122,11 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
 
 void DraggableButton::setWireMode(bool isWireMode) {
     wireModeOn = isWireMode;
-    qDebug() << isWireMode;
+
+}
+
+void DraggableButton::setDeleteMode(bool isDelete){
+    this->isDelete = isDelete;
 }
 
 void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) {
@@ -136,3 +138,5 @@ void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) 
 Gate* DraggableButton::getGate(){
     return gate;
 }
+
+

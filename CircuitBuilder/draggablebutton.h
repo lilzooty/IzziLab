@@ -69,6 +69,7 @@ public:
 
 public slots:
     void setWireMode(bool isWireOn);
+    void setDeleteMode(bool isDelete);
 
     void getTwoButtons(DraggableButton *previousButton, int input);
 
@@ -89,6 +90,8 @@ signals:
 
     void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton, int input);
     void onButtonMoved(DraggableButton* button);
+
+    void deleteMe(DraggableButton*);
 
 
 };

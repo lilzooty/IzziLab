@@ -265,6 +265,7 @@ void Circuit::onDeleteNode(DraggableButton* button){
     if(!button){
         return;
     }
+
     for (auto it = connections.begin(); it != connections.end(); ++it) {
         QVector<QPair<DraggableButton*, int>>& targets = it.value();
         QVector<QPair<DraggableButton*, int>> toRemove;
@@ -284,11 +285,13 @@ void Circuit::onDeleteNode(DraggableButton* button){
         }
     }
 
-    Gate* gate = button->getGate();
-    if (gate) {
-        gates.removeAll(gate);
-        delete gate;
-    }
+    // Gate* gate = button->getGate();
+    // if (gate) {
+    //     gates.removeAll(gate);
+    //     delete gate;
+    // }
+
+    // delete button;
 }
 
 void Circuit::onClear() {
@@ -389,6 +392,8 @@ void Circuit::addButton(DraggableButton *button){
     connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
 
     connect(button, &DraggableButton::onButtonMoved, this, &Circuit::onButtonMoved);  // TO REDRAW WIRES
+
+    connect(button, &DraggableButton::deleteMe, this, &Circuit::onDeleteNode);
 
     qDebug() << "new button";
 }

@@ -205,7 +205,7 @@ void MainWindow::onClearClicked()
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
 {
-     Gate gate(gateType);
+    Gate gate = new Gate(gateType);
     DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
 
     emit addButtonToCircuit(newButton, gateType);
@@ -221,6 +221,8 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     newButton->setIcon(icon);
 
     connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
+
+    connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
     //connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);  FIXME new signal use and signature
 
     return newButton;
