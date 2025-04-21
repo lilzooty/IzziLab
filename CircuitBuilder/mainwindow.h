@@ -71,6 +71,8 @@ public slots:
      */
     void onXnorGateClicked();
 
+    void handleNodeDeleted(DraggableButton* button);
+
 
     void onWireClicked(bool checked);
 

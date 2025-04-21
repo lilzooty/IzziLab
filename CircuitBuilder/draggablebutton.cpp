@@ -19,8 +19,6 @@ DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     gate(gate)
     {
 
-
-
     if (gateType == GateType::INVERTER){
         input2.hide();
         input1.move(this->x() +15 , this->y());

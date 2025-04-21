@@ -218,6 +218,8 @@ signals:
      */
     void mostRecentOutputUpdated(DraggableButton *button, int input);
 
+    void nodeDeleted(DraggableButton* button);
+
     /**
      * @brief ***************** WHAT DOES THIS DO *********************
      * @param connections - ?

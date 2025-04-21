@@ -57,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(inverter);
     group->addAction(clear);
 
+    connect(&circuit, &Circuit::nodeDeleted, this, &MainWindow::handleNodeDeleted);
+
 
     connect(ui->actionAndGate, &QAction::triggered, this, &MainWindow::onAndGateClicked);
     connect(ui->actionOrGate, &QAction::triggered, this, &MainWindow::onOrGateClicked);
@@ -205,8 +207,11 @@ void MainWindow::onClearClicked()
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
 {
-    Gate gate = new Gate(gateType);
-    DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
+    // Gate gate(gateType);
+    // DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
+
+    Gate* gate = new Gate(gateType);
+    DraggableButton* newButton = new DraggableButton(gateType, this, gate);
 
     emit addButtonToCircuit(newButton, gateType);
 
@@ -315,4 +320,13 @@ void MainWindow::onDeleteClicked(bool checked){
         ui->actionWire->setEnabled(false);
 
     }
+}
+
+
+void MainWindow::handleNodeDeleted(DraggableButton* button) {
+    // Remove from vector
+    draggableButtons.erase(
+        std::remove(draggableButtons.begin(), draggableButtons.end(), button),
+        draggableButtons.end()
+        );
 }

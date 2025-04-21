@@ -279,19 +279,18 @@ void Circuit::onDeleteNode(DraggableButton* button){
         for (const auto& pair : toRemove) {
             targets.removeAll(pair);
         }
-
-        if (targets.isEmpty()) {
-            connections.remove(it.key());
-        }
     }
 
-    // Gate* gate = button->getGate();
-    // if (gate) {
-    //     gates.removeAll(gate);
-    //     delete gate;
-    // }
+    connections.remove(button);
 
-    // delete button;
+    Gate* gate = button->getGate();
+    if (gate) {
+        gates.removeAll(gate);
+        delete gate;
+    }
+    //button->hide();
+    button->deleteLater();
+    emit nodeDeleted(button);
 }
 
 void Circuit::onClear() {
@@ -380,7 +379,6 @@ void Circuit::updateOutputButton(DraggableButton *button, int input) {
             // maybe even emit connections list now?
             emit allConnections(connections);
         }
-
     }
 }
 
