@@ -99,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //background label
     backgroundGridLabel = new QLabel(ui->centralwidget);
-    backgroundGridLabel->setGeometry(0, 0, 600, 600);
+    backgroundGridLabel->setGeometry(0, 0, 800, 600);
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     // // Create  pixmap
