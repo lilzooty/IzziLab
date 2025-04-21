@@ -317,7 +317,7 @@ void MainWindow::onDeleteClicked(bool checked){
         ui->actionXnorGate->setEnabled(true);
         ui->actionNandGate->setEnabled(true);
         ui->actionInverter->setEnabled(true);
-        ui->actionWire->setEnabled(false);
+        ui->actionWire->setEnabled(true);
 
     }
 }
