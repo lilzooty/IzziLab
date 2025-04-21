@@ -18,22 +18,59 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+/**
+ * @brief The MainWindow class represents the view of our program and is the part of the program that the user will interact with
+ * to build circuits.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Constructs the main window.
+     * @param parent - If the mainwindow has a parent QObject that it resides in.
+     */
     MainWindow(QWidget *parent = nullptr);
+
     ~MainWindow();
 
 public slots:
+    /**
+     * @brief Slot that creates a draggable button/node that represents an AND logic gate.
+     */
     void onAndGateClicked();
+
+    /**
+     * @brief Slot that creates a draggable button/node that represents an OR logic gate.
+     */
     void onOrGateClicked();
+
+    /**
+     * @brief Slot that creates a draggable button/node that represents an inverter gate.
+     */
     void onInverterClicked();
+
+    /**
+     * @brief Slot that creates a draggable button/node that represents an NAND logic gate.
+     */
     void onNandGateClicked();
+
+    /**
+     * @brief Slot that creates a draggable button/node that represents an NOR logic gate.
+     */
     void onNorGateClicked();
+
+    /**
+     * @brief Slot that creates a draggable button/node that represents an XOR logic gate.
+     */
     void onXorGateClicked();
+
+    /**
+     * @brief Slot that creates a draggable button/node that represents an XNOR logic gate.
+     */
     void onXnorGateClicked();
+
 
     void onWireClicked(bool checked);
 
