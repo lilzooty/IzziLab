@@ -37,6 +37,11 @@ public:
 
 public slots:
     /**
+     * @brief Starts the game and initalizes first level.
+     */
+    void startGame();
+
+    /**
      * @brief Slot that creates a draggable button/node that represents an AND logic gate.
      */
     void onAndGateClicked();

@@ -3,16 +3,6 @@
 DraggableButton::DraggableButton() {
 }
 
-
-// NO longer needed??
-// DraggableButton::DraggableButton(QString buttonType, QWidget *parent)
-//     : QPushButton(parent), buttonType(buttonType), gate()
-// {
-//     this->setToolTip(buttonType);
-//     setMouseTracking(true);
-//     this->show();
-// }
-
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     : QPushButton(parent),
     input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
