@@ -168,6 +168,18 @@ private:
      */
     QPixmap* backgroundPixmap;
 
+    /**
+     * @brief Enables the toolbar actions.
+     */
+    void enableToolBarActions();
+
+
+    /**
+     * @brief Disables the toolbar actions.
+     */
+    void disableToolBarActions();
+
+
 signals:
 
     // Notifies the model to add a new Gate from the supplied button

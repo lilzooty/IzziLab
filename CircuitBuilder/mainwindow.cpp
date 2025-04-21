@@ -57,16 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(inverter);
     group->addAction(clear);
 
-    ui->actionAndGate->setEnabled(false);
-    ui->actionOrGate->setEnabled(false);
-    ui->actionNorGate->setEnabled(false);
-    ui->actionXorGate->setEnabled(false);
-    ui->actionXnorGate->setEnabled(false);
-    ui->actionNandGate->setEnabled(false);
-    ui->actionInverter->setEnabled(false);
-    ui->actionWire->setEnabled(false);
-    ui->actionDelete->setEnabled(false);
-    ui->actionClear->setEnabled(false);
+    disableToolBarActions();
 
     connect(&circuit, &Circuit::nodeDeleted, this, &MainWindow::handleNodeDeleted);
 
@@ -290,47 +281,24 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
 
 void MainWindow::onWireClicked(bool checked) {
     if (checked) {
-        ui->actionAndGate->setEnabled(false);
-        ui->actionOrGate->setEnabled(false);
-        ui->actionNorGate->setEnabled(false);
-        ui->actionXorGate->setEnabled(false);
-        ui->actionXnorGate->setEnabled(false);
-        ui->actionNandGate->setEnabled(false);
-        ui->actionInverter->setEnabled(false);
+        disableToolBarActions();
+        ui->actionWire->setEnabled(true);
+        ui->actionClear->setEnabled(true);
     }
     else {
-        ui->actionAndGate->setEnabled(true);
-        ui->actionOrGate->setEnabled(true);
-        ui->actionNorGate->setEnabled(true);
-        ui->actionXorGate->setEnabled(true);
-        ui->actionXnorGate->setEnabled(true);
-        ui->actionNandGate->setEnabled(true);
-        ui->actionInverter->setEnabled(true);
+        enableToolBarActions();
     }
 }
 
 void MainWindow::onDeleteClicked(bool checked){
     if (checked){
-        ui->actionAndGate->setEnabled(false);
-        ui->actionOrGate->setEnabled(false);
-        ui->actionNorGate->setEnabled(false);
-        ui->actionXorGate->setEnabled(false);
-        ui->actionXnorGate->setEnabled(false);
-        ui->actionNandGate->setEnabled(false);
-        ui->actionInverter->setEnabled(false);
-        ui->actionWire->setEnabled(false);
+        disableToolBarActions();
+        ui->actionDelete->setEnabled(true);
+        ui->actionClear->setEnabled(true);
     }
 
     else {
-        ui->actionAndGate->setEnabled(true);
-        ui->actionOrGate->setEnabled(true);
-        ui->actionNorGate->setEnabled(true);
-        ui->actionXorGate->setEnabled(true);
-        ui->actionXnorGate->setEnabled(true);
-        ui->actionNandGate->setEnabled(true);
-        ui->actionInverter->setEnabled(true);
-        ui->actionWire->setEnabled(true);
-
+        enableToolBarActions();
     }
 }
 
@@ -344,6 +312,16 @@ void MainWindow::handleNodeDeleted(DraggableButton* button) {
 }
 
 void MainWindow::startGame() {
+    enableToolBarActions();
+
+    ui->startButton->hide();
+    ui->startButton->deleteLater();
+
+    ui->textEdit->hide();
+    ui->textEdit->deleteLater();
+}
+
+void MainWindow::enableToolBarActions() {
     ui->actionAndGate->setEnabled(true);
     ui->actionOrGate->setEnabled(true);
     ui->actionNorGate->setEnabled(true);
@@ -354,10 +332,17 @@ void MainWindow::startGame() {
     ui->actionWire->setEnabled(true);
     ui->actionDelete->setEnabled(true);
     ui->actionClear->setEnabled(true);
+}
 
-    ui->startButton->hide();
-    ui->startButton->deleteLater();
-
-    ui->textEdit->hide();
-    ui->textEdit->deleteLater();
+void MainWindow::disableToolBarActions() {
+    ui->actionAndGate->setEnabled(false);
+    ui->actionOrGate->setEnabled(false);
+    ui->actionNorGate->setEnabled(false);
+    ui->actionXorGate->setEnabled(false);
+    ui->actionXnorGate->setEnabled(false);
+    ui->actionNandGate->setEnabled(false);
+    ui->actionInverter->setEnabled(false);
+    ui->actionWire->setEnabled(false);
+    ui->actionDelete->setEnabled(false);
+    ui->actionClear->setEnabled(false);
 }
