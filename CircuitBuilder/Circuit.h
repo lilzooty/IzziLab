@@ -121,34 +121,16 @@ private:
     /**
      * @brief Table of easy circuit problems.
      */
-    QVector<TruthTable> easyTables;
+    QVector<TruthTable> allTables;
 
-    /**
-     * @brief Table of medium difficulty circuit problems.
-     */
-    QVector<TruthTable> medTables;
-
-    /**
-     * @brief Table of hard circuit problems.
-     */
-    QVector<TruthTable> hardTables;
 
     int currentLevel = 0;
 
     /**
      * @brief Initializes an easy truth table for a level.
      */
-    void initializeEasyTruthTables();
+    void initializeTruthTables();
 
-    /**
-     * @brief Initializes an medium truth table for a level.
-     */
-    void initializeMedTruthTables();
-
-    /**
-     * @brief Initializes an hard truth table for a level.
-     */
-    void initializeHardTruthTables();
 
     /**
      * @brief Evaluates the current state of the ciruit program that the user has.

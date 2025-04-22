@@ -2,138 +2,49 @@
 #include "qdebug.h"
 
 Circuit::Circuit() : inputNodes(), output(nullptr), gates{}{
-    initializeEasyTruthTables();
-    initializeMedTruthTables();
-    initializeHardTruthTables();
+    initializeTruthTables();
 }
 
 Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
-    initializeEasyTruthTables();
-    initializeMedTruthTables();
-    initializeHardTruthTables();
+    initializeTruthTables();
 }
 
-void Circuit::initializeEasyTruthTables(){
-    // Lvl 1: input → output
+void Circuit::initializeTruthTables(){
     QVector<QVector<int>> input1 = { {0}, {1} };
 
-    TruthTable t1(input1, { 0, 1 });
-    t1.setHint("Direct pass through: output = input");
-    easyTables.append(t1);
+    TruthTable t1(input1, { 0, 1 }, "Direct pass through: output = input");
+    allTables.append(t1);
 
-    // Lvl 2: inverter (NOT gate)
-    TruthTable t2(input1, { 1, 0 });
-    t2.setHint("output = not input");
-    easyTables.append(t2);
-}
+    TruthTable t2(input1, { 1, 0 }, "output = not input");
+    allTables.append(t2);
 
-void Circuit::initializeMedTruthTables() {
     QVector<QVector<int>> inputs2 = {
-        {0, 0},
-        {0, 1},
-        {1, 0},
-        {1, 1}
+        {0, 0}, {0, 1}, {1, 0}, {1, 1}
     };
 
-    // Lvl 1: AND gate
-    TruthTable t1(inputs2, {0, 0, 0, 1});
-    t1.setHint("True when both inputs are 1");
-    medTables.append(t1);
+    allTables.append(TruthTable(inputs2, {0, 0, 0, 1}, "True when both inputs are 1"));
+    allTables.append(TruthTable(inputs2, {0, 1, 1, 1}, "True when either input1 is 1 or input2 is 1"));
+    allTables.append(TruthTable(inputs2, {1, 1, 1, 0}, "True when input1 and inputs2 are both not 1"));
+    allTables.append(TruthTable(inputs2, {1, 0, 0, 0}, "Opposite of an OR gate"));
+    allTables.append(TruthTable(inputs2, {0, 1, 1, 0}, "Inputs must be different"));
+    allTables.append(TruthTable(inputs2, {1, 0, 0, 1}, "Inputs must be the same"));
+    allTables.append(TruthTable(inputs2, {0, 0, 1, 0}, "Use an AND gate and a NOT gate"));
+    allTables.append(TruthTable(inputs2, {1, 1, 0, 1}, "Use a NOT gate and an OR gate"));
+    allTables.append(TruthTable(inputs2, {0, 0, 1, 0}, "Use an AND gate and a XOR gate"));
 
-    // Lvl 2: OR gate
-    TruthTable t2(inputs2, {0, 1, 1, 1});
-    t2.setHint("True when either input1 is 1 or input2 is 1");
-    medTables.append(t2);
-
-    // Lvl 3: NAND gate
-    TruthTable t3(inputs2, {1, 1, 1, 0});
-    t3.setHint("True when input1 and inputs2 are both not 1");
-    medTables.append(t3);
-
-    // Lvl 4: NOR gate
-    TruthTable t4(inputs2, {1, 0, 0, 0});
-    t4.setHint("Opposite of an OR gate");
-    medTables.append(t4);
-
-    // Lvl 5: XOR gate
-    TruthTable t5(inputs2, {0, 1, 1, 0});
-    t5.setHint("Inputs must be different");
-    medTables.append(t5);
-
-    // Lvl 6: XNOR gate
-    TruthTable t6(inputs2, {1, 0, 0, 1});
-    t6.setHint("Inputs must be the same");
-    medTables.append(t6);
-
-    // Medium hard problems
-
-    // Lvl 7: A AND NOT B
-    TruthTable t7(inputs2, {0, 0, 1, 0});
-    t7.setHint("Use an AND gate and a NOT gate");
-    medTables.append(t7);
-
-    // Lvl 8: NOT A OR B
-    TruthTable t8(inputs2,  {1, 1, 0, 1});
-    t8.setHint("Use a NOT gate and an OR gate");
-    medTables.append(t8);
-
-    // Lvl 9: A XOR B AND A
-    TruthTable t9(inputs2, {0, 0, 1, 0});
-    t9.setHint("Use an AND gate and a XOR gate");
-    medTables.append(t9);
-}
-
-void Circuit::initializeHardTruthTables(){
     QVector<QVector<int>> inputs3 = {
-        {0, 0, 0},
-        {0, 0, 1},
-        {0, 1, 0},
-        {0, 1, 1},
-        {1, 0, 0},
-        {1, 0, 1},
-        {1, 1, 0},
-        {1, 1, 1}
+        {0, 0, 0}, {0, 0, 1}, {0, 1, 0}, {0, 1, 1},
+        {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}
     };
 
-    // Lvl 1: A AND B OR C
-    TruthTable t1(inputs3,{0, 1, 0, 1, 1, 1, 1, 1} );
-    t1.setHint("Use AND gate and OR gate");
-    hardTables.append(t1);
-
-    // Lvl 2: NOT (A OR B) AND C 
-    TruthTable t2(inputs3,{0, 1, 0, 0, 0, 0, 0, 0} );
-    t2.setHint("Use NOT gate, OR GATE, and AND gate");
-    hardTables.append(t2);
-
-    // Lvl 3: A XOR B XOR C
-    TruthTable t3(inputs3,{0, 1, 1, 0, 1, 0, 0, 1} );
-    t3.setHint("Use 2 XOR gates");
-    hardTables.append(t3);
-
-    // Lvl 4: A AND B XOR B AND C
-    TruthTable t4(inputs3,{0, 0, 0, 1, 0, 1, 1, 0} );
-    t4.setHint("Use 2 AND gates and a XOR gate");
-    hardTables.append(t4);
-
-    // Lvl 5: NOT (A AND B OR NOT C)
-    TruthTable t5(inputs3,{1, 1, 1, 1, 1, 1, 0, 0} );
-    t5.setHint("2 NOT gates, and AND gate, and an OR gate");
-    hardTables.append(t5);
-
-    // Lvl 6: A OR NOT B AND B OR NOT C
-    TruthTable t6(inputs3,{1, 1, 1, 1, 1, 1, 1, 1});
-    t6.setHint("Use 2 OR Gates, 2 NOT gates, and an AND gate");
-    hardTables.append(t6);
-
-    // Lvl 7: Majority function (at least 2 inputs are 1)
-    TruthTable t7(inputs3,{0, 0, 0, 1, 0, 1, 1, 1});
-    t7.setHint("2 inputs have to be 1");
-    hardTables.append(t7);
-
-    // Lvl 8: A NAND B NOR B NAND C  
-    TruthTable t8(inputs3,{0, 0, 0, 0, 0, 0, 0, 1});
-    t8.setHint("Combine NAND and NOR gates");
-    hardTables.append(t8);
+    allTables.append(TruthTable(inputs3, {0, 1, 0, 1, 1, 1, 1, 1}, "Use AND gate and OR gate"));
+    allTables.append(TruthTable(inputs3, {0, 1, 0, 0, 0, 0, 0, 0}, "Use NOT gate, OR GATE, and AND gate"));
+    allTables.append(TruthTable(inputs3, {0, 1, 1, 0, 1, 0, 0, 1}, "Use 2 XOR gates"));
+    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 0}, "Use 2 AND gates and a XOR gate"));
+    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 0, 0}, "2 NOT gates, and AND gate, and an OR gate"));
+    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 1, 1}, "Use 2 OR Gates, 2 NOT gates, and an AND gate"));
+    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 1}, "2 inputs have to be 1"));
+    allTables.append(TruthTable(inputs3, {0, 0, 0, 0, 0, 0, 0, 1}, "Combine NAND and NOR gates"));
 }
 
 bool Circuit::evaluateCircuit() {
@@ -345,19 +256,6 @@ bool Circuit::isAcyclic(Gate* startNode) {
     return !hasCycle(startNode, visited, recStack);
 }
 
-void Circuit::setTable(QString mode, int level){
-    if(mode == "easy"){
-        currTable = easyTables.at(level);
-    }
-    if(mode == "medium"){
-        currTable = medTables.at(level);
-    }
-
-    if(mode == "hard"){
-        currTable = hardTables.at(level);
-    }
-}
-
 // void Circuit::addNode(GateType gate) {
 //     Gate n(gate);
 //     gates.push_back(&n);
@@ -447,8 +345,7 @@ void Circuit::onEvaluate(){
 void Circuit::levelUp(){
     currentLevel++;
     int inputs = getInputButtonCount(currentLevel);
-    TruthTable newTable;
-    //TruthTable newTable = getTruthTable();
+    TruthTable newTable = allTables.at(currentLevel);
     emit sendLevel(inputs,newTable);
 
 
