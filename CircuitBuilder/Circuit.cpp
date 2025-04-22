@@ -409,23 +409,19 @@ void Circuit::onButtonMoved(DraggableButton* button){
 }
 
 
-void Circuit::createLevel(int level){
+int Circuit::getInputButtonCount(int level){
 
     if (level < 2){
-
-        emit sendInputCount(1);
-
+        return 1;
     }
 
     else if (level > 2 && level < 11){
-        emit sendInputCount(2);
-
+        return 2;
 
     }
     else{
-        emit sendInputCount(3);
+        return 3;
     }
-
 }
 
 void Circuit::toggleInputSignal(DraggableButton* inputButton){
@@ -444,4 +440,16 @@ void Circuit::onEvaluate(){
     else{
         emit sendEvaluation(isValidCircuit);
     }
+
+}
+
+
+void Circuit::levelUp(){
+    currentLevel++;
+    int inputs = getInputButtonCount(currentLevel);
+    TruthTable newTable;
+    //TruthTable newTable = getTruthTable();
+    emit sendLevel(inputs,newTable);
+
+
 }

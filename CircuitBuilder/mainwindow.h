@@ -111,11 +111,19 @@ public slots:
     void handleNodeDeleted(DraggableButton* button);
 
     /**
+     * Connected to Circuit::sendEvaluate, used to get the next level upon completion.
+     */
+    void getNextLevel(bool levelComplete);
+
+
+
+    /**
      * @brief Constructs the input buttons from the list and the output,
      * connected to Circuit::sendInputCount
+     * emits nextLevel()
      * @param inputButtons
      */
-    void initializeButtons(int inputs);
+    void drawNewLevel(int inputs, TruthTable newTable);
 
 
 
@@ -187,7 +195,7 @@ signals:
      */
     void addButtonToCircuit(DraggableButton* button, GateType gateType);
 
-    //void getNextLevel();
+    void nextLevel();
 
 
 };

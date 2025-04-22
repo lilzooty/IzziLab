@@ -91,7 +91,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
 
     connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
-    connect(&circuit, &Circuit::sendInputCount, this, &MainWindow::initializeButtons);
+
+    connect(&circuit, &Circuit::sendEvaluation, this, &MainWindow::getNextLevel);
+    connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
+    connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
 
     //physics set up
     initializePhysics();
@@ -226,6 +229,8 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     // Gate gate(gateType);
     // DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
 
+
+
     Gate* gate = new Gate(gateType);
     DraggableButton* newButton = new DraggableButton(gateType, this, gate);
 
@@ -246,7 +251,15 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
     //connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);  FIXME new signal use and signature
 
+
+    if (gateType == OUTPUT){
+        QPoint p = QPoint(300,300);
+        newButton->setPosition(p);
+    }
+
     return newButton;
+
+
 }
 
 void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
@@ -366,11 +379,27 @@ void MainWindow::startGame() {
     ui->textEdit->deleteLater();
 }
 
-void MainWindow::initializeButtons(int inputs){
+void MainWindow::drawNewLevel(int inputs, TruthTable newTable){
     for (int i = 0; i < inputs; i++){
         // CHANGE OR ELSE
         createGateButton(GateType::INPUT, ui->actionXnorGate->icon());
+        qDebug()<<"in";
+
     }
 
-    createGateButton(GateType::OUTPUT, ui->actionXnorGate->icon());
+    createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
+    qDebug()<<"out";
+
+    // pull data out of truthtable.
+}
+
+void MainWindow::getNextLevel(bool levelComplete){
+    if (levelComplete){
+        emit nextLevel();
+    }
+    else
+    {
+        // Display try again message.
+    }
+
 }
