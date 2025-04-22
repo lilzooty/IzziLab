@@ -330,11 +330,11 @@ void Circuit::onButtonMoved(DraggableButton* button){
 
 int Circuit::getInputButtonCount(int level){
 
-    if (level <= 2){
+    if (level < 2){
         return 1;
     }
 
-    else if (level > 2 && level < 11){
+    else if (level >= 2 && level < 11){
         return 2;
 
     }
@@ -356,6 +356,7 @@ void Circuit::onEvaluate(){
 
 
 void Circuit::levelUp(){
+    onClear();
     int inputs = getInputButtonCount(currentLevel);
     currTable = allTables.at(currentLevel);
     currentLevel++;
