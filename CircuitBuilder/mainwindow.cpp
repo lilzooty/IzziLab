@@ -375,7 +375,7 @@ void MainWindow::drawNewLevel(int inputs, TruthTable newTable){
     createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
     qDebug()<<"out";
 
-    // pull data out of truthtable.
+    // pull data out of truthtable
 }
 
 void MainWindow::getNextLevel(bool levelComplete){
