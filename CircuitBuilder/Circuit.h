@@ -216,6 +216,8 @@ public slots:
 
     void createLevel(int currentLevel);
 
+    void onEvaluate();
+
 signals:
 
     /**
