@@ -137,6 +137,7 @@ void Circuit::initializeHardTruthTables(){
 }
 
 bool Circuit::evaluateCircuit() {
+    qDebug() << "inEval";
     if(!isAcyclic(output) || inputNodes.empty() || !output){
         return false;
     }
@@ -431,4 +432,16 @@ void Circuit::toggleInputSignal(DraggableButton* inputButton){
 
     // While dense, simply flips the bool that represents the signal of the gate.
     inputButton->getGate()->setSignal(!inputButton->getGate()->getSignal());
+}
+
+void Circuit::onEvaluate(){
+    bool isValidCircuit = evaluateCircuit();
+
+    if(isValidCircuit){
+        emit sendEvaluation(isValidCircuit);
+    }
+
+    else{
+        emit sendEvaluation(isValidCircuit);
+    }
 }

@@ -240,6 +240,8 @@ signals:
      */
     void sendInputCount(int numberOfInputs);
 
+    void sendEvaluation(bool correct);
+
     //void advanceLevel();
 };
 
