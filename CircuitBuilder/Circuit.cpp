@@ -47,6 +47,18 @@ void Circuit::initializeTruthTables(){
     allTables.append(TruthTable(inputs3, {0, 0, 0, 0, 0, 0, 0, 1}, "Combine NAND and NOR gates"));
 }
 
+bool Circuit::evaluateCurrentInputs(){
+    if(!isAcyclic(output) || inputNodes.empty() || !output){
+        return false;
+    }
+    if(evaluateNodeTree(output)){
+        return output->getSignal();
+    }
+
+    return false;
+}
+
+
 bool Circuit::evaluateCircuit() {
     qDebug() << "inEval";
     if(!isAcyclic(output) || inputNodes.empty() || !output){
@@ -318,7 +330,7 @@ void Circuit::onButtonMoved(DraggableButton* button){
 
 int Circuit::getInputButtonCount(int level){
 
-    if (level < 2){
+    if (level <= 2){
         return 1;
     }
 
@@ -326,7 +338,7 @@ int Circuit::getInputButtonCount(int level){
         return 2;
 
     }
-    else{
+    else {
         return 3;
     }
 }
@@ -352,8 +364,8 @@ void Circuit::onEvaluate(){
 
 
 void Circuit::levelUp(){
-    currentLevel++;
     int inputs = getInputButtonCount(currentLevel);
     TruthTable newTable = allTables.at(currentLevel);
+    currentLevel++;
     emit sendLevel(inputs,&newTable);
 }
