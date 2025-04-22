@@ -3,6 +3,7 @@
 #include <QPushButton>
 #include <QMouseEvent>
 #include <string>
+#include <QIcon>
 #include <Box2D/Box2D.h>
 #include "Gate.h"
 
@@ -14,7 +15,8 @@ class DraggableButton : public QPushButton
 private:
 
     GateType gateType;
-
+    QIcon const onIcon;
+    QIcon const offIcon;
 
     QPoint dragStartPos;
     QPoint currentPos;
@@ -64,6 +66,7 @@ public:
     b2Body* getPhysicsBody();
 
     Gate* getGate();
+
 
 
 

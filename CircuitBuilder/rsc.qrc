@@ -7,6 +7,8 @@
         <file>OR.png</file>
         <file>XNOR.png</file>
         <file>XOR.png</file>
+        <file>INPUT-ON.png</file>
+        <file>INPUT-OFF.png</file>
     </qresource>
     <qresource prefix="/BACKGROUND">
         <file>BGgrid.jpg</file>

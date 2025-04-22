@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction* norGate = ui->actionNorGate;
     QAction* xorGate = ui->actionXorGate;
     QAction* xnorGate = ui->actionXnorGate;
+    QAction* inputGate = ui->actionInputGate;
 
     QActionGroup *group = new QActionGroup(this);
 
@@ -56,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(xnorGate);
     group->addAction(inverter);
     group->addAction(clear);
+    group->addAction(inputGate);
 
     disableToolBarActions();
 
@@ -73,6 +75,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionNorGate, &QAction::triggered, this, &MainWindow::onNorGateClicked);
     connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
     connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
+     connect(ui->actionInputGate, &QAction::triggered, this, &MainWindow::onInputGateClicked);
 
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionDelete, &QAction::triggered, this, &MainWindow::onDeleteClicked);
@@ -141,7 +144,9 @@ void MainWindow::onXorGateClicked(){
 void MainWindow::onXnorGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::XNOR_GATE, ui->actionXnorGate->icon()));
 }
-
+void MainWindow::onInputGateClicked(){
+    draggableButtons.push_back(createGateButton(GateType::INPUT, ui->actionInputGate->icon()));
+}
 
 void MainWindow::createPhysicsBody(DraggableButton* button)
 {
@@ -273,9 +278,6 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 
 void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
 
-    QPainter painter(backgroundPixmap);
-    painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
-
     backgroundPixmap->fill(Qt::transparent);
 
     // Loop through each starting button and its wires
@@ -304,15 +306,58 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
             QPoint p1(midX, startPos.y());
             QPoint p2(midX, endPos.y());
 
-            // Draw three segments
-            painter.drawLine(startPos, p1);
-            painter.drawLine(p1, p2);
-            painter.drawLine(p2, endPos);
+
+
+            // draw arrows
+            drawWireArrow(startPos, p1);
+            drawWireArrow( p1, p2);
+            drawWireArrow( p2, endPos);
+
         }
     }
 
     backgroundGridLabel->setPixmap(*backgroundPixmap);
 }
+
+void MainWindow::drawWireArrow(QPoint start,  QPoint end) {
+
+    int arrowSize = 10;
+
+    QPainter painter(backgroundPixmap);
+
+    painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
+    painter.drawLine(start,end);
+
+    QPoint diff = end - start;
+    QPoint arrowPos = (start + end) / 2;  // Place arrow in middle of segment
+
+    QPolygon triangle;
+    if (abs(diff.x()) > abs(diff.y())) {  // Horizontal line
+        if (diff.x() > 0) {  // Going right
+            triangle << arrowPos
+                     << QPoint(arrowPos.x() - arrowSize, arrowPos.y() - arrowSize/2)
+                     << QPoint(arrowPos.x() - arrowSize, arrowPos.y() + arrowSize/2);
+        } else {  // Going left
+            triangle << arrowPos
+                     << QPoint(arrowPos.x() + arrowSize, arrowPos.y() - arrowSize/2)
+                     << QPoint(arrowPos.x() + arrowSize, arrowPos.y() + arrowSize/2);
+        }
+    } else {  // Vertical line
+        if (diff.y() > 0) {  // Going down
+            triangle << arrowPos
+                     << QPoint(arrowPos.x() - arrowSize/2, arrowPos.y() - arrowSize)
+                     << QPoint(arrowPos.x() + arrowSize/2, arrowPos.y() - arrowSize);
+        } else {  // Going up
+            triangle << arrowPos
+                     << QPoint(arrowPos.x() - arrowSize/2, arrowPos.y() + arrowSize)
+                     << QPoint(arrowPos.x() + arrowSize/2, arrowPos.y() + arrowSize);
+        }
+    }
+
+    painter.setBrush(QBrush(Qt::white));
+    painter.drawPolygon(triangle);
+}
+
 
 void MainWindow::onWireClicked(bool checked) {
     if (checked) {
@@ -367,6 +412,7 @@ void MainWindow::enableToolBarActions() {
     ui->actionWire->setEnabled(true);
     ui->actionDelete->setEnabled(true);
     ui->actionClear->setEnabled(true);
+    ui->actionInputGate->setEnabled(true);
 }
 
 void MainWindow::disableToolBarActions() {
@@ -380,6 +426,7 @@ void MainWindow::disableToolBarActions() {
     ui->actionWire->setEnabled(false);
     ui->actionDelete->setEnabled(false);
     ui->actionClear->setEnabled(false);
+    ui->actionInputGate->setEnabled(false);
 }
 
 void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
@@ -408,7 +455,7 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
         // CHANGE ICON OR ELSE
         p = QPoint(100, 100*i + 100);
 
-        DraggableButton* input = createGateButton(GateType::INPUT, ui->actionXnorGate->icon());
+        DraggableButton* input = createGateButton(GateType::INPUT, ui->actionInputGate->icon());
 
         ui->inputLayout->addWidget(input);
 

@@ -77,6 +77,10 @@ public slots:
     void onXnorGateClicked();
 
     /**
+     * @brief Slot that creates an draggable button/node that represents an INPUT gate.
+     */
+    void onInputGateClicked();
+    /**
      * @brief Slot that tells the Circuit that the user is in wire/connection mode.
      * @param checked - If the wire toolbar action is checked or not.
      */
@@ -175,11 +179,6 @@ private:
      */
     DraggableButton* createGateButton(GateType gateType, const QIcon& icon);
 
-    // /**
-    //  * Overload to draw to custom position.
-    //  */
-    // DraggableButton* createGateButton(const GateType gateType, const QIcon& icon, QPoint pos);
-
     /**
      * @brief QLabel that represents the background where our grid is and will have a pixmap overtop of it.
      */
@@ -200,6 +199,11 @@ private:
      * @brief Disables the toolbar actions.
      */
     void disableToolBarActions();
+
+    /**
+     * @brief Helper method that draws wire segments
+     */
+    void drawWireArrow(QPoint start,  QPoint end);
 
 
 signals:

@@ -6,14 +6,21 @@ DraggableButton::DraggableButton() {
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     : QPushButton(parent),
     input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
-    gate(gate), gateType(gateType)
+    gate(gate), gateType(gateType), onIcon(":/GATES/INPUT-ON.png"), offIcon(":/GATES/INPUT-OFF.png")
     {
+
 
     if (gateType == GateType::INVERTER){
         input2.hide();
         input1.move(this->x() +15 , this->y());
         output.move(this->x() + 15, this->y()+12);
         connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
+        connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+    }
+    else if(gateType == GateType::INPUT){
+        input1.hide();
+        input2.hide();
+        output.move(this->x() + 15, this->y()+12);
         connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
     }
     else{
@@ -67,13 +74,18 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     }
 
     if (gateType == INPUT){
-        emit toggleSignal(this);
+        if(this->icon().cacheKey() == onIcon.cacheKey()){
+            this->setIcon(offIcon);
+        } else{
+            this->setIcon(onIcon);
+        }
+        emit toggleSignal(this);  //TELL IF ON OR OFF
     }
 }
 
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 {
-    if (gateType != INPUT && gateType != OUTPUT){
+    if ( gateType != OUTPUT){
     if (event->buttons() & Qt::LeftButton) {
 
         QPoint globalPos = mapToParent(event->pos() - dragStartPos);

@@ -116,6 +116,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </attribute>
    <addaction name="actionWire"/>
    <addaction name="actionDelete"/>
+   <addaction name="actionInputGate"/>
    <addaction name="actionInverter"/>
    <addaction name="actionOrGate"/>
    <addaction name="actionAndGate"/>
@@ -237,6 +238,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </property>
    <property name="text">
     <string>Delete</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionInputGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/INPUT-OFF.png</normaloff>:/GATES/INPUT-OFF.png</iconset>
+   </property>
+   <property name="text">
+    <string>InputGate</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
