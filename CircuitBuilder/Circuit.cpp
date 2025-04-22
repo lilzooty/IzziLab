@@ -392,6 +392,8 @@ void Circuit::addButton(DraggableButton *button){
     connect(button, &DraggableButton::onButtonMoved, this, &Circuit::onButtonMoved);  // TO REDRAW WIRES
 
     connect(button, &DraggableButton::deleteMe, this, &Circuit::onDeleteNode);
+    connect(button, &DraggableButton::toggleSignal  , this, &Circuit::toggleInputSignal);
+
 
     qDebug() << "new button";
 }
@@ -404,4 +406,30 @@ void Circuit::addButton(DraggableButton *button){
 
 void Circuit::onButtonMoved(DraggableButton* button){
     emit allConnections(connections);
+}
+
+
+void Circuit::createLevel(int level){
+
+    if (level < 2){
+
+        emit sendInputCount(1);
+
+    }
+
+    else if (level > 2 && level < 11){
+        emit sendInputCount(2);
+
+
+    }
+    else{
+        emit sendInputCount(3);
+    }
+
+}
+
+void Circuit::toggleInputSignal(DraggableButton* inputButton){
+
+    // While dense, simply flips the bool that represents the signal of the gate.
+    inputButton->getGate()->setSignal(!inputButton->getGate()->getSignal());
 }

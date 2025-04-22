@@ -133,6 +133,8 @@ private:
      */
     QVector<TruthTable> hardTables;
 
+    int currentLevel;
+
     /**
      * @brief Initializes an easy truth table for a level.
      */
@@ -167,9 +169,7 @@ public slots:
     /**
      * ********************* SHOULD THESE BE DELETED ****************************
      */
-    // void onConnectNode(Node* fromNode, Node* toNode, int input);
 
-   // void onDisconnectNode(Node* fromNode, Node* toNode);
 
    // void onDeleteNode(Node* node);
 
@@ -209,6 +209,13 @@ public slots:
      */
     void onClear();
 
+    /**
+     * @brief Changes the output of an input gate when its button is clicked.
+     */
+    void toggleInputSignal(DraggableButton* inputButton);
+
+    void createLevel(int currentLevel);
+
 signals:
 
     /**
@@ -225,6 +232,13 @@ signals:
      * @param connections - ?
      */
     void allConnections(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+
+    /**
+     * @brief number of buttons that will be used as inputs.
+     */
+    void sendInputCount(int numberOfInputs);
+
+    //void advanceLevel();
 };
 
 #endif

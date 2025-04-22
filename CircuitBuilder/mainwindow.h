@@ -110,6 +110,15 @@ public slots:
      */
     void handleNodeDeleted(DraggableButton* button);
 
+    /**
+     * @brief Constructs the input buttons from the list and the output,
+     * connected to Circuit::sendInputCount
+     * @param inputButtons
+     */
+    void initializeButtons(int inputs);
+
+
+
 
 private:
     /**
@@ -177,6 +186,8 @@ signals:
      * @param gateType - Gate type to be used to create a Gate.
      */
     void addButtonToCircuit(DraggableButton* button, GateType gateType);
+
+    //void getNextLevel();
 
 
 };

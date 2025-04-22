@@ -51,7 +51,7 @@ public:
 
     bool getSignal();
 
-    void setSignal(int signal);
+    void setSignal(bool signal);
 
     GateType getGateType();
 

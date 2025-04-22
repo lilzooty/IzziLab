@@ -88,6 +88,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
 
     connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
+    connect(&circuit, &Circuit::sendInputCount, this, &MainWindow::initializeButtons);
 
     //physics set up
     initializePhysics();
@@ -360,4 +361,13 @@ void MainWindow::startGame() {
 
     ui->textEdit->hide();
     ui->textEdit->deleteLater();
+}
+
+void MainWindow::initializeButtons(int inputs){
+    for (int i = 0; i < inputs; i++){
+        // CHANGE OR ELSE
+        createGateButton(GateType::INPUT, ui->actionXnorGate->icon());
+    }
+
+    createGateButton(GateType::OUTPUT, ui->actionXnorGate->icon());
 }
