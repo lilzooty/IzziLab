@@ -248,35 +248,6 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 
 }
 
-// DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon, QPoint pos)
-// {
-//     Gate* gate = new Gate(gateType);
-//     DraggableButton* newButton = new DraggableButton(gateType, this, gate, pos);
-//     newButton->setPosition(pos);
-
-//     qDebug()<< newButton->pos();
-//     qDebug()<<pos;
-
-//     emit addButtonToCircuit(newButton, gateType);
-
-//     QPoint globalMousePos = QCursor::pos();
-//     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
-//     newButton->setPosition(widgetPos);
-//     newButton->setGeometry(widgetPos.x(), widgetPos.y(), GATE_SIZE, GATE_SIZE);
-//     newButton->show();
-//     createPhysicsBody(newButton);
-
-//     newButton->setIconSize(QSize(GATE_SIZE, GATE_SIZE));
-//     newButton->setIcon(icon);
-
-//     connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
-//     connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
-
-//     return newButton;
-
-
-// }
-
 void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
 
     backgroundPixmap->fill(Qt::transparent);
@@ -432,24 +403,6 @@ void MainWindow::disableToolBarActions() {
 
 void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     QPoint p;
-
-    // // Clearing the input and output layouts upon level instantiation.
-    // QLayoutItem *item;
-    // while(ui->inputLayout->count() > 0){
-    //     QLayoutItem *item = ui->inputLayout->takeAt(0);
-    //     QWidget* widget = item->widget();
-    //     if(widget)
-    //         delete widget;
-    //     delete item;
-    // }
-
-    // while(ui->outputLayout->count() > 0){
-    //     QLayoutItem *item = ui->outputLayout->takeAt(0);
-    //     QWidget* widget = item->widget();
-    //     if(widget)
-    //         delete widget;
-    //     delete item;
-    // }
 
     // Adding the new inputs and outputs
     for (int i = 0; i < inputs; i++){

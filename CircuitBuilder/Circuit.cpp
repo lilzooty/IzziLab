@@ -280,7 +280,7 @@ bool Circuit::isAcyclic(Gate* startNode) {
 
 
 void Circuit::updateOutputButton(DraggableButton *button, int input, bool deletingWire) {
-    if (input == 3) {
+    if (input == 3 && !deletingWire) {
         mostRecentOutput = button;
     } else if (input == 1 || input == 2) {
         if (mostRecentOutput != nullptr){

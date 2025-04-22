@@ -6,7 +6,7 @@ DraggableButton::DraggableButton() {
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     : QPushButton(parent),
     input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
-    gate(gate), gateType(gateType), onIcon(":/GATES/INPUT-ON.png"), offIcon(":/GATES/INPUT-OFF.png")
+    gate(gate), gateType(gateType), onIcon(":/GATES/INPUT-ON.png"), offIcon(":/GATES/INPUT-OFF.png"), isDelete(false)
     {
 
 
@@ -103,6 +103,7 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 void DraggableButton::input1Clicked(){
 
     if (isDelete){
+        qDebug() << isDelete;
         emit sendButton(this, 1, true);
     }
     else if (wireModeOn) {
@@ -166,7 +167,7 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
 }
 
 void DraggableButton::setWireMode(bool isWireMode) {
-    wireModeOn = isWireMode;
+    this->wireModeOn = isWireMode;
 
 }
 
