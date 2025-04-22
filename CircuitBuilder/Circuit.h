@@ -145,6 +145,7 @@ private:
      */
     TruthTable currTable;
 
+    bool evaluateCurrentInputs();
 
 
 public slots:
