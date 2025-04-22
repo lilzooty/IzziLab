@@ -10,18 +10,24 @@ DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     {
 
 
-    if (gateType == GateType::INVERTER){
+    if (gateType == INVERTER){
         input2.hide();
         input1.move(this->x() +15 , this->y());
         output.move(this->x() + 15, this->y()+12);
         connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
         connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
     }
-    else if(gateType == GateType::INPUT){
+    else if(gateType == INPUT){
         input1.hide();
         input2.hide();
         output.move(this->x() + 15, this->y()+12);
         connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+    }
+    else if (gateType == OUTPUT){
+        input2.hide();
+        output.hide();
+        input1.move(this->x() -10 , this->y()+10);
+        connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
     }
     else{
 
@@ -70,7 +76,9 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     QPushButton::mousePressEvent(event);
 
     if (isDelete){
+        if (gateType != OUTPUT && gateType != INPUT)
         emit deleteMe(this);
+        return;
     }
 
     if (gateType == INPUT){

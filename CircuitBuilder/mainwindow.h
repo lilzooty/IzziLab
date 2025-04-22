@@ -147,6 +147,8 @@ private:
     int GATE_SIZE = 50;
     vector<vector<bool>> grid;
 
+    vector<DraggableButton*> inputButtons;
+
     // The Model
     /**
      * @brief Our circuit model which will be used to update mainwindow.

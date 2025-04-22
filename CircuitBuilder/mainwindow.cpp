@@ -244,8 +244,6 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
 
     return newButton;
-
-
 }
 
 void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
@@ -371,6 +369,11 @@ void MainWindow::startGame() {
 
     ui->textEdit->hide();
     ui->textEdit->deleteLater();
+
+    // Will only ever need the one output
+    QPoint p = QPoint(600,300);
+    DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
+    output->move(p);
 }
 
 void MainWindow::enableToolBarActions() {
@@ -404,21 +407,27 @@ void MainWindow::disableToolBarActions() {
 void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     QPoint p;
 
-    // Adding the new inputs and outputs
-    for (int i = 0; i < inputs; i++){
-        // CHANGE ICON OR ELSE
-        p = QPoint(100, 100*i + 100);
+    backgroundPixmap->fill(Qt::transparent);
+    backgroundGridLabel->setPixmap(*backgroundPixmap);
 
+    if (inputButtons.size() < inputs){
         DraggableButton* input = createGateButton(GateType::INPUT, ui->actionInputGate->icon());
+        p = QPoint(100, 100*inputButtons.size()+ 100);
+
         input->move(p);
-
-        //ui->inputLayout->addWidget(input);
-
     }
 
-    p = QPoint(600,300);
-    DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
-    output->move(p);
+    // for (int i = 0; i < inputs; i++){
+
+
+
+    //     //ui->inputLayout->addWidget(input);
+    // }
+
+
+    // p = QPoint(600,300);
+    // DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
+    // output->move(p);
     //ui->outputLayout->addWidget(output);
 
     // pull data out of truthtable
@@ -484,6 +493,9 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
         msgBox.setInformativeText("Hint: " + currentTable->getHint());
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
+        emit nextLevel();
+
+        return;
     }
 
 }
