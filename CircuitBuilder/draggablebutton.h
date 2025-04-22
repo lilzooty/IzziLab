@@ -55,6 +55,8 @@ public:
 
     DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
 
+    // allows custom pos placing
+    DraggableButton(GateType gateType, QWidget *parent, Gate* gate, QPoint pos);
 
     QPoint getPosition() { return currentPos; }
     void setPosition(QPoint& pos) { currentPos = pos; }

@@ -175,6 +175,11 @@ private:
      */
     DraggableButton* createGateButton(GateType gateType, const QIcon& icon);
 
+    // /**
+    //  * Overload to draw to custom position.
+    //  */
+    // DraggableButton* createGateButton(const GateType gateType, const QIcon& icon, QPoint pos);
+
     /**
      * @brief QLabel that represents the background where our grid is and will have a pixmap overtop of it.
      */

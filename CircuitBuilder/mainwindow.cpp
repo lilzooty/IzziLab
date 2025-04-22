@@ -219,11 +219,6 @@ void MainWindow::onClearClicked()
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
 {
-    // Gate gate(gateType);
-    // DraggableButton* newButton = new DraggableButton(gateType, this, &gate);
-
-
-
     Gate* gate = new Gate(gateType);
     DraggableButton* newButton = new DraggableButton(gateType, this, gate);
 
@@ -240,20 +235,41 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     newButton->setIcon(icon);
 
     connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
-
     connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
-    //connect(newButton, &DraggableButton::sendTwoButtons, this, &MainWindow::drawWire);  FIXME new signal use and signature
-
-
-    if (gateType == OUTPUT){
-        QPoint p = QPoint(300,300);
-        newButton->setPosition(p);
-    }
 
     return newButton;
 
 
 }
+
+// DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon, QPoint pos)
+// {
+//     Gate* gate = new Gate(gateType);
+//     DraggableButton* newButton = new DraggableButton(gateType, this, gate, pos);
+//     newButton->setPosition(pos);
+
+//     qDebug()<< newButton->pos();
+//     qDebug()<<pos;
+
+//     emit addButtonToCircuit(newButton, gateType);
+
+//     QPoint globalMousePos = QCursor::pos();
+//     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
+//     newButton->setPosition(widgetPos);
+//     newButton->setGeometry(widgetPos.x(), widgetPos.y(), GATE_SIZE, GATE_SIZE);
+//     newButton->show();
+//     createPhysicsBody(newButton);
+
+//     newButton->setIconSize(QSize(GATE_SIZE, GATE_SIZE));
+//     newButton->setIcon(icon);
+
+//     connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
+//     connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
+
+//     return newButton;
+
+
+// }
 
 void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
 
@@ -367,18 +383,42 @@ void MainWindow::disableToolBarActions() {
 }
 
 void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
+    QPoint p;
+
+    // Clearing the input and output layouts upon level instantiation.
+    QLayoutItem *item;
+    while(ui->inputLayout->count() > 0){
+        QLayoutItem *item = ui->inputLayout->takeAt(0);
+        QWidget* widget = item->widget();
+        if(widget)
+            delete widget;
+        delete item;
+    }
+
+    while(ui->outputLayout->count() > 0){
+        QLayoutItem *item = ui->outputLayout->takeAt(0);
+        QWidget* widget = item->widget();
+        if(widget)
+            delete widget;
+        delete item;
+    }
+
+    // Adding the new inputs and outputs
     for (int i = 0; i < inputs; i++){
-        // CHANGE OR ELSE
-        createGateButton(GateType::INPUT, ui->actionXnorGate->icon());
-        qDebug()<<"in";
+        // CHANGE ICON OR ELSE
+        p = QPoint(100, 100*i + 100);
+
+        DraggableButton* input = createGateButton(GateType::INPUT, ui->actionXnorGate->icon());
+
+        ui->inputLayout->addWidget(input);
 
     }
 
-    createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
-    qDebug()<<"out";
+    p = QPoint(600,300);
+    DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
+    ui->outputLayout->addWidget(output);
 
     // pull data out of truthtable
-
     QTableWidget* tableWidget = ui->previewTableWidget;
 
     QList tableRows = newTable->getRows();

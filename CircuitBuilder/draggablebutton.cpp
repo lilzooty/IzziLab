@@ -28,11 +28,37 @@ DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
 
 }
 
+    DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate, QPoint pos)
+        : QPushButton(parent),
+        input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
+        gate(gate), gateType(gateType)
+    {
+        this->setPosition(pos);
+        if (gateType == GateType::INVERTER){
+            input2.hide();
+            input1.move(this->x() +15 , this->y());
+            output.move(this->x() + 15, this->y()+12);
+            connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
+            connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+        }
+        else{
+
+            input1.move(this->x() -10 , this->y());
+            input2.move(this->x() -10, this->y() +25);
+            output.move(this->x() + 15, this->y()+12);
+            connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
+            connect(&input2, &QPushButton::clicked, this, &DraggableButton::input2Clicked);
+            connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+        }
+
+    }
+
 void DraggableButton::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         dragStartPos = event->pos();
     }
+
 
     QPushButton::mousePressEvent(event);
 
