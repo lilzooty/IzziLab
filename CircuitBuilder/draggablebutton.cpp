@@ -37,7 +37,6 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     QPushButton::mousePressEvent(event);
 
     if (isDelete){
-
         emit deleteMe(this);
     }
 

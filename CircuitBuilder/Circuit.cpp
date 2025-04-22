@@ -291,6 +291,8 @@ void Circuit::onDeleteNode(DraggableButton* button){
     //button->hide();
     button->deleteLater();
     emit nodeDeleted(button);
+
+    emit allConnections(connections); // Redraaw Wires
 }
 
 void Circuit::onClear() {
