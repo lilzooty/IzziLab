@@ -410,13 +410,15 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     backgroundPixmap->fill(Qt::transparent);
     backgroundGridLabel->setPixmap(*backgroundPixmap);
 
-    if (inputButtons.size() < inputs){
+    for (int i = 0; i < inputs; i++){
         DraggableButton* input = createGateButton(GateType::INPUT, ui->actionInputGate->icon());
-        p = QPoint(100, 100*inputButtons.size()+ 100);
+        p = QPoint(100, 100*i+ 100);
 
         input->move(p);
     }
-
+  p = QPoint(600,300);
+    DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
+    output->move(p);
     // for (int i = 0; i < inputs; i++){
 
 
@@ -493,7 +495,7 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
         msgBox.setInformativeText("Hint: " + currentTable->getHint());
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
-        emit nextLevel();
+       // emit nextLevel();
 
         return;
     }
