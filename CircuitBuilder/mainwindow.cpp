@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&circuit, &Circuit::nodeDeleted, this, &MainWindow::handleNodeDeleted);
 
     connect(ui->startButton, &QPushButton::pressed, this, &MainWindow::startGame);
+    connect(ui->EvaluateButton, &QPushButton::pressed, this, &Circuit::)
 
     connect(ui->actionAndGate, &QAction::triggered, this, &MainWindow::onAndGateClicked);
     connect(ui->actionOrGate, &QAction::triggered, this, &MainWindow::onOrGateClicked);
