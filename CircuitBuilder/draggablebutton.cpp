@@ -63,19 +63,33 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 
 
 void DraggableButton::input1Clicked(){
-    if (wireModeOn) {
-        emit sendButton(this, 1);
+
+    if (isDelete){
+        emit sendButton(this, 1, true);
     }
+    else if (wireModeOn) {
+        emit sendButton(this, 1, false);
+    }
+
 }
 void DraggableButton::input2Clicked(){
-    if (wireModeOn) {
-        emit sendButton(this, 2);
+
+    if (isDelete){
+        emit sendButton(this, 2, true);
     }
+    else if (wireModeOn) {
+        emit sendButton(this, 2, false);
+    }
+
 }
 void DraggableButton::outputClicked(){
-    if (wireModeOn) {
-        emit sendButton(this, 3);
+    if (isDelete){
+        emit sendButton(this, 3, true);
     }
+    else if (wireModeOn) {
+        emit sendButton(this, 3, false);
+    }
+
 }
 
 QPoint DraggableButton::snapToGrid( QPoint& point)

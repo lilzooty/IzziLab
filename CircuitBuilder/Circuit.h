@@ -68,8 +68,9 @@ public :
      * @brief Updates the most recent output button clicked for a node to keep track of connections.
      * @param button - Button that was pressed.
      * @param input - Which input was pressed.
+     * @param deletingWire - if the connection should be deleted
      */
-    void updateOutputButton(DraggableButton *button, int input);
+    void updateOutputButton(DraggableButton *button, int input, bool deletingWire);
 
     /**
      * @brief Adds a button to the circuits vector of buttons through a connection with draggable button.
@@ -177,8 +178,9 @@ public slots:
      * @brief When a node is disconnected, it needs to be removed from vector of connections.
      * @param fromButton - Root/output button.
      * @param toButton - Child/input button.
+     * @param input - the connection on the gate to be disconnected
      */
-    void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton);
+    void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
 
     /**
      * @brief When a node is deleted we need to update the state of the model.

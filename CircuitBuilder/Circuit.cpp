@@ -124,7 +124,7 @@ bool Circuit::evaluateNodeTree(Gate* node) {
 }
 
 void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input) {
-    if(!fromButton || !toButton){
+    if(!fromButton || !toButton || fromButton == toButton) { // Do not allow circular connections
         return;
     }
 
@@ -134,10 +134,12 @@ void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButt
     if (!fromNode || !toNode || fromNode->getGateType() == OUTPUT || toNode->getGateType() == INPUT) return;
 
     if (toNode->addInput(fromNode, input)) {
-       connections[fromButton].append(QPair<DraggableButton*, int>(toButton,input));
+        // prevent stacking connections
+        QPair<DraggableButton*, int> newPair(toButton,input);
+        if(!connections[fromButton].contains(newPair)){
+            connections[fromButton].append(newPair);
+        }
 
-    //GEEKER
-    // we dont want to add twice to vector
 
     }
 
@@ -145,7 +147,7 @@ void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButt
 
 }
 
-void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton) {
+void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input) {
     Gate* fromNode = fromButton->getGate();
     Gate* toNode = toButton->getGate();
 
@@ -164,7 +166,9 @@ void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toB
             }
         }
         for (const auto& pair : toRemove) {
-            vec.removeAll(pair);
+            if( pair.second == input){
+                 vec.removeAll(pair);
+            }
         }
     }
 }
@@ -263,18 +267,23 @@ bool Circuit::isAcyclic(Gate* startNode) {
 
 
 
-void Circuit::updateOutputButton(DraggableButton *button, int input) {
+void Circuit::updateOutputButton(DraggableButton *button, int input, bool deletingWire) {
     if (input == 3) {
         mostRecentOutput = button;
     } else if (input == 1 || input == 2) {
         if (mostRecentOutput != nullptr){
 
-            // make a connection between most recent ouput and this button
-            onConnectNode(mostRecentOutput, button ,input);
+            if( deletingWire){
+                onDisconnectNode(mostRecentOutput, button, input);
+            }
 
+            // make a connection between most recent ouput and this button
+            else {
+                onConnectNode(mostRecentOutput, button ,input);
+            }
             emit mostRecentOutputUpdated(mostRecentOutput, input);
 
-            // maybe even emit connections list now?
+            //  emit connections
             emit allConnections(connections);
         }
     }

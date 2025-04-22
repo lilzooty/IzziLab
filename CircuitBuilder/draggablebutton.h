@@ -84,7 +84,7 @@ signals:
      * @param button
      * @param input 1 if input1, 2 if input2, 3 if output.
      */
-    void sendButton(DraggableButton *button, int input);
+    void sendButton(DraggableButton *button, int input, bool deletingWire);
 
     void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton, int input);
     void onButtonMoved(DraggableButton* button);
