@@ -85,7 +85,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
 
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 {
-    if ( gateType != OUTPUT){
+    if (gateType != INPUT && gateType != OUTPUT){
     if (event->buttons() & Qt::LeftButton) {
 
         QPoint globalPos = mapToParent(event->pos() - dragStartPos);
