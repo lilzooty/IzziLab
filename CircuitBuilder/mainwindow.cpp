@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include "draggablebutton.h"
 #include "astarpathfinder.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -508,15 +509,28 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     }
 }
 
-void MainWindow::getNextLevel(bool levelComplete){
+void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
     if (levelComplete){
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("That's Correct!");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText("Wow! Great Job!");
+        msgBox.setInformativeText("Click 'Ok' to continue to the next level!");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+
         emit nextLevel();
     }
     else
     {
-        // FIX ****************************
-        emit nextLevel();
         // Display try again message.
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Incorrect Solution");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText("Oops! That solution isn't correct.");
+        msgBox.setInformativeText("Hint: " + currentTable->getHint());
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
     }
 
 }

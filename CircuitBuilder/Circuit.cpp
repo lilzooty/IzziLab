@@ -351,21 +351,13 @@ void Circuit::toggleInputSignal(DraggableButton* inputButton){
 
 void Circuit::onEvaluate(){
     bool isValidCircuit = evaluateCircuit();
-
-    if(isValidCircuit){
-        emit sendEvaluation(isValidCircuit);
-    }
-
-    else{
-        emit sendEvaluation(isValidCircuit);
-    }
-
+    emit sendEvaluation(isValidCircuit, &currTable);
 }
 
 
 void Circuit::levelUp(){
     int inputs = getInputButtonCount(currentLevel);
-    TruthTable newTable = allTables.at(currentLevel);
+    currTable = allTables.at(currentLevel);
     currentLevel++;
-    emit sendLevel(inputs,&newTable);
+    emit sendLevel(inputs,&currTable);
 }

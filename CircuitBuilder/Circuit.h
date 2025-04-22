@@ -238,7 +238,7 @@ signals:
      */
     void sendLevel(int inputs, TruthTable* newTable);
 
-    void sendEvaluation(bool correct);
+    void sendEvaluation(bool correct, TruthTable *currentTable);
 
 };
 

@@ -117,7 +117,7 @@ public slots:
     /**
      * Connected to Circuit::sendEvaluate, used to get the next level upon completion.
      */
-    void getNextLevel(bool levelComplete);
+    void getNextLevel(bool levelComplete, TruthTable *currentTable);
 
 
 
