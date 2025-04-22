@@ -346,7 +346,5 @@ void Circuit::levelUp(){
     currentLevel++;
     int inputs = getInputButtonCount(currentLevel);
     TruthTable newTable = allTables.at(currentLevel);
-    emit sendLevel(inputs,newTable);
-
-
+    emit sendLevel(inputs,&newTable);
 }

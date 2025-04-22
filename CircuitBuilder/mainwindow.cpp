@@ -87,6 +87,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
     connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
 
+    connect(ui->startButton, &QPushButton::pressed, &circuit, &Circuit::levelUp);
+
     //physics set up
     initializePhysics();
 
@@ -364,7 +366,7 @@ void MainWindow::disableToolBarActions() {
     ui->actionClear->setEnabled(false);
 }
 
-void MainWindow::drawNewLevel(int inputs, TruthTable newTable){
+void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     for (int i = 0; i < inputs; i++){
         // CHANGE OR ELSE
         createGateButton(GateType::INPUT, ui->actionXnorGate->icon());
@@ -376,6 +378,45 @@ void MainWindow::drawNewLevel(int inputs, TruthTable newTable){
     qDebug()<<"out";
 
     // pull data out of truthtable
+
+    QTableWidget* tableWidget = ui->previewTableWidget;
+
+    QList tableRows = newTable->getRows();
+
+    int rowCount = tableRows.size();
+    qDebug() << rowCount;
+    int inputCount = tableRows[0].first.size();
+    qDebug() << inputCount;
+    int colCount = inputCount + 1;
+    qDebug() << colCount;
+
+
+    tableWidget->setRowCount(rowCount);
+    tableWidget->setColumnCount(colCount);
+
+    // Headers
+    QStringList headers;
+    for (int i = 0; i < inputCount; ++i)
+        headers << QString("In%1").arg(i + 1);
+    headers << "Out";
+
+    tableWidget->setHorizontalHeaderLabels(headers);
+
+    // Fill
+    for (int row = 0; row < rowCount; ++row) {
+        const QVector<int>& inputs = tableRows[row].first;
+        int output = tableRows[row].second;
+
+        for (int col = 0; col < inputCount; ++col) {
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(inputs[col]));
+            item->setTextAlignment(Qt::AlignCenter);
+            tableWidget->setItem(row, col, item);
+        }
+
+        QTableWidgetItem* outItem = new QTableWidgetItem(QString::number(output));
+        outItem->setTextAlignment(Qt::AlignCenter);
+        tableWidget->setItem(row, inputCount, outItem);
+    }
 }
 
 void MainWindow::getNextLevel(bool levelComplete){
@@ -384,6 +425,8 @@ void MainWindow::getNextLevel(bool levelComplete){
     }
     else
     {
+        // FIX ****************************
+        emit nextLevel();
         // Display try again message.
     }
 

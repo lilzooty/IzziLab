@@ -233,7 +233,7 @@ signals:
     /**
      * Sends the info need to create a new level in mainwindow.
      */
-    void sendLevel(int inputs, TruthTable newTable);
+    void sendLevel(int inputs, TruthTable* newTable);
 
     void sendEvaluation(bool correct);
 

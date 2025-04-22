@@ -123,7 +123,7 @@ public slots:
      * emits nextLevel()
      * @param inputButtons
      */
-    void drawNewLevel(int inputs, TruthTable newTable);
+    void drawNewLevel(int inputs, TruthTable* newTable);
 
 
 
