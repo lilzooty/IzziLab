@@ -137,6 +137,7 @@ void Circuit::initializeHardTruthTables(){
 }
 
 bool Circuit::evaluateCircuit() {
+    qDebug() << "inEval";
     if(!isAcyclic(output) || inputNodes.empty() || !output){
         return false;
     }
@@ -222,15 +223,12 @@ void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButt
     if (!fromNode || !toNode || fromNode->getGateType() == OUTPUT || toNode->getGateType() == INPUT) return;
 
     if (toNode->addInput(fromNode, input)) {
-
+       connections[fromButton].append(QPair<DraggableButton*, int>(toButton,input));
 
     //GEEKER
     // we dont want to add twice to vector
 
     }
-
-
-   connections[fromButton].append(QPair<DraggableButton*, int>(toButton,input));
 
     qDebug() << connections[fromButton].size();
 
@@ -291,6 +289,8 @@ void Circuit::onDeleteNode(DraggableButton* button){
     //button->hide();
     button->deleteLater();
     emit nodeDeleted(button);
+
+    emit allConnections(connections); // Redraaw Wires
 }
 
 void Circuit::onClear() {
@@ -392,6 +392,8 @@ void Circuit::addButton(DraggableButton *button){
     connect(button, &DraggableButton::onButtonMoved, this, &Circuit::onButtonMoved);  // TO REDRAW WIRES
 
     connect(button, &DraggableButton::deleteMe, this, &Circuit::onDeleteNode);
+    connect(button, &DraggableButton::toggleSignal  , this, &Circuit::toggleInputSignal);
+
 
     qDebug() << "new button";
 }
@@ -404,4 +406,50 @@ void Circuit::addButton(DraggableButton *button){
 
 void Circuit::onButtonMoved(DraggableButton* button){
     emit allConnections(connections);
+}
+
+
+int Circuit::getInputButtonCount(int level){
+
+    if (level < 2){
+        return 1;
+    }
+
+    else if (level > 2 && level < 11){
+        return 2;
+
+    }
+    else{
+        return 3;
+    }
+}
+
+void Circuit::toggleInputSignal(DraggableButton* inputButton){
+
+    // While dense, simply flips the bool that represents the signal of the gate.
+    inputButton->getGate()->setSignal(!inputButton->getGate()->getSignal());
+}
+
+void Circuit::onEvaluate(){
+    bool isValidCircuit = evaluateCircuit();
+
+    if(isValidCircuit){
+        emit sendEvaluation(isValidCircuit);
+    }
+
+    else{
+        emit sendEvaluation(isValidCircuit);
+    }
+
+}
+
+
+void Circuit::levelUp(){
+    currentLevel++;
+    int inputs = getInputButtonCount(currentLevel);
+    TruthTable newTable;
+    //TruthTable newTable = getTruthTable();
+    emit sendLevel(inputs,newTable);
+
+
 }

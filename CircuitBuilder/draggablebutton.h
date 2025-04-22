@@ -13,28 +13,26 @@ class DraggableButton : public QPushButton
 
 private:
 
-    // should be GateType??
-    QString buttonType;
+    GateType gateType;
 
 
     QPoint dragStartPos;
     QPoint currentPos;
     bool wireModeOn = false;
 
-    // never used?
-    DraggableButton* previousButton = nullptr;
+    // // never used?
+    // DraggableButton* previousButton = nullptr;
 
 
     QPushButton input1;
     QPushButton input2;
-
     QPushButton output;
 
 
     bool isDelete;
 
+    // Needed for physics
     b2Body* body;
-
     int GRID_SIZE = 50;
     float PIXELS_PER_METER = 30.0f;
 
@@ -92,6 +90,8 @@ signals:
     void onButtonMoved(DraggableButton* button);
 
     void deleteMe(DraggableButton*);
+
+    void toggleSignal(DraggableButton*);
 
 
 };

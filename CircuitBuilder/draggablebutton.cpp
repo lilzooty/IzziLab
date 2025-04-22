@@ -6,7 +6,7 @@ DraggableButton::DraggableButton() {
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     : QPushButton(parent),
     input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
-    gate(gate)
+    gate(gate), gateType(gateType)
     {
 
     if (gateType == GateType::INVERTER){
@@ -37,13 +37,17 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     QPushButton::mousePressEvent(event);
 
     if (isDelete){
-
         emit deleteMe(this);
+    }
+
+    if (gateType == INPUT){
+        emit toggleSignal(this);
     }
 }
 
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 {
+    if (gateType != INPUT && gateType != OUTPUT){
     if (event->buttons() & Qt::LeftButton) {
 
         QPoint globalPos = mapToParent(event->pos() - dragStartPos);
@@ -54,6 +58,7 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
     }
     emit onButtonMoved(this);
     QPushButton::mouseMoveEvent(event);
+    }
 }
 
 

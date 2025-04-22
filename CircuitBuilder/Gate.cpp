@@ -139,7 +139,7 @@ Gate* Gate::getInput2(){
 }
 
 
-void Gate::setSignal(int signal){
+void Gate::setSignal(bool signal){
     this->signal = signal;
 }
 
