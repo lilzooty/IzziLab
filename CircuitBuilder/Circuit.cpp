@@ -221,12 +221,19 @@ void Circuit::onDeleteNode(DraggableButton* button){
 }
 
 void Circuit::onClear() {
+    for(DraggableButton* db: connections.keys()){
+        if(db){
+            onDeleteNode(db);
+        }
+    }
+
     for (Gate* node : gates) {
         if(node){
             node->disconnectAll();
             delete node;
         }
     }
+
     gates.clear();
     inputNodes.clear();
     connections.clear();
