@@ -283,14 +283,14 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
     // Loop through each starting button and its wires
     for (DraggableButton* button1 : connections.keys())
     {
-        QPoint startPos = button1->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+        QPoint startPos = button1->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
         // Loop over each connection for button1
         for (const QPair<DraggableButton*, int>& connection : connections.value(button1))
         {
             DraggableButton* button2 = connection.first;
             int input = connection.second;
-            QPoint endPos = button2->getPosition() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+            QPoint endPos = button2->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
             // Adjust the end position
             QPoint offset;
@@ -432,23 +432,23 @@ void MainWindow::disableToolBarActions() {
 void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     QPoint p;
 
-    // Clearing the input and output layouts upon level instantiation.
-    QLayoutItem *item;
-    while(ui->inputLayout->count() > 0){
-        QLayoutItem *item = ui->inputLayout->takeAt(0);
-        QWidget* widget = item->widget();
-        if(widget)
-            delete widget;
-        delete item;
-    }
+    // // Clearing the input and output layouts upon level instantiation.
+    // QLayoutItem *item;
+    // while(ui->inputLayout->count() > 0){
+    //     QLayoutItem *item = ui->inputLayout->takeAt(0);
+    //     QWidget* widget = item->widget();
+    //     if(widget)
+    //         delete widget;
+    //     delete item;
+    // }
 
-    while(ui->outputLayout->count() > 0){
-        QLayoutItem *item = ui->outputLayout->takeAt(0);
-        QWidget* widget = item->widget();
-        if(widget)
-            delete widget;
-        delete item;
-    }
+    // while(ui->outputLayout->count() > 0){
+    //     QLayoutItem *item = ui->outputLayout->takeAt(0);
+    //     QWidget* widget = item->widget();
+    //     if(widget)
+    //         delete widget;
+    //     delete item;
+    // }
 
     // Adding the new inputs and outputs
     for (int i = 0; i < inputs; i++){
@@ -456,14 +456,16 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
         p = QPoint(100, 100*i + 100);
 
         DraggableButton* input = createGateButton(GateType::INPUT, ui->actionInputGate->icon());
+        input->move(p);
 
-        ui->inputLayout->addWidget(input);
+        //ui->inputLayout->addWidget(input);
 
     }
 
     p = QPoint(600,300);
     DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
-    ui->outputLayout->addWidget(output);
+    output->move(p);
+    //ui->outputLayout->addWidget(output);
 
     // pull data out of truthtable
     QTableWidget* tableWidget = ui->previewTableWidget;
