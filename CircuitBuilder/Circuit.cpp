@@ -279,15 +279,8 @@ bool Circuit::isAcyclic(Gate* startNode) {
     return !hasCycle(startNode, visited, recStack);
 }
 
-// void Circuit::addNode(GateType gate) {
-//     Gate n(gate);
-//     gates.push_back(&n);
-// }
-
-
-
 void Circuit::updateOutputButton(DraggableButton *button, int input, bool deletingWire) {
-    if (input == 3 && !deletingWire) {
+    if (input == 3) {
         mostRecentOutput = button;
     } else if (input == 1 || input == 2) {
         if (mostRecentOutput != nullptr){
@@ -318,20 +311,11 @@ void Circuit::addButton(DraggableButton *button){
     connect(button, &DraggableButton::deleteMe, this, &Circuit::onDeleteNode);
     connect(button, &DraggableButton::toggleSignal  , this, &Circuit::toggleInputSignal);
 
-
-    qDebug() << "new button";
 }
-
-// void Circuit::onSendConnections(){
-// qDebug() << "wire";
-//     qDebug() << connections;
-//   emit allConnections(connections);
-// }
 
 void Circuit::onButtonMoved(DraggableButton* button){
     emit allConnections(connections);
 }
-
 
 int Circuit::getInputButtonCount(int level){
 

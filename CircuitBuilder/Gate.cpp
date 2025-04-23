@@ -144,9 +144,17 @@ void Gate::deleteOutputs() {
 void Gate::removeInput(Gate* input) {
     if (input1 == input) {
         input1 = nullptr;
+        if(!input->outputs.empty()){
+            input->outputs.removeOne(this);
+        }
+
     }
     if (input2 == input) {
         input2 = nullptr;
+        if (!input->outputs.empty()){
+            input->outputs.removeOne(this);
+        }
+
     }
 }
 
@@ -155,16 +163,19 @@ void Gate::removeOutput(Gate* outputGate){
         return;
     }
     outputs.removeOne(outputGate);
+    outputGate->removeInput(this);
 }
 
 void Gate::removeAllInputs() {
     if (input1) {
         input1->removeOutput(this);
         input1 = nullptr;
+        removeInput(input1);
     }
     if (input2) {
         input2->removeOutput(this);
         input2 = nullptr;
+        removeInput(input2);
     }
 }
 
