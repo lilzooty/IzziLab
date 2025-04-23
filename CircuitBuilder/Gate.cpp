@@ -68,12 +68,14 @@ bool Gate::addInput(Gate* g, int input){
 
         return false;
     }
+    if (input == 1){
+        input1 = g;
+        g->addOutput(this);
+        return true;
 
-    input1 = g;
-    g->addOutput(this);
-    return true;
+    }
 
-    if (input == 2 && !input2) {
+    if (input == 2){
         input2 = g;
         g->addOutput(this);
         return true;
