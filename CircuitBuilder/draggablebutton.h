@@ -3,6 +3,7 @@
 #include <QPushButton>
 #include <QMouseEvent>
 #include <QIcon>
+#include <QTimer>
 #include <Box2D/Box2D.h>
 #include "Gate.h"
 
@@ -20,11 +21,6 @@ private:
     QPoint dragStartPos;
     QPoint currentPos;
     bool wireModeOn = false;
-
-    // // never used?
-    // DraggableButton* previousButton = nullptr;
-
-
     QPushButton input1;
     QPushButton input2;
     QPushButton output;
@@ -83,12 +79,9 @@ public:
     DraggableButton();
 
 
-    //explicit DraggableButton(QString buttonType, QWidget *parent = nullptr);
+
 
     DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
-
-    // allows custom pos placing
-    //DraggableButton(GateType gateType, QWidget *parent, Gate* gate, QPoint pos);
 
     QPoint getPosition() { return currentPos; }
     void setPosition(QPoint& pos);
@@ -103,8 +96,6 @@ public:
 public slots:
     void setWireMode(bool isWireOn);
     void setDeleteMode(bool isDelete);
-
-    //void getTwoButtons(DraggableButton *previousButton, int input);
 
 
 
@@ -121,7 +112,6 @@ signals:
      */
     void sendButton(DraggableButton *button, int input, bool deletingWire);
 
-    // void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton, int input);
     void onButtonMoved(DraggableButton* button);
 
     void deleteMe(DraggableButton*);
