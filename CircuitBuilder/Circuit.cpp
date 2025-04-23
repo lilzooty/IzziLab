@@ -313,7 +313,7 @@ void Circuit::addButton(DraggableButton *button){
     registerGate(button);
 
     connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
-    connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
+    // connect(this, &Circuit::mostRecentOutputUpdated, button, &DraggableButton::getTwoButtons);
 
     connect(button, &DraggableButton::onButtonMoved, this, &Circuit::onButtonMoved);  // TO REDRAW WIRES
 
