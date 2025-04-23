@@ -117,7 +117,7 @@ private:
     /**
      * @brief The most recently clicked output/root button clicked so that we can connect the two if a inpput/child button is clicked.
      */
-    DraggableButton *mostRecentOutput;
+    DraggableButton *mostRecentOutput = nullptr;
 
     /**
      * @brief Table of easy circuit problems.

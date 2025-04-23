@@ -197,11 +197,6 @@ void MainWindow::updatePhysics()
     };
 
     updateButtons(draggableButtons);
-
-    //draw wires
-    if((int)draggableButtons.size() >1 ){
-       // FIXME drawWire(draggableButtons.at(0),draggableButtons.at(1));
-    }
 }
 
 void MainWindow::onClearClicked()
@@ -230,7 +225,7 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
 
     emit addButtonToCircuit(newButton, gateType);
 
-    QPoint globalMousePos = QCursor::pos();
+    QPoint globalMousePos = QCursor::pos() + QPoint(25,-17);
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
     newButton->setPosition(widgetPos);
     newButton->setGeometry(widgetPos.x(), widgetPos.y(), GATE_SIZE, GATE_SIZE);
@@ -246,42 +241,62 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     return newButton;
 }
 
-void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
-
+void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections) {
     backgroundPixmap->fill(Qt::transparent);
 
     // Loop through each starting button and its wires
-    for (DraggableButton* button1 : connections.keys())
-    {
-        QPoint startPos = button1->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+    for (DraggableButton* sourceButton : connections.keys()) {
+        QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
-        // Loop over each connection for button1
-        for (const QPair<DraggableButton*, int>& connection : connections.value(button1))
-        {
-            DraggableButton* button2 = connection.first;
-            int input = connection.second;
-            QPoint endPos = button2->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+        // Loop over each connection for source button
+        for (const auto& connection : connections.value(sourceButton)) {
+            DraggableButton* targetButton = connection.first;
+            int inputPort = connection.second;
 
-            // Adjust the end position
+            // Calculate end position with input port offset
+            QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
             QPoint offset;
-            switch (input) {
+            switch (inputPort) {
             case 1: offset = QPoint(-10, -12); break;
             case 2: offset = QPoint(-10, 12); break;
             default: offset = QPoint(0, 0); break;
             }
             endPos += offset;
 
-            // Calculate mid-point for routing the wire
-            int midX = (startPos.x() + endPos.x()) / 2;
-            QPoint p1(midX, startPos.y());
-            QPoint p2(midX, endPos.y());
+            // Handle backward wiring (when start is to the right of end)
+            if (startPos.x() > endPos.x()) {
+                int verticalOffset = GATE_SIZE;
+                // see if it closer to go up or down
+                if (startPos.y() + GATE_SIZE < endPos.y()) {
+                    verticalOffset = -verticalOffset;
+                }
 
+                // Draw first segment
+                QPoint p1(startPos.x() + GATE_SIZE, startPos.y());
+                drawWireArrow(startPos, p1);
 
+                // Draw second segment (vertical)
+                QPoint p2(p1.x(), p1.y() - verticalOffset);
+                drawWireArrow(p1, p2);
 
-            // draw arrows
-            drawWireArrow(startPos, p1);
-            drawWireArrow( p1, p2);
-            drawWireArrow( p2, endPos);
+                // Draw third and fourth segments
+                QPoint p3(endPos.x() - GATE_SIZE, endPos.y());
+                QPoint p4(p3.x(), p3.y() - verticalOffset);
+                drawWireArrow(p4, p3);
+                drawWireArrow(p3, endPos);
+
+                // updated position to draw connecting 3 wires
+                endPos = p4;
+                startPos = p2;
+            }
+
+                int midX = (startPos.x() + endPos.x()) / 2;
+                QPoint p1(midX, startPos.y());
+                QPoint p2(midX, endPos.y());
+
+                drawWireArrow(startPos, p1);
+                drawWireArrow(p1, p2);
+                drawWireArrow(p2, endPos);
 
         }
     }
