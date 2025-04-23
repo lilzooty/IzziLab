@@ -64,14 +64,16 @@ bool Gate::evaluate() {
 }
 
 bool Gate::addInput(Gate* g, int input){
-    if (!g || g == this || input < 1 || input > 2) return false;
+    if (!g || g == this || (input < 1) || (input > 2)){
 
-    if (input == 1 && !input1) {
-        input1 = g;
-        g->addOutput(this);
-        return true;
+        return false;
     }
-    else if (input == 2 && !input2) {
+
+    input1 = g;
+    g->addOutput(this);
+    return true;
+
+    if (input == 2 && !input2) {
         input2 = g;
         g->addOutput(this);
         return true;
