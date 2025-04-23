@@ -236,6 +236,8 @@ signals:
 
     void sendEvaluation(bool correct, TruthTable *currentTable);
 
+    void sendDescription(QString);
+
 };
 
 #endif

@@ -12,39 +12,90 @@ Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
 void Circuit::initializeTruthTables(){
     QVector<QVector<int>> input1 = { {0}, {1} };
 
-    TruthTable t1(input1, { 0, 1 }, "Direct pass through: output = input");
-    allTables.append(t1);
+    allTables.append(TruthTable(input1, { 0, 1 },
+                                "Direct pass through: output = input",
+                                "This is just a wire. If the input is on the output is on"));
 
-    TruthTable t2(input1, { 1, 0 }, "output = not input");
-    allTables.append(t2);
+    allTables.append(TruthTable(input1, { 1, 0 },
+                                "output = not input",
+                                "This is a NOT gate. It flips the signal. On becomes off and Off becomes On"));
 
     QVector<QVector<int>> inputs2 = {
         {0, 0}, {0, 1}, {1, 0}, {1, 1}
     };
 
-    allTables.append(TruthTable(inputs2, {0, 0, 0, 1}, "True when both inputs are 1"));
-    allTables.append(TruthTable(inputs2, {0, 1, 1, 1}, "True when either input1 is 1 or input2 is 1"));
-    allTables.append(TruthTable(inputs2, {1, 1, 1, 0}, "True when input1 and inputs2 are both not 1"));
-    allTables.append(TruthTable(inputs2, {1, 0, 0, 0}, "Opposite of an OR gate"));
-    allTables.append(TruthTable(inputs2, {0, 1, 1, 0}, "Inputs must be different"));
-    allTables.append(TruthTable(inputs2, {1, 0, 0, 1}, "Inputs must be the same"));
-    allTables.append(TruthTable(inputs2, {0, 0, 1, 0}, "Use an AND gate and a NOT gate"));
-    allTables.append(TruthTable(inputs2, {1, 1, 0, 1}, "Use a NOT gate and an OR gate"));
-    allTables.append(TruthTable(inputs2, {0, 0, 1, 0}, "Use an AND gate and a XOR gate"));
+    allTables.append(TruthTable(inputs2, {0, 0, 0, 1},
+                                "True when both inputs are 1",
+                                "AND gate: both switches need to be on for output to be on"));
+
+    allTables.append(TruthTable(inputs2, {0, 1, 1, 1},
+                                "True when either input1 is 1 or input2 is 1",
+                                "OR gate: the light turns on if at least one input is on."));
+
+    allTables.append(TruthTable(inputs2, {1, 1, 1, 0},
+                                "True when input1 and inputs2 are both not 1",
+                                "NAND gate: similar to an AND gate, but flipped— only off when both inputs are on."));
+
+    allTables.append(TruthTable(inputs2, {1, 0, 0, 0},
+                                "Opposite of an OR gate",
+                                "NOR gate: only on when everything is off"));
+
+    allTables.append(TruthTable(inputs2, {0, 1, 1, 0},
+                                "Inputs must be different",
+                                "XOR gate: only on when the inputs are different."));
+
+    allTables.append(TruthTable(inputs2, {1, 0, 0, 1},
+                                "Inputs must be the same",
+                                "XNOR gate: Only on when the inputs are the same. either both on or both off"));
+
+    allTables.append(TruthTable(inputs2, {0, 0, 1, 0},
+                                "Use an AND gate and a NOT gate",
+                                ""));
+
+    allTables.append(TruthTable(inputs2, {1, 1, 0, 1},
+                                "Use a NOT gate and an OR gate",
+                                ""));
+
+    allTables.append(TruthTable(inputs2, {0, 0, 1, 0},
+                                "Use an AND gate and a XOR gate",
+                                ""));
 
     QVector<QVector<int>> inputs3 = {
         {0, 0, 0}, {0, 0, 1}, {0, 1, 0}, {0, 1, 1},
         {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}
     };
 
-    allTables.append(TruthTable(inputs3, {0, 1, 0, 1, 1, 1, 1, 1}, "Use AND gate and OR gate"));
-    allTables.append(TruthTable(inputs3, {0, 1, 0, 0, 0, 0, 0, 0}, "Use NOT gate, OR GATE, and AND gate"));
-    allTables.append(TruthTable(inputs3, {0, 1, 1, 0, 1, 0, 0, 1}, "Use 2 XOR gates"));
-    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 0}, "Use 2 AND gates and a XOR gate"));
-    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 0, 0}, "2 NOT gates, and AND gate, and an OR gate"));
-    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 1, 1}, "Use 2 OR Gates, 2 NOT gates, and an AND gate"));
-    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 1}, "2 inputs have to be 1"));
-    allTables.append(TruthTable(inputs3, {0, 0, 0, 0, 0, 0, 0, 1}, "Combine NAND and NOR gates"));
+    allTables.append(TruthTable(inputs3, {0, 1, 0, 1, 1, 1, 1, 1},
+                                "Use AND gate and OR gate",
+                                ""));
+
+    allTables.append(TruthTable(inputs3, {0, 1, 0, 0, 0, 0, 0, 0},
+                                "Use NOT gate, OR GATE, and AND gate",
+                                ""));
+
+    allTables.append(TruthTable(inputs3, {0, 1, 1, 0, 1, 0, 0, 1},
+                                "Use 2 XOR gates",
+                                ""));
+
+    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 0},
+                                "Use 2 AND gates and a XOR gate",
+                                ""));
+
+    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 0, 0},
+                                "2 NOT gates, and AND gate, and an OR gate",
+                                ""));
+
+    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 1, 1},
+                                "Use 2 OR Gates, 2 NOT gates, and an AND gate",
+                                ""));
+
+    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 1},
+                                "2 inputs have to be 1",
+                                ""));
+
+    allTables.append(TruthTable(inputs3, {0, 0, 0, 0, 0, 0, 0, 1},
+                                "Combine NAND and NOR gates",
+                                ""));
 }
 
 bool Circuit::evaluateCurrentInputs(){
@@ -350,4 +401,5 @@ void Circuit::levelUp(){
     currTable = allTables.at(currentLevel);
     currentLevel++;
     emit sendLevel(inputs,&currTable);
+    emit sendDescription(currTable.getDescription());
 }
