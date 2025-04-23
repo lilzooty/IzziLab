@@ -42,6 +42,38 @@ private:
     void updatePhysicsBody(QPoint& newPos);
 
     Gate* gate;
+    QString buttonStyle =
+        "QPushButton {"
+        "    background-color: transparent;"
+        "    border: 1px solid transparent;"
+        "    border-radius: 7px;"
+        "    color: white;"
+        "    min-width: 15px;"
+        "    min-height: 15px;"
+        "    padding: 0px;"
+        "}"
+        "QPushButton:hover {"
+        "    border: 1px solid blue;"
+        "    background-color: rgba(255, 255, 255, 30);"
+        "}";
+
+    QString mainButtonStyle =
+        "QPushButton {"
+        "    background-color: rgba(40, 40, 60, 150);"
+        "    border: 2px solid rgba(80, 100, 255, 120);"
+        "    border-radius: 8px;"
+        "    padding: 5px;"
+        "    box-shadow: 0 0 10px rgba(80, 100, 255, 50);"
+        "}"
+        "QPushButton:hover {"
+        "    background-color: rgba(50, 50, 70, 170);"
+        "    border: 2px solid rgba(100, 120, 255, 150);"
+        "    box-shadow: 0 0 15px rgba(100, 120, 255, 70);"
+        "}"
+        "QPushButton:pressed {"
+        "    background-color: rgba(35, 35, 55, 160);"
+        "    border: 2px solid rgba(60, 80, 255, 120);"
+        "}";
 
 
 protected:

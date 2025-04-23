@@ -324,7 +324,7 @@ void MainWindow::drawWireArrow(QPoint start,  QPoint end) {
         }
     }
 
-    painter.setBrush(QBrush(Qt::white));
+    painter.setBrush(QBrush(Qt::blue));
     painter.drawPolygon(triangle);
 }
 
