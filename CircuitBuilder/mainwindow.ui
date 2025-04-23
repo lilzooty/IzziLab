@@ -94,7 +94,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </attribute>
    <addaction name="actionWire"/>
    <addaction name="actionDelete"/>
-   <addaction name="actionInputGate"/>
    <addaction name="actionInverter"/>
    <addaction name="actionOrGate"/>
    <addaction name="actionAndGate"/>

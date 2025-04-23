@@ -339,9 +339,15 @@ void Circuit::toggleInputSignal(DraggableButton* inputButton){
 }
 
 void Circuit::onEvaluate(){
+    emit evaluationAnimation(connections);
     bool isValidCircuit = evaluateCircuit();
-    emit sendEvaluation(isValidCircuit, &currTable);
+
+    QTimer::singleShot(400 * (int)connections.size()*2, this, [isValidCircuit, this]() {
+        emit sendEvaluation(isValidCircuit, &currTable);
+    });
+
 }
+
 
 
 void Circuit::levelUp(){

@@ -14,16 +14,18 @@ DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
         input2.setStyleSheet(buttonStyle);
         output.setStyleSheet(buttonStyle);
 
-        input1.setFixedSize(20, 20);
-        input2.setFixedSize(20, 20);
+        input1.setFixedSize(18, 18);
+        input2.setFixedSize(18, 18);
         output.setFixedSize(22, 20);
 
-        input1.move(-3, 5);
-        input2.move(-3, 25);
-        output.move(30, 15);
+        input1.move(0, 5);
+        input2.move(0, 25);
+        output.move(28, 15);
+
 
     if (gateType == INVERTER){
         input2.hide();
+        input1.move(0, 25);
         connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
         connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
     }
