@@ -496,11 +496,10 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
         msgBox.setInformativeText("Hint: " + currentTable->getHint());
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
-       // emit nextLevel();
+        ui->EvaluateButton->setEnabled(true);
 
         return;
-    }
-
+    }    
 }
 
 void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
