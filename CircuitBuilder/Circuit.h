@@ -173,7 +173,7 @@ public slots:
      * @brief ************ WHAT DOES THIS DO ********************
      * @param button - Button that is being moved.
      */
-    void onButtonMoved(DraggableButton* button);
+    void onButtonMoved();
 
     //slots
     /**

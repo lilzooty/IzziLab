@@ -6,7 +6,6 @@
 #include <QActionGroup>
 #include <QPushButton>
 #include "draggablebutton.h"
-#include "astarpathfinder.h"
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -22,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
     QAction* inverter = ui->actionInverter;
-    QAction* wire = ui->actionWire;
     QAction* clear = ui->actionClear;
     QAction* nandGate = ui->actionNandGate;
     QAction* norGate = ui->actionNorGate;

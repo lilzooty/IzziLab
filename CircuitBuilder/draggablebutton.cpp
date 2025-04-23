@@ -7,25 +7,25 @@ DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     : QPushButton(parent),
     input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
     gate(gate), gateType(gateType), onIcon(":/GATES/INPUT-ON.png"), offIcon(":/GATES/INPUT-OFF.png"), isDelete(false)
-    {
+{
     this->setStyleSheet(mainButtonStyle);
 
-        input1.setStyleSheet(buttonStyle);
-        input2.setStyleSheet(buttonStyle);
-        output.setStyleSheet(buttonStyle);
+    input1.setStyleSheet(buttonStyle);
+    input2.setStyleSheet(buttonStyle);
+    output.setStyleSheet(buttonStyle);
 
-        input1.setFixedSize(18, 18);
-        input2.setFixedSize(18, 18);
-        output.setFixedSize(22, 20);
+    input1.setFixedSize(18, 18);
+    input2.setFixedSize(18, 18);
+    output.setFixedSize(22, 20);
 
-        input1.move(0, 5);
-        input2.move(0, 25);
-        output.move(28, 15);
+    input1.move(0, 5);
+    input2.move(0, 25);
+    output.move(28, 15);
 
 
     if (gateType == INVERTER){
         input2.hide();
-        input1.move(0, 25);
+        input1.move(0, 5);
         connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
         connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
     }
@@ -41,9 +41,9 @@ DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     }
     else{
 
-    connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
-    connect(&input2, &QPushButton::clicked, this, &DraggableButton::input2Clicked);
-    connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+        connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
+        connect(&input2, &QPushButton::clicked, this, &DraggableButton::input2Clicked);
+        connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
     }
 
 }
@@ -59,7 +59,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
 
     if (isDelete){
         if (gateType != OUTPUT && gateType != INPUT)
-        emit deleteMe(this);
+            emit deleteMe(this);
         return;
     }
 
@@ -76,16 +76,16 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 {
     if (gateType != INPUT && gateType != OUTPUT){
-    if (event->buttons() & Qt::LeftButton) {
+        if (event->buttons() & Qt::LeftButton) {
 
-        QPoint globalPos = mapToParent(event->pos() - dragStartPos);
-        QPoint newPos = snapToGrid(globalPos);
+            QPoint globalPos = mapToParent(event->pos() - dragStartPos);
+            QPoint newPos = snapToGrid(globalPos);
 
-        move(newPos);
-        updatePhysicsBody(newPos);
-    }
-    emit onButtonMoved(this);
-    QPushButton::mouseMoveEvent(event);
+            move(newPos);
+            updatePhysicsBody(newPos);
+        }
+        emit onButtonMoved(this);
+        QPushButton::mouseMoveEvent(event);
     }
 }
 
@@ -172,4 +172,8 @@ Gate* DraggableButton::getGate(){
     return gate;
 }
 
-
+void DraggableButton::setPosition(QPoint &pos){
+    if(   currentPos != pos)
+        emit onButtonMoved(this);
+    currentPos = pos;
+}

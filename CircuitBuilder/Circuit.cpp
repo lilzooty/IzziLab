@@ -364,7 +364,7 @@ void Circuit::addButton(DraggableButton *button){
 
 }
 
-void Circuit::onButtonMoved(DraggableButton* button){
+void Circuit::onButtonMoved(){
     emit allConnections(connections);
 }
 

@@ -2,7 +2,6 @@
 #define DRAGGABLEBUTTON_H
 #include <QPushButton>
 #include <QMouseEvent>
-#include <string>
 #include <QIcon>
 #include <Box2D/Box2D.h>
 #include "Gate.h"
@@ -92,7 +91,7 @@ public:
     //DraggableButton(GateType gateType, QWidget *parent, Gate* gate, QPoint pos);
 
     QPoint getPosition() { return currentPos; }
-    void setPosition(QPoint& pos) { currentPos = pos; }
+    void setPosition(QPoint& pos);
     void setBody(b2Body* newBody) {body = newBody;}
     b2Body* getPhysicsBody();
 

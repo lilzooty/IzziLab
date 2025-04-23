@@ -58,6 +58,7 @@ SOURCES += \
     Circuit.cpp \
     Gate.cpp \
     TruthTable.cpp \
+    draggablebutton.cpp \
     main.cpp \
     mainwindow.cpp
 
