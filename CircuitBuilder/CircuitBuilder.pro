@@ -58,8 +58,6 @@ SOURCES += \
     Circuit.cpp \
     Gate.cpp \
     TruthTable.cpp \
-    astarpathfinder.cpp \
-    draggablebutton.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -114,7 +112,6 @@ HEADERS += \
     Circuit.h \
     Gate.h \
     TruthTable.h \
-    astarpathfinder.h \
     draggablebutton.h \
     mainwindow.h
 
