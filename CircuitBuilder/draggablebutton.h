@@ -90,7 +90,7 @@ public:
     DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
 
     // allows custom pos placing
-    DraggableButton(GateType gateType, QWidget *parent, Gate* gate, QPoint pos);
+    //DraggableButton(GateType gateType, QWidget *parent, Gate* gate, QPoint pos);
 
     QPoint getPosition() { return currentPos; }
     void setPosition(QPoint& pos) { currentPos = pos; }
@@ -106,7 +106,7 @@ public slots:
     void setWireMode(bool isWireOn);
     void setDeleteMode(bool isDelete);
 
-    void getTwoButtons(DraggableButton *previousButton, int input);
+    //void getTwoButtons(DraggableButton *previousButton, int input);
 
 
 
@@ -123,7 +123,7 @@ signals:
      */
     void sendButton(DraggableButton *button, int input, bool deletingWire);
 
-    void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton, int input);
+    // void sendTwoButtons(DraggableButton *startButton, DraggableButton *endButton, int input);
     void onButtonMoved(DraggableButton* button);
 
     void deleteMe(DraggableButton*);

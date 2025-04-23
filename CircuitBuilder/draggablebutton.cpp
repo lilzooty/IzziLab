@@ -53,7 +53,6 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
         dragStartPos = event->pos();
     }
 
-
     QPushButton::mousePressEvent(event);
 
     if (isDelete){
@@ -92,11 +91,11 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 void DraggableButton::input1Clicked(){
 
     if (isDelete){
-        qDebug() << isDelete;
         emit sendButton(this, 1, true);
     }
     else if (wireModeOn) {
         emit sendButton(this, 1, false);
+        qDebug()<<"in";
     }
 
 }
@@ -111,11 +110,14 @@ void DraggableButton::input2Clicked(){
 
 }
 void DraggableButton::outputClicked(){
+
     if (isDelete){
         emit sendButton(this, 3, true);
     }
     else if (wireModeOn) {
         emit sendButton(this, 3, false);
+        qDebug() << "sent";
+
     }
 
 }
@@ -164,11 +166,11 @@ void DraggableButton::setDeleteMode(bool isDelete){
     this->isDelete = isDelete;
 }
 
-void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) {
-    if (wireModeOn) {
-        emit sendTwoButtons(previousButton, this, input);
-    }
-}
+// void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) {
+//     if (wireModeOn) {
+//         emit sendTwoButtons(previousButton, this, input);
+//     }
+// }
 
 Gate* DraggableButton::getGate(){
     return gate;
