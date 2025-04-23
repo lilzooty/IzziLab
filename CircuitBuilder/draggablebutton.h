@@ -53,7 +53,7 @@ private:
         "    padding: 0px;"
         "}"
         "QPushButton:hover {"
-        "    border: 1px solid blue;"
+        "    border: 1px solid white;"
         "    background-color: rgba(255, 255, 255, 30);"
         "}";
 
@@ -63,12 +63,11 @@ private:
         "    border: 2px solid rgba(80, 100, 255, 120);"
         "    border-radius: 8px;"
         "    padding: 5px;"
-        "    box-shadow: 0 0 10px rgba(80, 100, 255, 50);"
+
         "}"
         "QPushButton:hover {"
         "    background-color: rgba(50, 50, 70, 170);"
-        "    border: 2px solid rgba(100, 120, 255, 150);"
-        "    box-shadow: 0 0 15px rgba(100, 120, 255, 70);"
+        "    border: 2px solid purple;"
         "}"
         "QPushButton:pressed {"
         "    background-color: rgba(35, 35, 55, 160);"

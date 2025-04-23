@@ -6,6 +6,7 @@
 #include "TruthTable.h"
 #include "draggablebutton.h"
 #include <vector>
+#include <QTimer>
 #include <QObject>
 #include <QMap>
 
@@ -221,6 +222,11 @@ signals:
     void mostRecentOutputUpdated(DraggableButton *button, int input);
 
     void nodeDeleted(DraggableButton* button);
+
+    /**
+     * @brief Animates the circuit being solved.
+     */
+    void evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
 
     /**
      * @brief ***************** WHAT DOES THIS DO *********************

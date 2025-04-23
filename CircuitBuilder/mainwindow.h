@@ -119,6 +119,10 @@ public slots:
      */
     void getNextLevel(bool levelComplete, TruthTable *currentTable);
 
+    /**
+     * @brief Animates the circuit being solved.
+     */
+    void evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
 
 
     /**
@@ -205,7 +209,7 @@ private:
     /**
      * @brief Helper method that draws wire segments
      */
-    void drawWireArrow(QPoint start,  QPoint end);
+    void drawWireArrow(QPoint start,  QPoint end, bool animating);
 
 
 signals:

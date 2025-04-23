@@ -76,7 +76,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionNorGate, &QAction::triggered, this, &MainWindow::onNorGateClicked);
     connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
     connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
-     connect(ui->actionInputGate, &QAction::triggered, this, &MainWindow::onInputGateClicked);
+    connect(ui->actionInputGate, &QAction::triggered, this, &MainWindow::onInputGateClicked);
+    connect(&circuit, &Circuit::evaluationAnimation, this, &MainWindow::evaluationAnimation);
 
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
     connect(ui->actionDelete, &QAction::triggered, this, &MainWindow::onDeleteClicked);
@@ -273,17 +274,17 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
 
                 // Draw first segment
                 QPoint p1(startPos.x() + GATE_SIZE, startPos.y());
-                drawWireArrow(startPos, p1);
+                drawWireArrow(startPos, p1, false);
 
                 // Draw second segment (vertical)
                 QPoint p2(p1.x(), p1.y() - verticalOffset);
-                drawWireArrow(p1, p2);
+                drawWireArrow(p1, p2, false);
 
                 // Draw third and fourth segments
                 QPoint p3(endPos.x() - GATE_SIZE, endPos.y());
                 QPoint p4(p3.x(), p3.y() - verticalOffset);
-                drawWireArrow(p4, p3);
-                drawWireArrow(p3, endPos);
+                drawWireArrow(p4, p3, false);
+                drawWireArrow(p3, endPos, false);
 
                 // updated position to draw connecting 3 wires
                 endPos = p4;
@@ -294,9 +295,9 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
                 QPoint p1(midX, startPos.y());
                 QPoint p2(midX, endPos.y());
 
-                drawWireArrow(startPos, p1);
-                drawWireArrow(p1, p2);
-                drawWireArrow(p2, endPos);
+                drawWireArrow(startPos, p1, false);
+                drawWireArrow(p1, p2, false);
+                drawWireArrow(p2, endPos, false);
 
         }
     }
@@ -304,13 +305,17 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
     backgroundGridLabel->setPixmap(*backgroundPixmap);
 }
 
-void MainWindow::drawWireArrow(QPoint start,  QPoint end) {
+void MainWindow::drawWireArrow(QPoint start,  QPoint end, bool animating) {
 
     int arrowSize = 10;
 
     QPainter painter(backgroundPixmap);
 
     painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
+    if(animating){
+        painter.setPen(QPen(Qt::blue, 4, Qt::SolidLine, Qt::RoundCap));
+    }
+
     painter.drawLine(start,end);
 
     QPoint diff = end - start;
@@ -434,21 +439,10 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
   p = QPoint(600,300);
     DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
     output->move(p);
-    // for (int i = 0; i < inputs; i++){
-
-
-
-    //     //ui->inputLayout->addWidget(input);
-    // }
-
-
-    // p = QPoint(600,300);
-    // DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
-    // output->move(p);
-    //ui->outputLayout->addWidget(output);
 
     // pull data out of truthtable
     QTableWidget* tableWidget = ui->previewTableWidget;
+    tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     QList tableRows = newTable->getRows();
 
@@ -516,3 +510,89 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
     }
 
 }
+
+void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
+    qDebug() << "In animation method mainwindow";
+    QVector<QPair<QPoint,QPoint>> wireSegments;
+
+    // Collect all wire segments
+    for (DraggableButton* sourceButton : connections.keys()) {
+        QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+
+        for (const auto& connection : connections.value(sourceButton)) {
+            DraggableButton* targetButton = connection.first;
+            int inputPort = connection.second;
+
+            QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+            QPoint offset;
+            switch (inputPort) {
+            case 1: offset = QPoint(-10, -12); break;
+            case 2: offset = QPoint(-10, 12); break;
+            default: offset = QPoint(0, 0); break;
+            }
+            endPos += offset;
+
+            if (startPos.x() > endPos.x()) {
+                int verticalOffset = GATE_SIZE;
+                if (startPos.y() + GATE_SIZE < endPos.y()) {
+                    verticalOffset = -verticalOffset;
+                }
+
+                // Store backward wiring segments
+                QPoint p1(startPos.x() + GATE_SIZE, startPos.y());
+                wireSegments.push_back(QPair<QPoint,QPoint>(startPos, p1));
+
+                QPoint p2(p1.x(), p1.y() - verticalOffset);
+                wireSegments.push_back(QPair<QPoint,QPoint>(p1, p2));
+
+                QPoint p3(endPos.x() - GATE_SIZE, endPos.y());
+                QPoint p4(p3.x(), p3.y() - verticalOffset);
+                wireSegments.push_back(QPair<QPoint,QPoint>(p4, p3));
+                wireSegments.push_back(QPair<QPoint,QPoint>(p3, endPos));
+
+                endPos = p4;
+                startPos = p2;
+            }
+
+            // Store forward wiring segments
+            int midX = (startPos.x() + endPos.x()) / 2;
+            QPoint p1(midX, startPos.y());
+            QPoint p2(midX, endPos.y());
+
+            wireSegments.push_back(QPair<QPoint,QPoint>(startPos, p1));
+            wireSegments.push_back(QPair<QPoint,QPoint>(p1, p2));
+            wireSegments.push_back(QPair<QPoint,QPoint>(p2, endPos));
+        }
+    }
+
+
+
+    std::sort(wireSegments.begin(), wireSegments.end(), []( QPair<QPoint, QPoint>& p1,  QPair<QPoint, QPoint>& p2) {
+        return p1.first.x() < p2.first.x();
+    });
+
+    // Draw wire segments with delay
+    QTimer* animationTimer = new QTimer(this);
+    int* currentSegment = new int(0);
+
+    connect(animationTimer, &QTimer::timeout, this, [this, wireSegments, currentSegment, animationTimer, connections]() {
+        if (*currentSegment < wireSegments.size()) {
+
+
+            drawWireArrow(wireSegments[*currentSegment].first, wireSegments[*currentSegment].second, true);
+
+
+            backgroundGridLabel->setPixmap(*backgroundPixmap);
+
+            (*currentSegment)++;
+        } else {
+            // Animation complete
+            animationTimer->stop();
+            delete currentSegment;
+            animationTimer->deleteLater();
+
+        }
+    });
+    animationTimer->start(400);
+}
+
