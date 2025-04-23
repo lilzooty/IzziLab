@@ -228,10 +228,6 @@ signals:
      */
     void allConnections(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
 
-    // /**
-    //  * @brief number of buttons that will be used as inputs.
-    //  */
-    // void sendInputCount(int numberOfInputs);
 
     /**
      * Sends the info need to create a new level in mainwindow.

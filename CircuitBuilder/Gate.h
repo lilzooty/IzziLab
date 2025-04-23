@@ -15,39 +15,17 @@ enum GateType {
     XNOR_GATE
 };
 
-// NOTE: currently, the Node class will not override existing node connections. maybe it should?
 class Gate
 {
 public:
 
     Gate();
 
-
     Gate(GateType type);
-
-    /**
-     * @brief connnectNode Adds param node n as the output Node.
-     * @return
-     */
-
-    bool connnectNode(Gate g);
-
-    /**
-     * @brief deleteInput1 Sets current node's input 1 to nullptr
-     * @return
-     */
-    void deleteInput1();
-
-    void deleteInput2();
 
     void removeOutput(Gate* output); // one of these has to be redundant
 
     void removeInput(Gate* input);
-
-
-    void setInput1(Gate* gate);
-
-    void setInput2(Gate* gate);
 
     bool getSignal();
 
@@ -59,40 +37,15 @@ public:
 
     Gate* getInput2();
 
-    QVector<Gate*> getOutputs();
-
-    void deleteOutputs();
-
-    void addOutput(Gate* output);
-
-
-    void removeAllInputs();
-
     void reset();
 
     void disconnectAll();
-
-
-
-
-    /**
-     * @return True if node has an output, false otherwise.
-     */
-    bool hasOutput();
 
     /**
      * @brief evaluate Converts the input to a value based on the gate type.
      */
     bool evaluate();
 
-    /**
-     * Returns 0 if no inputs are available.
-     * returns 1 if input 1 is available.
-     * returns 2 if input 2 is available.
-     * returns 3 if bothInputs are available.
-     * @return
-     */
-    int availableInputs();
 
     /**
      * @brief addInput
@@ -113,7 +66,14 @@ private:
 
     bool hasOneInput() const;
 
+    void addOutput(Gate* output);
+
+    void deleteOutputs();
+
+    void removeAllInputs();
+
     QVector<Gate*> outputs;
+
 };
 
 #endif // GATE_H

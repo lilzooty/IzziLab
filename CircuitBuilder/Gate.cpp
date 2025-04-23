@@ -5,35 +5,6 @@ Gate::Gate(GateType type): gateType(type), input1(nullptr), input2(nullptr), out
 
 Gate::Gate(){}
 
-bool Gate::connnectNode(Gate g){
-
-    // Prevent adding to occupied nodes
-    if (g.availableInputs() > 0  && this->output == nullptr){
-       // this->output = n;
-        return true;
-    }
-
-    return false;
-}
-
-void Gate::deleteInput1(){
-    if (input1) {
-        input1->removeOutput(this);
-        input1 = nullptr;
-    }
-}
-
-void Gate::deleteInput2(){
-    if (input2) {
-        input2->removeOutput(this);
-        input2 = nullptr;
-    }
-}
-
-bool Gate::hasOutput(){
-    return !outputs.isEmpty();
-}
-
 bool Gate::evaluate() {
     // Validate required inputs
     if ((gateType == OUTPUT || gateType == INVERTER) && !input1) {
@@ -92,20 +63,6 @@ bool Gate::evaluate() {
     return true;
 }
 
-int Gate::availableInputs(){
-    int inputs = 0;
-
-    if (input1 != nullptr){
-        inputs ++;
-    }
-
-    if (input2 != nullptr){
-        inputs += 2;
-    }
-
-    return inputs;
-}
-
 bool Gate::addInput(Gate* g, int input){
     if (!g || g == this || input < 1 || input > 2) return false;
 
@@ -143,14 +100,6 @@ void Gate::setSignal(bool signal){
     this->signal = signal;
 }
 
-void Gate::setInput1(Gate* gate){
-    input1 = gate;
-}
-
-void Gate::setInput2(Gate* gate){
-    input2 = gate;
-}
-
 bool Gate::checkValidConnection(Gate* target, int inputSlot) const {
     if(!target || target == this){
         return false;
@@ -172,10 +121,6 @@ bool Gate::checkValidConnection(Gate* target, int inputSlot) const {
 
 bool Gate::hasOneInput() const {
     return gateType == INVERTER || gateType == OUTPUT;
-}
-
-QVector<Gate*> Gate::getOutputs(){
-    return outputs;
 }
 
 void Gate::addOutput(Gate* outputGate) {
