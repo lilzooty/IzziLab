@@ -95,7 +95,7 @@ void DraggableButton::input1Clicked(){
     }
     else if (wireModeOn) {
         emit sendButton(this, 1, false);
-        qDebug()<<"in";
+
     }
 
 }
@@ -103,6 +103,7 @@ void DraggableButton::input2Clicked(){
 
     if (isDelete){
         emit sendButton(this, 2, true);
+
     }
     else if (wireModeOn) {
         emit sendButton(this, 2, false);
@@ -116,7 +117,6 @@ void DraggableButton::outputClicked(){
     }
     else if (wireModeOn) {
         emit sendButton(this, 3, false);
-        qDebug() << "sent";
 
     }
 
@@ -165,12 +165,6 @@ void DraggableButton::setWireMode(bool isWireMode) {
 void DraggableButton::setDeleteMode(bool isDelete){
     this->isDelete = isDelete;
 }
-
-// void DraggableButton::getTwoButtons(DraggableButton *previousButton, int input) {
-//     if (wireModeOn) {
-//         emit sendTwoButtons(previousButton, this, input);
-//     }
-// }
 
 Gate* DraggableButton::getGate(){
     return gate;
