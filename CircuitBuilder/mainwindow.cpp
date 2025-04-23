@@ -15,27 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    int tileSize = 50;
-
-    int width = this->width();
-    int height = this->height();
-
-    int cols = width; // / 50;
-    int rows = height; // / 50;
-
-    grid.resize(rows, std::vector<bool>(cols, true));
-
-    int startRow = 25;
-    int endRow = 600;
-
-    int startCol = 0;
-    int endCol = 100;
-
-    for(int row = startRow; row < endRow; row++) {
-        for(int col = startCol; col < endCol; col++) {
-            grid[row][col] = false;
-        }
-    }
+    ui->textEdit->setReadOnly(true);
+    ui->previewTableWidget->hide();
+    ui->EvaluateButton->hide();
 
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
@@ -91,6 +73,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&circuit, &Circuit::sendEvaluation, this, &MainWindow::getNextLevel);
     connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
     connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
+    connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
+    connect(ui->EvaluateButton, &QPushButton::pressed, this, &MainWindow::disableEvaluate);
+
 
     connect(ui->startButton, &QPushButton::pressed, &circuit, &Circuit::levelUp);
 
@@ -425,6 +410,10 @@ void MainWindow::disableToolBarActions() {
 }
 
 void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
+    ui->actionWire->setChecked(false);
+    ui->actionDelete->setChecked(false);
+    enableToolBarActions();
+
     QPoint p;
 
     backgroundPixmap->fill(Qt::transparent);
@@ -474,12 +463,15 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
             QTableWidgetItem* item = new QTableWidgetItem(QString::number(inputs[col]));
             item->setTextAlignment(Qt::AlignCenter);
             tableWidget->setItem(row, col, item);
+            ui->previewTableWidget->show();
+            ui->EvaluateButton->show();
         }
 
         QTableWidgetItem* outItem = new QTableWidgetItem(QString::number(output));
         outItem->setTextAlignment(Qt::AlignCenter);
         tableWidget->setItem(row, inputCount, outItem);
     }
+    ui->EvaluateButton->setEnabled(true);
 }
 
 void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
@@ -594,5 +586,16 @@ void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<Dragga
         }
     });
     animationTimer->start(400);
+}
+
+void MainWindow::displayLevelDescription(QString description) {
+    QLabel *textLabel = ui->tipDescription;
+    textLabel->setWordWrap(true);
+    textLabel->setText(description);
+    textLabel->show();
+}
+
+void MainWindow::disableEvaluate() {
+    ui->EvaluateButton->setEnabled(false);
 }
 

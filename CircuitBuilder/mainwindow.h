@@ -36,6 +36,18 @@ public:
     ~MainWindow();
 
 public slots:
+
+    /**
+     * @brief Disables the evaluate button once it is pressed.
+     */
+    void disableEvaluate();
+
+    /**
+     * @brief Displays a helpful description based on the level.
+     * @param Description to be displayed.
+     */
+    void displayLevelDescription(QString description);
+
     /**
      * @brief Starts the game and initalizes first level.
      */
@@ -210,7 +222,6 @@ private:
      * @brief Helper method that draws wire segments
      */
     void drawWireArrow(QPoint start,  QPoint end, bool animating);
-
 
 signals:
 
