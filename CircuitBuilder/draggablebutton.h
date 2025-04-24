@@ -78,7 +78,7 @@ protected:
 public:
     DraggableButton();
 
-
+    void buttonDelete();
 
 
     DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);

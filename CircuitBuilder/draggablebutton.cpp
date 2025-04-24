@@ -58,14 +58,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     QPushButton::mousePressEvent(event);
 
     if (isDelete){
-        if (gateType != OUTPUT && gateType != INPUT){
-            float angle = (float)(rand() % 360) * M_PI / 180.0f;
-            float magnitude = 14.0f;
-            this->getPhysicsBody()->SetLinearVelocity( b2Vec2(magnitude * cos(angle), magnitude * sin(angle)));
-
-            QTimer::singleShot(1000, this, [this]() {
-                emit deleteMe(this);
-            });
+        buttonDelete();
     }
 
     if (gateType == INPUT){
@@ -77,7 +70,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
         emit toggleSignal(this);  //TELL IF ON OR OFF
     }
     }
-}
+
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 {
     if (gateType != INPUT && gateType != OUTPUT){
@@ -181,5 +174,15 @@ void DraggableButton::setPosition(QPoint &pos){
         emit onButtonMoved(this);
     currentPos = pos;
 }
+void DraggableButton::buttonDelete(){
+        if (gateType != OUTPUT && gateType != INPUT){
+            float angle = (float)(rand() % 360) * M_PI / 180.0f;
+            float magnitude = 24.0f;
+            this->getPhysicsBody()->SetLinearVelocity( b2Vec2(magnitude * cos(angle), magnitude * sin(angle)));
 
+            QTimer::singleShot(1000, this, [this]() {
+                emit deleteMe(this);
+            });
+        }
+}
 

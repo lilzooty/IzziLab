@@ -191,20 +191,12 @@ void MainWindow::updatePhysics()
 void MainWindow::onClearClicked()
 {
     // Update all buttons gravity
-    auto updateButtons = [](const vector<DraggableButton*>& buttons) {
-        for (auto button : buttons) {
 
-                // Convert physics coordinates to screen coordinates
-
-            b2Body* currentBody = button->getPhysicsBody();
-            b2Vec2 vectr(0.0f, 9.8f);
-            currentBody->SetLinearVelocity(vectr);
-
+        for (auto button : draggableButtons) {
+            button->buttonDelete();
         }
-    };
 
-    updateButtons(draggableButtons);
-
+        QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
 }
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
