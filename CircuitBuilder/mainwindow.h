@@ -54,6 +54,10 @@ public slots:
     void startGame();
 
     /**
+     * @brief Starts the game at the level.
+     */
+    void startLevel(int level);
+    /**
      * @brief Slot that creates a draggable button/node that represents an AND logic gate.
      */
     void onAndGateClicked();
@@ -222,6 +226,24 @@ private:
      * @brief Helper method that draws wire segments
      */
     void drawWireArrow(QPoint start,  QPoint end, bool animating);
+
+    /**
+     * @brief levelButtonStyle for level buttons
+     */
+    QString levelButtonStyle =
+        "QPushButton {"
+        "    background-color: rgba(40, 40, 60, 150);"
+        "    border: 2px solid rgba(80, 100, 255, 120);"
+
+        "}"
+        "QPushButton:hover {"
+        "    background-color: rgba(50, 50, 70, 170);"
+        "    border: 2px solid white;"
+        "}"
+        "QPushButton:pressed {"
+        "    background-color: rgba(35, 35, 55, 160);"
+        "    border: 2px solid rgba(60, 80, 255, 120);"
+        "}";
 
 signals:
 

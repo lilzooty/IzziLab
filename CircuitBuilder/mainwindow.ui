@@ -96,18 +96,157 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="backgroundGridlabel">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>-70</x>
-      <y>0</y>
-      <width>750</width>
-      <height>750</height>
+      <x>190</x>
+      <y>330</y>
+      <width>271</width>
+      <height>191</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
-    </property>
+    <layout class="QGridLayout" name="LevelsGrid">
+     <item row="4" column="0">
+      <widget class="QPushButton" name="ButtonLevel5">
+       <property name="text">
+        <string>LEVEL 5</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QPushButton" name="ButtonLevel14">
+       <property name="text">
+        <string>LEVEL 14</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="ButtonLevel4">
+       <property name="text">
+        <string>LEVEL 4</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="ButtonLevel18">
+       <property name="text">
+        <string>LEVEL 18</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="ButtonLevel19">
+       <property name="text">
+        <string>LEVEL 19</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="ButtonLevel13">
+       <property name="text">
+        <string>LEVEL 13</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="ButtonLevel2">
+       <property name="text">
+        <string>LEVEL 2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QPushButton" name="ButtonLevel7">
+       <property name="text">
+        <string>LEVEL 7</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="ButtonLevel17">
+       <property name="text">
+        <string>LEVEL 17</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="ButtonLevel1">
+       <property name="text">
+        <string>LEVEL 1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="ButtonLevel15">
+       <property name="text">
+        <string>LEVEL 15</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="ButtonLevel9">
+       <property name="text">
+        <string>LEVEL 9</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="ButtonLevel11">
+       <property name="text">
+        <string>LEVEL 11</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="ButtonLevel8">
+       <property name="text">
+        <string>LEVEL 8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="ButtonLevel6">
+       <property name="text">
+        <string>LEVEL 6</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="ButtonLevel3">
+       <property name="text">
+        <string>LEVEL 3</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="ButtonLevel16">
+       <property name="text">
+        <string>LEVEL 16</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="ButtonLevel20">
+       <property name="text">
+        <string>BONUS</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="ButtonLevel12">
+       <property name="text">
+        <string>LEVEL 12</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="ButtonLevel10">
+       <property name="text">
+        <string>LEVEL 10</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

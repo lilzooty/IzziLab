@@ -100,6 +100,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->textEdit->raise();
     ui->startButton->raise();
     ui->EvaluateButton->raise();
+    ui->EvaluateButton->hide();
+    ui->gridLayoutWidget->raise();
+
+
+    for (int level = 1; level <= 20; ++level) {
+        QString buttonName = QString("ButtonLevel%1").arg(level);
+        QPushButton* button = findChild<QPushButton*>(buttonName);
+        if (button) {
+            button->setStyleSheet(levelButtonStyle);
+            connect(button, &QPushButton::clicked, this, [this, level]() {
+                startLevel(level);
+            });
+        } else {
+            qDebug() << "Button not found:" << buttonName;
+        }
+    }
+
 
 }
 
@@ -369,6 +386,7 @@ void MainWindow::startGame() {
 
     ui->startButton->hide();
     ui->startButton->deleteLater();
+    ui->gridLayoutWidget->hide();
 
     ui->textEdit->hide();
     ui->textEdit->deleteLater();
@@ -597,3 +615,11 @@ void MainWindow::disableEvaluate() {
     ui->EvaluateButton->setEnabled(false);
 }
 
+void MainWindow::startLevel(int level)
+{
+    qDebug() << "Starting level:" << level;
+    startGame();
+
+
+    //drawNewLevel(inputs, table);
+}
