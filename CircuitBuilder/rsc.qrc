@@ -12,5 +12,7 @@
     </qresource>
     <qresource prefix="/BACKGROUND">
         <file>BGgrid.jpg</file>
+        <file>loadingbackground.jpg</file>
+        <file>StartButton.png</file>
     </qresource>
 </RCC>

@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->textEdit->setReadOnly(true);
     ui->previewTableWidget->hide();
-    ui->EvaluateButton->hide();
+   // ui->EvaluateButton->hide();
 
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
@@ -72,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
     connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
     connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
-    connect(ui->EvaluateButton, &QPushButton::pressed, this, &MainWindow::disableEvaluate);
+  //  connect(ui->EvaluateButton, &QPushButton::pressed, this, &MainWindow::disableEvaluate);
 
 
     connect(ui->startButton, &QPushButton::pressed, &circuit, &Circuit::levelUp);
@@ -85,16 +85,21 @@ MainWindow::MainWindow(QWidget *parent)
     connect(physicsTimer, &QTimer::timeout, this, &MainWindow::updatePhysics);
     physicsTimer->start(16); // 60 FPS approximately
 
+    // //background label
     //background label
     backgroundGridLabel = new QLabel(ui->centralwidget);
     backgroundGridLabel->setGeometry(0, 0, 800, 600);
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
-
     // // Create  pixmap
-    backgroundPixmap = new QPixmap(backgroundGridLabel->size());
-    backgroundPixmap->fill(Qt::transparent);
+    backgroundPixmap = new QPixmap(":/BACKGROUND/loadingbackground.jpg");
+
     backgroundGridLabel->setPixmap(*backgroundPixmap);
-    backgroundGridLabel->show();
+    backgroundGridLabel->setScaledContents(true);
+
+    // bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
+    ui->textEdit->raise();
+    ui->startButton->raise();
+    ui->EvaluateButton->raise();
 
 }
 
@@ -366,6 +371,9 @@ void MainWindow::handleNodeDeleted(DraggableButton* button) {
 
 void MainWindow::startGame() {
     enableToolBarActions();
+    // fix zoom
+    backgroundPixmap = new QPixmap(backgroundGridLabel->size());
+    backgroundGridLabel->setScaledContents(false);
 
     ui->startButton->hide();
     ui->startButton->deleteLater();
@@ -462,13 +470,14 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
             item->setTextAlignment(Qt::AlignCenter);
             tableWidget->setItem(row, col, item);
             ui->previewTableWidget->show();
-            ui->EvaluateButton->show();
+
         }
 
         QTableWidgetItem* outItem = new QTableWidgetItem(QString::number(output));
         outItem->setTextAlignment(Qt::AlignCenter);
         tableWidget->setItem(row, inputCount, outItem);
     }
+    ui->EvaluateButton->show();
     ui->EvaluateButton->setEnabled(true);
 }
 
