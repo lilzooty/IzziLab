@@ -1,5 +1,4 @@
 #include "Circuit.h"
-#include "qdebug.h"
 
 Circuit::Circuit() : inputNodes(), output(nullptr), gates{}{
     initializeTruthTables();
@@ -99,7 +98,6 @@ void Circuit::initializeTruthTables(){
 }
 
 bool Circuit::evaluateCircuit() {
-    qDebug() << "inEval";
     if(!isAcyclic(output) || inputNodes.empty() || !output){
         return false;
     }
@@ -190,12 +188,7 @@ void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButt
         if(!connections[fromButton].contains(newPair)){
             connections[fromButton].append(newPair);
         }
-
-
     }
-
-    qDebug() << connections[fromButton].size();
-
 }
 
 void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input) {
@@ -252,8 +245,8 @@ void Circuit::onDeleteNode(DraggableButton* button){
         gates.removeAll(gate);
         delete gate;
     }
-    //button->hide();
     button->deleteLater();
+
     emit nodeDeleted(button);
 
     emit allConnections(connections); // Redraaw Wires
@@ -341,7 +334,6 @@ void Circuit::updateOutputButton(DraggableButton *button, int input, bool deleti
 }
 
 void Circuit::addButton(DraggableButton *button){
-
     registerGate(button);
 
     connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
@@ -349,7 +341,6 @@ void Circuit::addButton(DraggableButton *button){
 
     connect(button, &DraggableButton::deleteMe, this, &Circuit::onDeleteNode);
     connect(button, &DraggableButton::toggleSignal  , this, &Circuit::toggleInputSignal);
-
 }
 
 void Circuit::onButtonMoved(){
@@ -372,7 +363,6 @@ int Circuit::getInputButtonCount(int level){
 }
 
 void Circuit::toggleInputSignal(DraggableButton* inputButton){
-
     // While dense, simply flips the bool that represents the signal of the gate.
     inputButton->getGate()->setSignal(!inputButton->getGate()->getSignal());
 }
@@ -380,14 +370,11 @@ void Circuit::toggleInputSignal(DraggableButton* inputButton){
 void Circuit::onEvaluate(){
     emit evaluationAnimation(connections);
     bool isValidCircuit = evaluateCircuit();
-    qDebug()<< "Eval";
     QTimer::singleShot(400 * (int)connections.size()*2, this, [isValidCircuit, this]() {
         emit sendEvaluation(isValidCircuit, &currTable);
     });
 
 }
-
-
 
 void Circuit::levelUp(){
     onClear();

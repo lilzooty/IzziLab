@@ -16,10 +16,6 @@ QList<QPair<QVector<int>, int>> TruthTable::getRows() const {
     return tableRows;
 }
 
-void TruthTable::setHint(QString levelHint){
-    hint = levelHint;
-}
-
 QString TruthTable::getHint() const{
     return hint;
 }

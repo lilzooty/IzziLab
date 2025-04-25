@@ -104,25 +104,6 @@ void Gate::setSignal(bool signal){
     this->signal = signal;
 }
 
-bool Gate::checkValidConnection(Gate* target, int inputSlot) const {
-    if(!target || target == this){
-        return false;
-    }
-    if(target->getGateType() == INPUT){
-        return false;
-    }
-    if(gateType == OUTPUT){
-        return false;
-    }
-    if(inputSlot == 1){
-        return target->getInput1() == nullptr;
-    }
-    if(inputSlot == 2){
-        return target->getInput2() == nullptr;
-    }
-    return true;
-}
-
 bool Gate::hasOneInput() const {
     return gateType == INVERTER || gateType == OUTPUT;
 }

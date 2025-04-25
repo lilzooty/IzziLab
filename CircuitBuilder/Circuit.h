@@ -31,7 +31,6 @@ public:
     Circuit();
 
 public :
-
     /**
      * @brief This method evaluates the circuit at the state that the user has constructed it to see if it matches the expected output.
      * @return - True if it is correct, false if not.
@@ -83,7 +82,6 @@ public :
       */
      void onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
 
-
 private:
      /**
       * @brief Starts at 0, goes up to 20. Represents current game level.
@@ -96,7 +94,8 @@ private:
     std::vector<Gate*> inputNodes;
 
     /**
-     * @brief ********** I DON'T KNOW *********************
+     * @brief The output node of the circuit. Used to traverse the circuit graph structure
+     * for evaluation.
      */
     Gate* output;
 
@@ -125,7 +124,6 @@ private:
      */
     void initializeTruthTables();
 
-
     /**
      * @brief Evaluates the current state of the ciruit program that the user has.
      * @param node - Starting node to start evaluation.
@@ -147,12 +145,11 @@ public slots:
     void registerGate(DraggableButton* button);
 
     /**
-     * @brief ************ WHAT DOES THIS DO ********************
-     * @param button - Button that is being moved.
+     * @brief slot for when a button is moved. This method sends a signal of the
+     * button connections.
      */
     void onButtonMoved();
 
-    //slots
     /**
      * @brief When a node is disconnected, it needs to be removed from vector of connections.
      * @param fromButton - Root/output button.
@@ -202,7 +199,7 @@ signals:
     void mostRecentOutputUpdated(DraggableButton *button, int input);
 
     /**
-     * ************ WHAT DOES THIS DO ********************
+     * @brief send to Mainwindow to indicate that the node is deleted so that mainwindow can remove from its vector of buttons.
      */
     void nodeDeleted(DraggableButton* button);
 
@@ -235,7 +232,6 @@ signals:
      * @brief Sends a description for a particular level.
      */
     void sendDescription(QString);
-
 };
 
 #endif
