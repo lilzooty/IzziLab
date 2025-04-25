@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->textEdit->setReadOnly(true);
     ui->previewTableWidget->hide();
-   // ui->EvaluateButton->hide();
 
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
@@ -72,12 +71,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
     connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
     connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
-  //  connect(ui->EvaluateButton, &QPushButton::pressed, this, &MainWindow::disableEvaluate);
-
 
     connect(ui->startButton, &QPushButton::pressed, &circuit, &Circuit::levelUp);
 
-    //physics set up
+    // Physics set up
     initializePhysics();
 
     // Setup physics update timer
@@ -85,18 +82,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(physicsTimer, &QTimer::timeout, this, &MainWindow::updatePhysics);
     physicsTimer->start(16); // 60 FPS approximately
 
-    // //background label
-    //background label
+    // Background label
     backgroundGridLabel = new QLabel(ui->centralwidget);
     backgroundGridLabel->setGeometry(0, 0, 800, 600);
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
-    // // Create  pixmap
-    backgroundPixmap = new QPixmap(":/BACKGROUND/loadingbackground.jpg");
 
+    // Create  pixmap
+    backgroundPixmap = new QPixmap(":/BACKGROUND/loadingbackground.jpg");
     backgroundGridLabel->setPixmap(*backgroundPixmap);
     backgroundGridLabel->setScaledContents(true);
 
-    // bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
+    // Bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
     ui->textEdit->raise();
     ui->startButton->raise();
     ui->EvaluateButton->raise();
@@ -112,12 +108,8 @@ MainWindow::MainWindow(QWidget *parent)
             connect(button, &QPushButton::clicked, this, [this, level]() {
                 startLevel(level);
             });
-        } else {
-            qDebug() << "Button not found:" << buttonName;
         }
     }
-
-
 }
 
 MainWindow::~MainWindow()
@@ -129,7 +121,6 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onAndGateClicked(){
-    //andGates.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
     draggableButtons.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
 }
 void MainWindow::onOrGateClicked(){
@@ -194,6 +185,7 @@ void MainWindow::updatePhysics()
         for (auto button : buttons) {
             if (b2Body* body = (b2Body*)button->property("physicsBody").value<void*>()) {
                 b2Vec2 position = body->GetPosition();
+
                 // Convert physics coordinates to screen coordinates
                 QPoint screenPos(position.x * pixelsPerMeter, position.y * pixelsPerMeter);
                 button->setPosition(screenPos);
@@ -205,19 +197,15 @@ void MainWindow::updatePhysics()
     updateButtons(draggableButtons);
 }
 
-void MainWindow::onClearClicked()
-{
+void MainWindow::onClearClicked() {
     // Update all buttons gravity
-
-        for (auto button : draggableButtons) {
-            button->buttonDelete();
-        }
-
-        QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
+    for (auto button : draggableButtons) {
+        button->buttonDelete();
+    }
+    QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
 }
 
-DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon)
-{
+DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
     Gate* gate = new Gate(gateType);
     DraggableButton* newButton = new DraggableButton(gateType, this, gate);
 
@@ -264,7 +252,7 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
             // Handle backward wiring (when start is to the right of end)
             if (startPos.x() > endPos.x()) {
                 int verticalOffset = GATE_SIZE;
-                // see if it closer to go up or down
+                // See if it closer to go up or down
                 if (startPos.y() + GATE_SIZE < endPos.y()) {
                     verticalOffset = -verticalOffset;
                 }
@@ -283,7 +271,7 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
                 drawWireArrow(p4, p3, false);
                 drawWireArrow(p3, endPos, false);
 
-                // updated position to draw connecting 3 wires
+                // Updated position to draw connecting 3 wires
                 endPos = p4;
                 startPos = p2;
             }
@@ -303,7 +291,6 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
 }
 
 void MainWindow::drawWireArrow(QPoint start,  QPoint end, bool animating) {
-
     int arrowSize = 10;
 
     QPainter painter(backgroundPixmap);
@@ -375,7 +362,7 @@ void MainWindow::handleNodeDeleted(DraggableButton* button) {
     draggableButtons.erase(
         std::remove(draggableButtons.begin(), draggableButtons.end(), button),
         draggableButtons.end()
-        );
+    );
 }
 
 void MainWindow::startGame() {
@@ -445,18 +432,15 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
     output->move(p);
 
-    // pull data out of truthtable
+    // Pull data out of truthtable
     QTableWidget* tableWidget = ui->previewTableWidget;
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     QList tableRows = newTable->getRows();
 
     int rowCount = tableRows.size();
-    qDebug() << rowCount;
     int inputCount = tableRows[0].first.size();
-    qDebug() << inputCount;
     int colCount = inputCount + 1;
-    qDebug() << colCount;
 
 
     tableWidget->setRowCount(rowCount);
@@ -467,7 +451,6 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     for (int i = 0; i < inputCount; ++i)
         headers << QString("In%1").arg(i + 1);
     headers << "Out";
-
     tableWidget->setHorizontalHeaderLabels(headers);
 
     // Fill
@@ -520,7 +503,6 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
 }
 
 void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
-    qDebug() << "In animation method mainwindow";
     QVector<QPair<QPoint,QPoint>> wireSegments;
 
     // Collect all wire segments
@@ -573,8 +555,6 @@ void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<Dragga
         }
     }
 
-
-
     std::sort(wireSegments.begin(), wireSegments.end(), []( QPair<QPoint, QPoint>& p1,  QPair<QPoint, QPoint>& p2) {
         return p1.first.x() < p2.first.x();
     });
@@ -585,10 +565,7 @@ void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<Dragga
 
     connect(animationTimer, &QTimer::timeout, this, [this, wireSegments, currentSegment, animationTimer, connections]() {
         if (*currentSegment < wireSegments.size()) {
-
-
             drawWireArrow(wireSegments[*currentSegment].first, wireSegments[*currentSegment].second, true);
-
 
             backgroundGridLabel->setPixmap(*backgroundPixmap);
 
@@ -617,9 +594,5 @@ void MainWindow::disableEvaluate() {
 
 void MainWindow::startLevel(int level)
 {
-    qDebug() << "Starting level:" << level;
     startGame();
-
-
-    //drawNewLevel(inputs, table);
 }
