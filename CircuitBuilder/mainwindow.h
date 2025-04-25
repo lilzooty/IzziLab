@@ -149,9 +149,6 @@ public slots:
      */
     void drawNewLevel(int inputs, TruthTable* newTable);
 
-
-
-
 private:
     /**
      * @brief The User Interface for our mainwindow.
@@ -166,8 +163,6 @@ private:
     float pixelsPerMeter = 30.0f;
     int GATE_SIZE = 50;
     vector<vector<bool>> grid;
-
-    vector<DraggableButton*> inputButtons;
 
     // The Model
     /**
@@ -255,6 +250,9 @@ signals:
      */
     void addButtonToCircuit(DraggableButton* button, GateType gateType);
 
+    /**
+     * @brief Sent to Circuit to indicate the View is ready for the next level.
+     */
     void nextLevel();
 
 
