@@ -112,8 +112,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     if(physicsWorld){
         delete physicsWorld;
     }
@@ -146,8 +145,7 @@ void MainWindow::onInputGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::INPUT, ui->actionInputGate->icon()));
 }
 
-void MainWindow::createPhysicsBody(DraggableButton* button)
-{
+void MainWindow::createPhysicsBody(DraggableButton* button) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
 
@@ -170,13 +168,11 @@ void MainWindow::createPhysicsBody(DraggableButton* button)
     button->setBody(body);
 }
 
-void MainWindow::initializePhysics()
-{
+void MainWindow::initializePhysics() {
     physicsWorld = new b2World(b2Vec2(.0f, .0f));
 }
 
-void MainWindow::updatePhysics()
-{
+void MainWindow::updatePhysics() {
     // Step the physics simulation
     physicsWorld->Step(1.0f/60.0f, 8, 3);  // Increase iteration counts
 
@@ -412,7 +408,7 @@ void MainWindow::disableToolBarActions() {
     ui->actionInputGate->setEnabled(false);
 }
 
-void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
+void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
     ui->actionWire->setChecked(false);
     ui->actionDelete->setChecked(false);
     enableToolBarActions();
@@ -474,7 +470,7 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable){
     ui->EvaluateButton->setEnabled(true);
 }
 
-void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
+void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
     if (levelComplete){
         QMessageBox msgBox;
         msgBox.setWindowTitle("That's Correct!");
@@ -502,7 +498,7 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable){
     }    
 }
 
-void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections){
+void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections) {
     QVector<QPair<QPoint,QPoint>> wireSegments;
 
     // Collect all wire segments
@@ -592,7 +588,6 @@ void MainWindow::disableEvaluate() {
     ui->EvaluateButton->setEnabled(false);
 }
 
-void MainWindow::startLevel(int level)
-{
+void MainWindow::startLevel(int level) {
     startGame();
 }
