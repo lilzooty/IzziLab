@@ -170,7 +170,7 @@ Gate* DraggableButton::getGate(){
     return gate;
 }
 void DraggableButton::setPosition(QPoint &pos){
-    if(   currentPos != pos)
+    if(currentPos != pos)
         emit onButtonMoved(this);
     currentPos = pos;
 }

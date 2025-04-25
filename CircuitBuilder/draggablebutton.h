@@ -14,19 +14,45 @@ class DraggableButton : public QPushButton
 
 private:
 
+    /**
+     * @brief Used to represent the type of gate each button is.
+     */
     GateType gateType;
+
+    // Used for the input gates to distinguish on or off.
     QIcon const onIcon;
     QIcon const offIcon;
 
     QPoint dragStartPos;
     QPoint currentPos;
+
+    /**
+     * @brief wireModeOn Used to determine if buttons are being wired together. True when wiring.
+     */
     bool wireModeOn = false;
+
+    /**
+     * @brief True when buttons or wires are being deleted.
+     */
+    bool isDelete = false;
+
+    /**
+     * @brief input1 Represents the first input of a logic gate.
+     * Is disabled for input gates.
+     */
     QPushButton input1;
+
+    /**
+     * @brief input2 Represents the second input of a logic gate.
+     * Is disabled for inputs and inverters.
+     */
     QPushButton input2;
+
+    /**
+     * @brief output Represents the output of a logic gate.
+     * Is disabled for the output gate.
+     */
     QPushButton output;
-
-
-    bool isDelete;
 
     // Needed for physics
     b2Body* body;
@@ -36,7 +62,11 @@ private:
     QPoint snapToGrid(QPoint& point);
     void updatePhysicsBody(QPoint& newPos);
 
+    /**
+     * @brief Is the logical component represented by the DraggableButton class.
+     */
     Gate* gate;
+
     QString buttonStyle =
         "QPushButton {"
         "    background-color: transparent;"
@@ -71,36 +101,72 @@ private:
 
 
 protected:
+    /**
+     * @brief Depending on program state, allows the button to wire, delete, or toggle signal.
+     */
     void mousePressEvent(QMouseEvent *event) override;
+
+    /**
+     * @brief Allows the button to be dragged around using the mouse.
+     */
     void mouseMoveEvent(QMouseEvent *event) override;
 
 
 public:
+
+    // Base constuctor
     DraggableButton();
 
-    void buttonDelete();
-
-
+    /**
+     * @brief Creates a button of gateType. Requires an actual gate as param.
+     * Instantiates input buttons based on the gateType.
+     */
     DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
 
+    /**
+     * @brief buttonDelete Used to send the deletMe signal and run a delete animation for the button.
+     */
+    void buttonDelete();
+
     QPoint getPosition() { return currentPos; }
+
+    /**
+     * @brief Sets the top left corner of the button to the QPoint x,y position.
+     */
     void setPosition(QPoint& pos);
     void setBody(b2Body* newBody) {body = newBody;}
     b2Body* getPhysicsBody();
 
+    /**
+     * @return The gate object the DraggableButton is representing.
+     */
     Gate* getGate();
 
-
-
-
 public slots:
+
+    /**
+     * @brief Recieves from MainWindow if the wire tool is active. True if wire tool is active.
+     */
     void setWireMode(bool isWireOn);
+
+    /**
+     * @brief Recieves from MainWindow if the delete tool is active. True if the delete tool is active.
+     */
     void setDeleteMode(bool isDelete);
 
-
-
+    /**
+     * @brief Sends input clicks to Circuit.
+     */
     void input1Clicked();
+
+    /**
+     * @brief Sends input clicks to Circuit.
+     */
     void input2Clicked();
+
+    /**
+     * @brief Sends output clicks to Circuit.
+     */
     void outputClicked();
 
 signals:
@@ -109,16 +175,28 @@ signals:
      * @brief sendButton
      * @param button
      * @param input 1 if input1, 2 if input2, 3 if output.
+     * @param deletingWire True if the delete tool is active, false otherwise.
      */
     void sendButton(DraggableButton *button, int input, bool deletingWire);
 
 
+
+
+    /**
+     * @brief Sent to Circuit to indicate a button has been moved.
+     */
+
     void onButtonMoved(DraggableButton* button);
 
+    /**
+     * @brief Sent to Circuit when the param button needs to be deleted.
+     */
     void deleteMe(DraggableButton*);
 
+    /**
+     * @brief When an input gate is clicked, this tells Circuit to flip the input gates signal.
+     */
     void toggleSignal(DraggableButton*);
-
 
 };
 

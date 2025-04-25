@@ -373,7 +373,6 @@ void Circuit::onEvaluate(){
     QTimer::singleShot(400 * (int)connections.size()*2, this, [isValidCircuit, this]() {
         emit sendEvaluation(isValidCircuit, &currTable);
     });
-
 }
 
 void Circuit::levelUp(){
