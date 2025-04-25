@@ -1,6 +1,5 @@
 #include "Gate.h"
 
-
 Gate::Gate(GateType type): gateType(type), input1(nullptr), input2(nullptr), output(nullptr), signal(false){}
 
 Gate::Gate(){}
@@ -102,10 +101,6 @@ Gate* Gate::getInput2(){
 
 void Gate::setSignal(bool signal){
     this->signal = signal;
-}
-
-bool Gate::hasOneInput() const {
-    return gateType == INVERTER || gateType == OUTPUT;
 }
 
 void Gate::addOutput(Gate* outputGate) {

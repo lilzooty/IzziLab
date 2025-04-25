@@ -109,17 +109,26 @@ private:
     Gate* output;
     bool signal;
 
-
-    bool hasOneInput() const;
-
+    /**
+     * @brief adds an output to the list of outputs
+     * @param output the output gate to add
+     */
     void addOutput(Gate* output);
 
+    /**
+     * @brief deletes all gates from the list of outputs
+     */
     void deleteOutputs();
 
+    /**
+     * @brief removes all input connections from this gate
+     */
     void removeAllInputs();
 
+    /**
+     * @brief outputs the list of output gates from this gate
+     */
     QVector<Gate*> outputs;
-
 };
 
 #endif
