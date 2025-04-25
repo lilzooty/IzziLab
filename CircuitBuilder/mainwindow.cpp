@@ -95,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayoutWidget->raise();
 
 
-    for (int level = 1; level <= 20; ++level) {
+    for (int level = 1; level <= 12; level++) {
         QString buttonName = QString("ButtonLevel%1").arg(level);
         QPushButton* button = findChild<QPushButton*>(buttonName);
         if (button) {
