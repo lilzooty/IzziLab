@@ -347,13 +347,18 @@ void Circuit::onEvaluate(){
 }
 
 void Circuit::levelUp(int level){
-
-    onClear(); //FIXME
-    currentLevel = level;
-    int inputs = getInputButtonCount(currentLevel);
-    currTable = allTables.at(currentLevel);
-    currentLevel++;
-    emit sendLevel(inputs,&currTable);
-    emit sendDescription(currTable.getDescription());
+    if (currentLevel >= allTables.size()) {
+        emit endGame();
+        return;
+    }
+    else {
+        onClear();
+        currentLevel = level;
+        int inputs = getInputButtonCount(currentLevel);
+        currTable = allTables.at(currentLevel);
+        currentLevel++;
+        emit sendLevel(inputs,&currTable);
+        emit sendDescription(currTable.getDescription());
+    }
 }
 

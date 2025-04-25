@@ -67,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
     connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
     connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
+    connect(&circuit, &Circuit::endGame, this, &MainWindow::gameOver);
+
 
 
     // Physics set up
@@ -637,4 +639,22 @@ void MainWindow::on_actionMENU_triggered()
 {
     returnToMenu();
 }
+
+
+void MainWindow::gameOver() {
+    disableToolBarActions();
+    ui->EvaluateButton->setEnabled(false);
+    QTextEdit *messageBox = new QTextEdit(this);
+    messageBox->setReadOnly(true);
+    messageBox->setGeometry(150, 150, 450, 300);
+    messageBox->setStyleSheet("background-color: white;");
+    messageBox->setHtml(
+        "<div align='center'>"
+        "<h1 style='color:green;'>Congrats, You Won!</h1>"
+        "<p style='font-size:14pt;'>You may close out of the game!</p>"
+        "</div>"
+        );
+    messageBox->show();
+}
+
 

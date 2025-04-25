@@ -192,6 +192,11 @@ public slots:
 signals:
 
     /**
+     * @brief Once the last level is completed, end the game.
+     */
+    void endGame();
+
+    /**
      * @brief Informs the state of the model that the most recent output button has been updated.
      * @param button - Button that is the new output/root button.
      * @param input - Input of the child node.

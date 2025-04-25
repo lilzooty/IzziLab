@@ -38,6 +38,12 @@ public:
 public slots:
 
     /**
+     * @brief If last level is reached, ends the game with a message.
+     */
+    void gameOver();
+
+
+    /**
      * @brief Disables the evaluate button once it is pressed.
      */
     void disableEvaluate();
