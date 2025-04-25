@@ -177,7 +177,7 @@ public slots:
     /**
      * @brief handles the actual logic of creating a new level and sends it to mainwindow
      */
-    void levelUp();
+    void levelUp(int level);
 
     /**
      * Helper to make levels, emits sendInputCount when level is created.

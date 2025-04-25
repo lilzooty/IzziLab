@@ -346,11 +346,14 @@ void Circuit::onEvaluate(){
     });
 }
 
-void Circuit::levelUp(){
-    onClear();
+void Circuit::levelUp(int level){
+
+    onClear(); //FIXME
+    currentLevel = level;
     int inputs = getInputButtonCount(currentLevel);
     currTable = allTables.at(currentLevel);
     currentLevel++;
     emit sendLevel(inputs,&currTable);
     emit sendDescription(currTable.getDescription());
 }
+

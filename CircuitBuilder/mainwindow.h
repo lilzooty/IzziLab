@@ -49,11 +49,6 @@ public slots:
     void displayLevelDescription(QString description);
 
     /**
-     * @brief Starts the game and initalizes first level.
-     */
-    void startGame();
-
-    /**
      * @brief Starts the game at the level.
      */
     void startLevel(int level);
@@ -164,6 +159,7 @@ private:
     int GATE_SIZE = 50;
     vector<vector<bool>> grid;
 
+    int currentLevel;
     // The Model
     /**
      * @brief Our circuit model which will be used to update mainwindow.
@@ -239,6 +235,11 @@ private:
         "    background-color: rgba(35, 35, 55, 160);"
         "    border: 2px solid rgba(60, 80, 255, 120);"
         "}";
+    /**
+     * @brief Starts the game and initalizes first level.
+     */
+    void startGame();
+
 
 signals:
 
@@ -253,8 +254,10 @@ signals:
     /**
      * @brief Sent to Circuit to indicate the View is ready for the next level.
      */
-    void nextLevel();
+    void nextLevel(int level);
 
 
+private slots:
+    void on_startButton_clicked();
 };
 #endif // MAINWINDOW_H

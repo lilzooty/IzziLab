@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow), circuit{Circuit(parent)}, draggableButtons{}
 {
     ui->setupUi(this);
-
     ui->textEdit->setReadOnly(true);
     ui->previewTableWidget->hide();
 
@@ -43,9 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&circuit, &Circuit::nodeDeleted, this, &MainWindow::handleNodeDeleted);
 
-    connect(ui->startButton, &QPushButton::pressed, this, &MainWindow::startGame);
-
-
     connect(ui->EvaluateButton, &QPushButton::pressed, &circuit, &Circuit::onEvaluate);
 
     connect(ui->actionAndGate, &QAction::triggered, this, &MainWindow::onAndGateClicked);
@@ -72,7 +68,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
     connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
 
-    connect(ui->startButton, &QPushButton::pressed, &circuit, &Circuit::levelUp);
 
     // Physics set up
     initializePhysics();
@@ -368,17 +363,21 @@ void MainWindow::startGame() {
     backgroundGridLabel->setScaledContents(false);
 
     ui->startButton->hide();
-    ui->startButton->deleteLater();
     ui->gridLayoutWidget->hide();
 
     ui->textEdit->hide();
-    ui->textEdit->deleteLater();
 
-    // Will only ever need the one output
-    QPoint p = QPoint(600,300);
-    DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
-    output->move(p);
+    emit nextLevel(currentLevel);
+
 }
+void MainWindow::startLevel(int level)
+{
+    qDebug() << "Starting level:" << level;
+    currentLevel = level-1;
+    startGame();
+
+}
+
 
 void MainWindow::enableToolBarActions() {
     ui->actionAndGate->setEnabled(true);
@@ -479,8 +478,8 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
         msgBox.setInformativeText("Click 'Ok' to continue to the next level!");
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
-
-        emit nextLevel();
+        currentLevel++;
+        emit nextLevel(currentLevel);
     }
     else
     {
@@ -588,6 +587,10 @@ void MainWindow::disableEvaluate() {
     ui->EvaluateButton->setEnabled(false);
 }
 
-void MainWindow::startLevel(int level) {
-    startGame();
+
+
+void MainWindow::on_startButton_clicked()
+{
+    startLevel(1);
 }
+
