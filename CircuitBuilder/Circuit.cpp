@@ -347,7 +347,7 @@ void Circuit::onEvaluate(){
 }
 
 void Circuit::levelUp(int level){
-    if (currentLevel >= allTables.size()) {
+    if (level == 100) {
         emit endGame();
         return;
     }

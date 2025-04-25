@@ -489,6 +489,9 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
         inputOutputButtons.clear();
 
         currentLevel++;
+        if(currentLevel >= 12){
+            currentLevel = 100;
+        }
         emit nextLevel(currentLevel);
     }
     else
@@ -655,6 +658,8 @@ void MainWindow::gameOver() {
         "</div>"
         );
     messageBox->show();
+    ui->actionMENU->setEnabled(false);
+    currentLevel =1;
 }
 
 
