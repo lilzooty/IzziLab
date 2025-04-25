@@ -31,10 +31,6 @@ public:
     Circuit();
 
 public :
-    /**
-     * ***************** SHOULD THIS BE DELETED ***************************
-     */
-    // void addNode(GateType gate);
 
     /**
      * @brief This method evaluates the circuit at the state that the user has constructed it to see if it matches the expected output.
@@ -89,6 +85,10 @@ public :
 
 
 private:
+     /**
+      * @brief Starts at 0, goes up to 20. Represents current game level.
+      */
+     int currentLevel = 0;
 
      /**
      * @brief The child nodes.
@@ -106,11 +106,6 @@ private:
     QVector<Gate*> gates;
 
     /**
-     * *********** SHOULD THIS BE DELETED ***************************
-     */
-    //QMap<DraggableButton*, QVector<DraggableButton*>> connections;
-
-    /**
      * @brief This represents the connections of nodes which will be used to evaluate.
      */
     QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections;
@@ -124,9 +119,6 @@ private:
      * @brief Table of easy circuit problems.
      */
     QVector<TruthTable> allTables;
-
-
-    int currentLevel = 0;
 
     /**
      * @brief Initializes an easy truth table for a level.
@@ -146,28 +138,13 @@ private:
      */
     TruthTable currTable;
 
-    bool evaluateCurrentInputs();
-
-
 public slots:
-
-    /**
-     * ********************* SHOULD THESE BE DELETED ****************************
-     */
-
-
-   // void onDeleteNode(Node* node);
 
     /**
      * @brief Registers a gate to the vector of gates.
      * @param button
      */
     void registerGate(DraggableButton* button);
-
-    /**
-     * ************* SHOULD THIS BE DELETED ***************************
-     */
-    //void onSendConnections();
 
     /**
      * @brief ************ WHAT DOES THIS DO ********************
@@ -210,6 +187,9 @@ public slots:
      */
     int getInputButtonCount(int currentLevel);
 
+    /**
+     * @brief Used to send the animation and connections list to mainwindow for wire drawing.
+     */
     void onEvaluate();
 
 signals:
@@ -221,6 +201,9 @@ signals:
      */
     void mostRecentOutputUpdated(DraggableButton *button, int input);
 
+    /**
+     * ************ WHAT DOES THIS DO ********************
+     */
     void nodeDeleted(DraggableButton* button);
 
     /**
@@ -229,19 +212,28 @@ signals:
     void evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
 
     /**
-     * @brief ***************** WHAT DOES THIS DO *********************
-     * @param connections - ?
+     * @brief Sent to MainWindow. Used to indicate every connection a DraggableButton has so wires
+     * can be drawn.
      */
     void allConnections(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
 
-
     /**
-     * Sends the info need to create a new level in mainwindow.
+     * Sends the info need to create a new level in mainwindow
+     * @param inputs The number of input gates required for the level.
+     * @param newTable The TruthTable used to indicate the correct answer.
      */
     void sendLevel(int inputs, TruthTable* newTable);
 
+    /**
+     * @brief Sent upon completing circuit evaluation.
+     * @param correct True if user circuit is equivalent to the correct answer.
+     * @param currentTable
+     */
     void sendEvaluation(bool correct, TruthTable *currentTable);
 
+    /**
+     * @brief Sends a description for a particular level.
+     */
     void sendDescription(QString);
 
 };

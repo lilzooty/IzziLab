@@ -98,18 +98,6 @@ void Circuit::initializeTruthTables(){
                                 ""));
 }
 
-bool Circuit::evaluateCurrentInputs(){
-    if(!isAcyclic(output) || inputNodes.empty() || !output){
-        return false;
-    }
-    if(evaluateNodeTree(output)){
-        return output->getSignal();
-    }
-
-    return false;
-}
-
-
 bool Circuit::evaluateCircuit() {
     qDebug() << "inEval";
     if(!isAcyclic(output) || inputNodes.empty() || !output){
