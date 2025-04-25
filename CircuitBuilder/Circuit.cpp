@@ -64,36 +64,8 @@ void Circuit::initializeTruthTables(){
         {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}
     };
 
-    allTables.append(TruthTable(inputs3, {0, 1, 0, 1, 1, 1, 1, 1},
-                                "Use AND gate and OR gate",
-                                ""));
-
-    allTables.append(TruthTable(inputs3, {0, 1, 0, 0, 0, 0, 0, 0},
-                                "Use NOT gate, OR GATE, and AND gate",
-                                ""));
-
-    allTables.append(TruthTable(inputs3, {0, 1, 1, 0, 1, 0, 0, 1},
-                                "Use 2 XOR gates",
-                                ""));
-
-    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 0},
-                                "Use 2 AND gates and a XOR gate",
-                                ""));
-
-    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 0, 0},
-                                "2 NOT gates, and AND gate, and an OR gate",
-                                ""));
-
-    allTables.append(TruthTable(inputs3, {1, 1, 1, 1, 1, 1, 1, 1},
-                                "Use 2 OR Gates, 2 NOT gates, and an AND gate",
-                                ""));
-
-    allTables.append(TruthTable(inputs3, {0, 0, 0, 1, 0, 1, 1, 1},
-                                "2 inputs have to be 1",
-                                ""));
-
-    allTables.append(TruthTable(inputs3, {0, 0, 0, 0, 0, 0, 0, 1},
-                                "Combine NAND and NOR gates",
+    allTables.append(TruthTable(inputs3, {0, 0, 1, 0, 1, 1, 0, 1},
+                                "use AND gate, XOR gate, and XNOR gate",
                                 ""));
 }
 
@@ -348,7 +320,6 @@ void Circuit::onButtonMoved(){
 }
 
 int Circuit::getInputButtonCount(int level){
-
     if (level < 2){
         return 1;
     }
