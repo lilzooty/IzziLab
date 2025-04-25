@@ -160,6 +160,7 @@ private:
     vector<vector<bool>> grid;
 
     int currentLevel;
+    void returnToMenu();
     // The Model
     /**
      * @brief Our circuit model which will be used to update mainwindow.
@@ -171,6 +172,7 @@ private:
      * @brief Stores all of the buttons currently displayed.
      */
     vector<DraggableButton*> draggableButtons;
+    vector<DraggableButton*> inputOutputButtons;
 
     //physics methods
     /**
@@ -259,5 +261,6 @@ signals:
 
 private slots:
     void on_startButton_clicked();
+    void on_actionMENU_triggered();
 };
 #endif // MAINWINDOW_H

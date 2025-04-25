@@ -422,11 +422,12 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
         p = QPoint(100, 100*i+ 100);
 
         input->move(p);
+        inputOutputButtons.push_back(input);
     }
   p = QPoint(600,300);
     DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
     output->move(p);
-
+    inputOutputButtons.push_back(output);
     // Pull data out of truthtable
     QTableWidget* tableWidget = ui->previewTableWidget;
     tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -478,6 +479,13 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
         msgBox.setInformativeText("Click 'Ok' to continue to the next level!");
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();
+        //clean up input + output buttons
+        for(DraggableButton* button: inputOutputButtons){
+            button->hide();
+            button->deleteLater();
+        }
+        inputOutputButtons.clear();
+
         currentLevel++;
         emit nextLevel(currentLevel);
     }
@@ -592,5 +600,41 @@ void MainWindow::disableEvaluate() {
 void MainWindow::on_startButton_clicked()
 {
     startLevel(1);
+}
+
+void MainWindow::returnToMenu(){
+    //clear buttons
+    ui->previewTableWidget->hide();
+    ui->EvaluateButton->hide();
+
+    disableToolBarActions();
+
+    // // Create  pixmap
+    backgroundPixmap = new QPixmap(":/BACKGROUND/loadingbackground.jpg");
+
+    backgroundGridLabel->setPixmap(*backgroundPixmap);
+    backgroundGridLabel->setScaledContents(true);
+
+    // bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
+    ui->textEdit->raise();
+    ui->textEdit->show();
+    ui->startButton->show();
+    ui->gridLayoutWidget->show();
+    ui->startButton->raise();
+    ui->EvaluateButton->raise();
+    ui->gridLayoutWidget->raise();
+
+    //cleanup Buttons
+    for( DraggableButton* button : inputOutputButtons){
+        button->hide();
+
+    }
+    inputOutputButtons.clear();
+
+}
+
+void MainWindow::on_actionMENU_triggered()
+{
+    returnToMenu();
 }
 

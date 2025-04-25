@@ -101,8 +101,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <rect>
       <x>190</x>
       <y>330</y>
-      <width>271</width>
-      <height>191</height>
+      <width>282</width>
+      <height>236</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="LevelsGrid">
@@ -280,6 +280,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <addaction name="actionXorGate"/>
    <addaction name="actionXnorGate"/>
    <addaction name="actionClear"/>
+   <addaction name="actionMENU"/>
   </widget>
   <action name="actionAndGate">
    <property name="icon">
@@ -405,6 +406,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </property>
    <property name="text">
     <string>InputGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionMENU">
+   <property name="text">
+    <string>MENU</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
