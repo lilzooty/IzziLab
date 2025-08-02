@@ -57,7 +57,7 @@ public slots:
     /**
      * @brief Starts the game at the level.
      */
-    void startLevel(int level);
+    // void startLevel(int level);
     /**
      * @brief Slot that creates a draggable button/node that represents an AND logic gate.
      */
@@ -69,7 +69,7 @@ public slots:
     void onOrGateClicked();
 
     /**
-     * @brief Slot that creates a draggable button/node that represents an inverter gate.
+     * @brief Slot that creates a draggable button/node that represents an NOT gate.
      */
     void onInverterClicked();
 
@@ -97,6 +97,13 @@ public slots:
      * @brief Slot that creates an draggable button/node that represents an INPUT gate.
      */
     void onInputGateClicked();
+
+    /**
+     * @brief Slot that creates an draggable button/node that represents an OUTPUT gate.
+     */
+    void onOutputGateClicked();
+
+
     /**
      * @brief Slot that tells the Circuit that the user is in wire/connection mode.
      * @param checked - If the wire toolbar action is checked or not.
@@ -134,7 +141,7 @@ public slots:
     /**
      * Connected to Circuit::sendEvaluate, used to get the next level upon completion.
      */
-    void getNextLevel(bool levelComplete, TruthTable *currentTable);
+    // void getNextLevel(bool levelComplete, TruthTable *currentTable);
 
     /**
      * @brief Animates the circuit being solved.
@@ -148,7 +155,7 @@ public slots:
      * emits nextLevel()
      * @param inputButtons
      */
-    void drawNewLevel(int inputs, TruthTable* newTable);
+    // void drawNewLevel(int inputs, TruthTable* newTable);
 
 private:
     /**

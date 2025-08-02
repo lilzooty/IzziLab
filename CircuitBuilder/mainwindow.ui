@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>720</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,12 +23,33 @@
       <height>71</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
+    <property name="font">
+     <font>
+      <pointsize>32</pointsize>
+     </font>
     </property>
-    <property name="icon">
-     <iconset resource="rsc.qrc">
-      <normaloff>:/BACKGROUND/StartButton.png</normaloff>:/BACKGROUND/StartButton.png</iconset>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-style: solid;
+	border-width:5px;
+	border-radius:10px;
+	border-color:rgb(100, 0, 167);
+	padding: 10 10 10 10;
+	background-color:qlineargradient(spread:pad, x1:4, y1:4, x1:4, y1:4, stop:0 rgb(255, 255, 255), stop:1 rgb(106, 78, 153));
+	color:white;
+}
+
+QPushButton:hover {
+	background-color: rgba(50, 50, 70, 170);
+	border: 5px solid white;
+}
+QPushButton:pressed {
+	background-color: rgba(35, 35, 55, 160);
+	border: 5px solid rgba(60, 80, 255, 120);
+}</string>
+    </property>
+    <property name="text">
+     <string>START</string>
     </property>
     <property name="iconSize">
      <size>
@@ -45,6 +66,19 @@
       <width>401</width>
       <height>171</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTextEdit{
+	border-style: solid;
+	border-width:5px;
+	border-radius:10px;
+	border-color:rgb(100, 0, 167);
+	padding: 10 10 10 10;
+	background-color:qlineargradient(spread:pad, x1:4, y1:4, x1:4, y1:4, stop:0 rgb(255, 255, 255), stop:1 rgb(106, 78, 153));
+	color:white;
+}
+
+</string>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -66,131 +100,29 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border-style: solid;
+	border-width:5px;
+	border-radius:10px;
+	border-color:rgb(100, 0, 167);
+	padding: 10 10 10 10;
+	background-color:qlineargradient(spread:pad, x1:4, y1:4, x1:4, y1:4, stop:0 rgb(255, 255, 255), stop:1 rgb(106, 78, 153));
+	color:white;
+}
+
+QPushButton:hover {
+	background-color: rgba(50, 50, 70, 170);
+	border: 5px solid white;
+}
+QPushButton:pressed {
+	background-color: rgba(35, 35, 55, 160);
+	border: 5px solid rgba(60, 80, 255, 120);
+}</string>
+    </property>
     <property name="text">
      <string>Evaluate Circuit</string>
     </property>
-   </widget>
-   <widget class="QTableWidget" name="previewTableWidget">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>360</y>
-      <width>221</width>
-      <height>111</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="tipDescription">
-    <property name="geometry">
-     <rect>
-      <x>542</x>
-      <y>9</y>
-      <width>191</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>330</y>
-      <width>282</width>
-      <height>236</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="LevelsGrid">
-     <item row="1" column="1">
-      <widget class="QPushButton" name="ButtonLevel8">
-       <property name="text">
-        <string>LEVEL 8</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QPushButton" name="ButtonLevel12">
-       <property name="text">
-        <string>LEVEL 12</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="ButtonLevel10">
-       <property name="text">
-        <string>LEVEL 10</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="ButtonLevel9">
-       <property name="text">
-        <string>LEVEL 9</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="ButtonLevel11">
-       <property name="text">
-        <string>LEVEL 11</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="ButtonLevel7">
-       <property name="text">
-        <string>LEVEL 7</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="ButtonLevel1">
-       <property name="text">
-        <string>LEVEL 1</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="ButtonLevel2">
-       <property name="text">
-        <string>LEVEL 2</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="ButtonLevel3">
-       <property name="text">
-        <string>LEVEL 3</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="ButtonLevel4">
-       <property name="text">
-        <string>LEVEL 4</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="ButtonLevel5">
-       <property name="text">
-        <string>LEVEL 5</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QPushButton" name="ButtonLevel6">
-       <property name="text">
-        <string>LEVEL 6</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -216,6 +148,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </attribute>
    <addaction name="actionWire"/>
    <addaction name="actionDelete"/>
+   <addaction name="actionInputGate"/>
+   <addaction name="actionOutputGate"/>
    <addaction name="actionInverter"/>
    <addaction name="actionOrGate"/>
    <addaction name="actionAndGate"/>
@@ -265,6 +199,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <action name="actionWire">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::NetworkWired"/>
    </property>
    <property name="text">
     <string>Wire</string>
@@ -336,6 +273,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::EditDelete"/>
+   </property>
    <property name="text">
     <string>Delete</string>
    </property>
@@ -356,8 +296,25 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </property>
   </action>
   <action name="actionMENU">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::GoHome"/>
+   </property>
    <property name="text">
     <string>MENU</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionOutputGate">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::MediaPlaybackStop"/>
+   </property>
+   <property name="text">
+    <string>OUT Gate</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

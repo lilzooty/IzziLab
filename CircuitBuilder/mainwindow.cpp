@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include "draggablebutton.h"
 #include <QMessageBox>
+#include <qtoolbutton.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,7 +15,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->textEdit->setReadOnly(true);
-    ui->previewTableWidget->hide();
+    // ui->previewTableWidget->hide();
+
+
+    //For the delete button
+    // QToolButton* deleteButton = new QToolButton(this);
+    // deleteButton->setDefaultAction(ui->actionDelete);
+    // deleteButton->setStyleSheet("QToolButton { background-color: red; border: 2px solid black; border-radius: 5px; }");
+    // ui->toolBar->addWidget(deleteButton);
+
+
 
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
@@ -25,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction* xorGate = ui->actionXorGate;
     QAction* xnorGate = ui->actionXnorGate;
     QAction* inputGate = ui->actionInputGate;
+    QAction* outputGate = ui->actionOutputGate;
 
     QActionGroup *group = new QActionGroup(this);
 
@@ -37,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(inverter);
     group->addAction(clear);
     group->addAction(inputGate);
+    group->addAction(outputGate);
 
     disableToolBarActions();
 
@@ -63,10 +75,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
 
-    connect(&circuit, &Circuit::sendEvaluation, this, &MainWindow::getNextLevel);
-    connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
-    connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
-    connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
+    // connect(&circuit, &Circuit::sendEvaluation, this, &MainWindow::getNextLevel);
+    // connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
+    // connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
+    // connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
     connect(&circuit, &Circuit::endGame, this, &MainWindow::gameOver);
 
 
@@ -85,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent)
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     // Create  pixmap
-    backgroundPixmap = new QPixmap(":/BACKGROUND/loadingbackground.jpg");
+    backgroundPixmap = new QPixmap();
     backgroundGridLabel->setPixmap(*backgroundPixmap);
     backgroundGridLabel->setScaledContents(true);
 
@@ -94,19 +106,19 @@ MainWindow::MainWindow(QWidget *parent)
     ui->startButton->raise();
     ui->EvaluateButton->raise();
     ui->EvaluateButton->hide();
-    ui->gridLayoutWidget->raise();
+    // ui->gridLayoutWidget->raise();
 
 
-    for (int level = 1; level <= 12; level++) {
-        QString buttonName = QString("ButtonLevel%1").arg(level);
-        QPushButton* button = findChild<QPushButton*>(buttonName);
-        if (button) {
-            button->setStyleSheet(levelButtonStyle);
-            connect(button, &QPushButton::clicked, this, [this, level]() {
-                startLevel(level);
-            });
-        }
-    }
+    // for (int level = 1; level <= 12; level++) {
+    //     QString buttonName = QString("ButtonLevel%1").arg(level);
+    //     QPushButton* button = findChild<QPushButton*>(buttonName);
+    //     if (button) {
+    //         button->setStyleSheet(levelButtonStyle);
+    //         connect(button, &QPushButton::clicked, this, [this, level]() {
+    //             startLevel(level);
+    //         });
+    //     }
+    // }
 }
 
 MainWindow::~MainWindow() {
@@ -116,30 +128,56 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+
+
+
+
+
 void MainWindow::onAndGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
+    qDebug() << "added AND Gate. There are: " << draggableButtons.size() << "total gates in circuit";
 }
 void MainWindow::onOrGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
+    qDebug() << "added OR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+
 }
 void MainWindow::onInverterClicked(){
     draggableButtons.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
+    qDebug() << "added NOT Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+
 
 }
 void MainWindow::onNandGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
+    qDebug() << "added NAND Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+
 }
 void MainWindow::onNorGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
+    qDebug() << "added NOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+
 }
 void MainWindow::onXorGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
+    qDebug() << "added XOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+
 }
 void MainWindow::onXnorGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::XNOR_GATE, ui->actionXnorGate->icon()));
+    qDebug() << "added XNOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+
 }
 void MainWindow::onInputGateClicked(){
     draggableButtons.push_back(createGateButton(GateType::INPUT, ui->actionInputGate->icon()));
+    qDebug() << "added IN Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+}
+
+
+void MainWindow::onOutputGateClicked(){
+    draggableButtons.push_back(createGateButton(GateType::OUTPUT, ui->actionOutputGate->icon()));
+    qDebug() << "added OUT Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+
 }
 
 void MainWindow::createPhysicsBody(DraggableButton* button) {
@@ -195,7 +233,10 @@ void MainWindow::onClearClicked() {
     for (auto button : draggableButtons) {
         button->buttonDelete();
     }
-    QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
+    // QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
+    draggableButtons.clear();
+
+    qDebug() << "buttons deleted. There are now " << draggableButtons.size() << "buttons left in the cirucuit";
 }
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
@@ -365,20 +406,21 @@ void MainWindow::startGame() {
     backgroundGridLabel->setScaledContents(false);
 
     ui->startButton->hide();
-    ui->gridLayoutWidget->hide();
+    // ui->gridLayoutWidget->hide();
 
     ui->textEdit->hide();
-
+    ui->EvaluateButton->show();
+    ui->EvaluateButton->setEnabled(true);
     emit nextLevel(currentLevel);
 
 }
-void MainWindow::startLevel(int level)
-{
-    qDebug() << "Starting level:" << level;
-    currentLevel = level-1;
-    startGame();
+// void MainWindow::startLevel(int level)
+// {
+//     qDebug() << "Starting level:" << level;
+//     currentLevel = level-1;
+//     startGame();
 
-}
+// }
 
 
 void MainWindow::enableToolBarActions() {
@@ -393,6 +435,8 @@ void MainWindow::enableToolBarActions() {
     ui->actionDelete->setEnabled(true);
     ui->actionClear->setEnabled(true);
     ui->actionInputGate->setEnabled(true);
+    ui->actionOutputGate->setEnabled(true);
+
 }
 
 void MainWindow::disableToolBarActions() {
@@ -407,108 +451,110 @@ void MainWindow::disableToolBarActions() {
     ui->actionDelete->setEnabled(false);
     ui->actionClear->setEnabled(false);
     ui->actionInputGate->setEnabled(false);
+    ui->actionOutputGate->setEnabled(false);
+
 }
 
-void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
-    ui->actionWire->setChecked(false);
-    ui->actionDelete->setChecked(false);
-    enableToolBarActions();
+// void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
+    // ui->actionWire->setChecked(false);
+    // ui->actionDelete->setChecked(false);
+    // enableToolBarActions();
 
-    QPoint p;
+//     QPoint p;
 
-    backgroundPixmap->fill(Qt::transparent);
-    backgroundGridLabel->setPixmap(*backgroundPixmap);
+//     backgroundPixmap->fill(Qt::transparent);
+//     backgroundGridLabel->setPixmap(*backgroundPixmap);
 
-    for (int i = 0; i < inputs; i++){
-        DraggableButton* input = createGateButton(GateType::INPUT, ui->actionInputGate->icon());
-        p = QPoint(100, 100*i+ 100);
+//     for (int i = 0; i < inputs; i++){
+//         DraggableButton* input = createGateButton(GateType::INPUT, ui->actionInputGate->icon());
+//         p = QPoint(100, 100*i+ 100);
 
-        input->move(p);
-        inputOutputButtons.push_back(input);
-    }
-  p = QPoint(600,300);
-    DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
-    output->move(p);
-    inputOutputButtons.push_back(output);
-    // Pull data out of truthtable
-    QTableWidget* tableWidget = ui->previewTableWidget;
-    tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+//         input->move(p);
+//         inputOutputButtons.push_back(input);
+//     }
+//   p = QPoint(600,300);
+//     DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
+//     output->move(p);
+//     inputOutputButtons.push_back(output);
+//     // Pull data out of truthtable
+//     // QTableWidget* tableWidget = ui->previewTableWidget;
+//     // tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    QList tableRows = newTable->getRows();
+//     QList tableRows = newTable->getRows();
 
-    int rowCount = tableRows.size();
-    int inputCount = tableRows[0].first.size();
-    int colCount = inputCount + 1;
+//     int rowCount = tableRows.size();
+//     int inputCount = tableRows[0].first.size();
+//     int colCount = inputCount + 1;
 
 
-    tableWidget->setRowCount(rowCount);
-    tableWidget->setColumnCount(colCount);
+//     // tableWidget->setRowCount(rowCount);
+//     // tableWidget->setColumnCount(colCount);
 
-    // Headers
-    QStringList headers;
-    for (int i = 0; i < inputCount; ++i)
-        headers << QString("In%1").arg(i + 1);
-    headers << "Out";
-    tableWidget->setHorizontalHeaderLabels(headers);
+//     // Headers
+//     QStringList headers;
+//     for (int i = 0; i < inputCount; ++i)
+//         headers << QString("In%1").arg(i + 1);
+//     headers << "Out";
+//     // tableWidget->setHorizontalHeaderLabels(headers);
 
-    // Fill
-    for (int row = 0; row < rowCount; ++row) {
-        const QVector<int>& inputs = tableRows[row].first;
-        int output = tableRows[row].second;
+//     // Fill
+//     for (int row = 0; row < rowCount; ++row) {
+//         const QVector<int>& inputs = tableRows[row].first;
+//         int output = tableRows[row].second;
 
-        for (int col = 0; col < inputCount; ++col) {
-            QTableWidgetItem* item = new QTableWidgetItem(QString::number(inputs[col]));
-            item->setTextAlignment(Qt::AlignCenter);
-            tableWidget->setItem(row, col, item);
-            ui->previewTableWidget->show();
+//         for (int col = 0; col < inputCount; ++col) {
+//             // QTableWidgetItem* item = new QTableWidgetItem(QString::number(inputs[col]));
+//             // item->setTextAlignment(Qt::AlignCenter);
+//             // tableWidget->setItem(row, col, item);
+//             // ui->previewTableWidget->show();
 
-        }
+//         }
 
-        QTableWidgetItem* outItem = new QTableWidgetItem(QString::number(output));
-        outItem->setTextAlignment(Qt::AlignCenter);
-        tableWidget->setItem(row, inputCount, outItem);
-    }
-    ui->EvaluateButton->show();
-    ui->EvaluateButton->setEnabled(true);
-}
+//         // QTableWidgetItem* outItem = new QTableWidgetItem(QString::number(output));
+//         // outItem->setTextAlignment(Qt::AlignCenter);
+//         // tableWidget->setItem(row, inputCount, outItem);
+//     }
+//     ui->EvaluateButton->show();
+//     ui->EvaluateButton->setEnabled(true);
+// }
 
-void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
-    if (levelComplete){
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("That's Correct!");
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText("Wow! Great Job!");
-        msgBox.setInformativeText("Click 'Ok' to continue to the next level!");
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
-        //clean up input + output buttons
-        for(DraggableButton* button: inputOutputButtons){
-            button->hide();
-            button->deleteLater();
-        }
-        inputOutputButtons.clear();
+// void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
+//     if (levelComplete){
+//         QMessageBox msgBox;
+//         msgBox.setWindowTitle("That's Correct!");
+//         msgBox.setIcon(QMessageBox::Warning);
+//         msgBox.setText("Wow! Great Job!");
+//         msgBox.setInformativeText("Click 'Ok' to continue to the next level!");
+//         msgBox.setStandardButtons(QMessageBox::Ok);
+//         msgBox.exec();
+//         //clean up input + output buttons
+//         for(DraggableButton* button: inputOutputButtons){
+//             button->hide();
+//             button->deleteLater();
+//         }
+//         inputOutputButtons.clear();
 
-        currentLevel++;
-        if(currentLevel >= 12){
-            currentLevel = 100;
-        }
-        emit nextLevel(currentLevel);
-    }
-    else
-    {
-        // Display try again message.
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Incorrect Solution");
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setText("Oops! That solution isn't correct.");
-        msgBox.setInformativeText("Hint: " + currentTable->getHint());
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
-        ui->EvaluateButton->setEnabled(true);
+//         currentLevel++;
+//         if(currentLevel >= 12){
+//             currentLevel = 100;
+//         }
+//         emit nextLevel(currentLevel);
+//     }
+//     else
+//     {
+//         // Display try again message.
+//         QMessageBox msgBox;
+//         msgBox.setWindowTitle("Incorrect Solution");
+//         msgBox.setIcon(QMessageBox::Warning);
+//         msgBox.setText("Oops! That solution isn't correct.");
+//         msgBox.setInformativeText("Hint: " + currentTable->getHint());
+//         msgBox.setStandardButtons(QMessageBox::Ok);
+//         msgBox.exec();
+//         ui->EvaluateButton->setEnabled(true);
 
-        return;
-    }    
-}
+//         return;
+//     }
+// }
 
 void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections) {
     QVector<QPair<QPoint,QPoint>> wireSegments;
@@ -590,10 +636,9 @@ void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<Dragga
 }
 
 void MainWindow::displayLevelDescription(QString description) {
-    QLabel *textLabel = ui->tipDescription;
-    textLabel->setWordWrap(true);
-    textLabel->setText(description);
-    textLabel->show();
+    // QLabel *textLabel = ui->tipDescription;
+    // textLabel->setText(description);
+    // textLabel->show();
 }
 
 void MainWindow::disableEvaluate() {
@@ -604,18 +649,18 @@ void MainWindow::disableEvaluate() {
 
 void MainWindow::on_startButton_clicked()
 {
-    startLevel(1);
+    startGame();
 }
 
 void MainWindow::returnToMenu(){
     //clear buttons
-    ui->previewTableWidget->hide();
+    // ui->previewTableWidget->hide();
     ui->EvaluateButton->hide();
 
     disableToolBarActions();
 
     // // Create  pixmap
-    backgroundPixmap = new QPixmap(":/BACKGROUND/loadingbackground.jpg");
+    backgroundPixmap = new QPixmap();
 
     backgroundGridLabel->setPixmap(*backgroundPixmap);
     backgroundGridLabel->setScaledContents(true);
@@ -624,10 +669,10 @@ void MainWindow::returnToMenu(){
     ui->textEdit->raise();
     ui->textEdit->show();
     ui->startButton->show();
-    ui->gridLayoutWidget->show();
+    // ui->gridLayoutWidget->show();
     ui->startButton->raise();
     ui->EvaluateButton->raise();
-    ui->gridLayoutWidget->raise();
+    // ui->gridLayoutWidget->raise();
 
     //cleanup Buttons
     for( DraggableButton* button : inputOutputButtons){

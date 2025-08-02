@@ -1,73 +1,14 @@
 #include "Circuit.h"
 
 Circuit::Circuit() : inputNodes(), output(nullptr), gates{}{
-    initializeTruthTables();
+
 }
 
 Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
-    initializeTruthTables();
+
 }
 
-void Circuit::initializeTruthTables(){
-    QVector<QVector<int>> input1 = { {0}, {1} };
 
-    allTables.append(TruthTable(input1, { 0, 1 },
-                                "Direct pass through: output = input",
-                                "This is just a wire. If the input is on the output is on"));
-
-    allTables.append(TruthTable(input1, { 1, 0 },
-                                "output = not input",
-                                "This is a NOT gate. It flips the signal. On becomes off and Off becomes On"));
-
-    QVector<QVector<int>> inputs2 = {
-        {0, 0}, {0, 1}, {1, 0}, {1, 1}
-    };
-
-    allTables.append(TruthTable(inputs2, {0, 0, 0, 1},
-                                "True when both inputs are 1",
-                                "AND gate: both switches need to be on for output to be on"));
-
-    allTables.append(TruthTable(inputs2, {0, 1, 1, 1},
-                                "True when either input1 is 1 or input2 is 1",
-                                "OR gate: the light turns on if at least one input is on."));
-
-    allTables.append(TruthTable(inputs2, {1, 1, 1, 0},
-                                "True when input1 and inputs2 are both not 1",
-                                "NAND gate: similar to an AND gate, but flipped— only off when both inputs are on."));
-
-    allTables.append(TruthTable(inputs2, {1, 0, 0, 0},
-                                "Opposite of an OR gate",
-                                "NOR gate: only on when everything is off"));
-
-    allTables.append(TruthTable(inputs2, {0, 1, 1, 0},
-                                "Inputs must be different",
-                                "XOR gate: only on when the inputs are different."));
-
-    allTables.append(TruthTable(inputs2, {1, 0, 0, 1},
-                                "Inputs must be the same",
-                                "XNOR gate: Only on when the inputs are the same. either both on or both off"));
-
-    allTables.append(TruthTable(inputs2, {0, 0, 1, 0},
-                                "Use an AND gate and a NOT gate",
-                                ""));
-
-    allTables.append(TruthTable(inputs2, {1, 1, 0, 1},
-                                "Use a NOT gate and an OR gate",
-                                ""));
-
-    allTables.append(TruthTable(inputs2, {0, 0, 1, 0},
-                                "Use an AND gate and a XOR gate",
-                                ""));
-
-    QVector<QVector<int>> inputs3 = {
-        {0, 0, 0}, {0, 0, 1}, {0, 1, 0}, {0, 1, 1},
-        {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}
-    };
-
-    allTables.append(TruthTable(inputs3, {0, 0, 1, 0, 1, 1, 0, 1},
-                                "use AND gate, XOR gate, and XNOR gate",
-                                ""));
-}
 
 bool Circuit::evaluateCircuit() {
     if(!isAcyclic(output) || inputNodes.empty() || !output){
@@ -79,33 +20,26 @@ bool Circuit::evaluateCircuit() {
     }
 
     // Get the truth table rows
-    QList<QPair<QVector<int>, int>> rows = currTable.getRows();
-    if(rows.isEmpty()){
+    // QList<QPair<QVector<int>, int>> rows = currTable.getRows();
+    // if(rows.isEmpty()){
         return false;
-    }
+
 
     // For each row in the truth table
-    for (const auto& row : rows) {
-        const QVector<int>& inputs = row.first;
-        const bool expectedOutput = row.second;
+    // for (const auto& row : rows) {
+        // const QVector<int>& inputs = row.first;
+        // const bool expectedOutput = row.second;
 
         // Set input signals
-        for (int i = 0; i < inputs.size(); ++i) {
-            inputNodes[i]->setSignal(inputs[i] == 1);
-        }
+        // for (int i = 0; i < inputs.size(); ++i) {
+            // inputNodes[i]->setSignal(inputs[i] == 1);
+        // }
 
         if (!evaluateNodeTree(output)) {
             return false;
         }
 
-        // Get the final output and compare with expected
-        bool actualOutput = output->getSignal();
 
-        if(actualOutput != expectedOutput){
-            return false;
-        }
-    }
-    return true;
 }
 
 bool Circuit::evaluateNodeTree(Gate* node) {
@@ -339,26 +273,12 @@ void Circuit::toggleInputSignal(DraggableButton* inputButton){
 }
 
 void Circuit::onEvaluate(){
-    emit evaluationAnimation(connections);
-    bool isValidCircuit = evaluateCircuit();
-    QTimer::singleShot(400 * (int)connections.size()*2, this, [isValidCircuit, this]() {
-        emit sendEvaluation(isValidCircuit, &currTable);
-    });
+    // emit evaluationAnimation(connections);
+    // bool isValidCircuit = evaluateCircuit();
+    // QTimer::singleShot(400 * (int)connections.size()*2, this, [isValidCircuit, this]() {
+        // emit sendEvaluation(isValidCircuit, &currTable);
+    // });
 }
 
-void Circuit::levelUp(int level){
-    if (level == 100) {
-        emit endGame();
-        return;
-    }
-    else {
-        onClear();
-        currentLevel = level;
-        int inputs = getInputButtonCount(currentLevel);
-        currTable = allTables.at(currentLevel);
-        currentLevel++;
-        emit sendLevel(inputs,&currTable);
-        emit sendDescription(currTable.getDescription());
-    }
-}
+
 

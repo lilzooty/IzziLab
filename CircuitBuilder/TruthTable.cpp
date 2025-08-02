@@ -1,27 +1,27 @@
-#include "TruthTable.h"
+// #include "TruthTable.h"
 
-TruthTable::TruthTable(const QVector<QVector<int>>& inputs, const QVector<int>& outputs, QString hint, QString levelDescription){
-    for (int i = 0; i < inputs.size(); ++i) {
-        tableRows.append(qMakePair(inputs[i], outputs[i]));
-    }
-    this->hint = hint;
-    this->levelDescription = levelDescription;
-}
+// TruthTable::TruthTable(const QVector<QVector<int>>& inputs, const QVector<int>& outputs, QString hint, QString levelDescription){
+//     for (int i = 0; i < inputs.size(); ++i) {
+//         tableRows.append(qMakePair(inputs[i], outputs[i]));
+//     }
+//     this->hint = hint;
+//     this->levelDescription = levelDescription;
+// }
 
-TruthTable::TruthTable(){
-    hint = "";
-}
+// TruthTable::TruthTable(){
+//     hint = "";
+// }
 
-QList<QPair<QVector<int>, int>> TruthTable::getRows() const {
-    return tableRows;
-}
+// QList<QPair<QVector<int>, int>> TruthTable::getRows() const {
+//     return tableRows;
+// }
 
-QString TruthTable::getHint() const{
-    return hint;
-}
+// QString TruthTable::getHint() const{
+//     return hint;
+// }
 
-QString TruthTable::getDescription(){
-    return levelDescription;
-}
+// QString TruthTable::getDescription(){
+//     return levelDescription;
+// }
 
 

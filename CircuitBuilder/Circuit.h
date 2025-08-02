@@ -117,12 +117,9 @@ private:
     /**
      * @brief Table of easy circuit problems.
      */
-    QVector<TruthTable> allTables;
+    // QVector<TruthTable> allTables;
 
-    /**
-     * @brief Initializes an easy truth table for a level.
-     */
-    void initializeTruthTables();
+
 
     /**
      * @brief Evaluates the current state of the ciruit program that the user has.
@@ -134,7 +131,7 @@ private:
     /**
      * @brief Current table that is being used to challenge player.
      */
-    TruthTable currTable;
+    // TruthTable currTable;
 
 public slots:
 
@@ -174,10 +171,7 @@ public slots:
      */
     void toggleInputSignal(DraggableButton* inputButton);
 
-    /**
-     * @brief handles the actual logic of creating a new level and sends it to mainwindow
-     */
-    void levelUp(int level);
+
 
     /**
      * Helper to make levels, emits sendInputCount when level is created.
@@ -224,14 +218,14 @@ signals:
      * @param inputs The number of input gates required for the level.
      * @param newTable The TruthTable used to indicate the correct answer.
      */
-    void sendLevel(int inputs, TruthTable* newTable);
+    // void sendLevel(int inputs, TruthTable* newTable);
 
     /**
      * @brief Sent upon completing circuit evaluation.
      * @param correct True if user circuit is equivalent to the correct answer.
      * @param currentTable
      */
-    void sendEvaluation(bool correct, TruthTable *currentTable);
+    // void sendEvaluation(bool correct, TruthTable *currentTable);
 
     /**
      * @brief Sends a description for a particular level.
