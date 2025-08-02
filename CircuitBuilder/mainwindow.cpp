@@ -14,16 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow), circuit{Circuit(parent)}, draggableButtons{}
 {
     ui->setupUi(this);
-    ui->textEdit->setReadOnly(true);
-    // ui->previewTableWidget->hide();
-
-
-    //For the delete button
-    // QToolButton* deleteButton = new QToolButton(this);
-    // deleteButton->setDefaultAction(ui->actionDelete);
-    // deleteButton->setStyleSheet("QToolButton { background-color: red; border: 2px solid black; border-radius: 5px; }");
-    // ui->toolBar->addWidget(deleteButton);
-
 
 
     QAction* andGate = ui->actionAndGate;
@@ -95,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
     backgroundGridLabel = new QLabel(ui->centralwidget);
     backgroundGridLabel->setGeometry(0, 0, 800, 600);
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
 
     // Create  pixmap
     backgroundPixmap = new QPixmap();
@@ -706,5 +697,6 @@ void MainWindow::gameOver() {
     ui->actionMENU->setEnabled(false);
     currentLevel =1;
 }
+
 
 

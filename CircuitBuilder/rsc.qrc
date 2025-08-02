@@ -15,4 +15,7 @@
         <file>loadingbackground.jpg</file>
         <file>StartButton.png</file>
     </qresource>
+    <qresource prefix="/WINDOW">
+        <file>godenel.png</file>
+    </qresource>
 </RCC>
