@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionDelete, &QAction::triggered, this, &MainWindow::onDeleteClicked);
 
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
+    connect(this, &MainWindow::clearCircuit, &circuit, &Circuit::onClear);
 
     connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
 
@@ -226,7 +227,7 @@ void MainWindow::onClearClicked() {
     }
     // QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
     draggableButtons.clear();
-
+    emit clearCircuit();
     qDebug() << "buttons deleted. There are now " << draggableButtons.size() << "buttons left in the cirucuit";
 }
 

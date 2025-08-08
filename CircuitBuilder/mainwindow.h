@@ -271,6 +271,12 @@ signals:
      */
     void nextLevel(int level);
 
+    /**
+     * @brief clearCircuit - Tells model to clear the circuits contents
+     */
+    void clearCircuit();
+
+
 
 private slots:
     void on_startButton_clicked();

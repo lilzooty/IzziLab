@@ -73,7 +73,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
 
 void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 {
-    if (gateType != INPUT && gateType != OUTPUT){
+    // if (gateType != INPUT && gateType != OUTPUT){
         if (event->buttons() & Qt::LeftButton) {
 
             QPoint globalPos = mapToParent(event->pos() - dragStartPos);
@@ -85,7 +85,7 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
         emit onButtonMoved(this);
         QPushButton::mouseMoveEvent(event);
     }
-}
+// }
 
 
 void DraggableButton::input1Clicked(){
@@ -175,7 +175,7 @@ void DraggableButton::setPosition(QPoint &pos){
     currentPos = pos;
 }
 void DraggableButton::buttonDelete(){
-        if (gateType != OUTPUT && gateType != INPUT){
+        // if (gateType != OUTPUT && gateType != INPUT){
             float angle = (float)(rand() % 360) * M_PI / 180.0f;
             float magnitude = 24.0f;
             this->getPhysicsBody()->SetLinearVelocity( b2Vec2(magnitude * cos(angle), magnitude * sin(angle)));
@@ -183,6 +183,6 @@ void DraggableButton::buttonDelete(){
             QTimer::singleShot(1000, this, [this]() {
                 emit deleteMe(this);
             });
-        }
+        // }
 }
 

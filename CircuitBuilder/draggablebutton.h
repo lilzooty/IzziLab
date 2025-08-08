@@ -84,15 +84,15 @@ private:
 
     QString mainButtonStyle =
         "QPushButton {"
-        "    background-color: rgba(40, 40, 60, 150);"
+        "    background-color: rgba(40, 40, 60, 25);"
         "    border: 2px solid rgba(80, 100, 255, 120);"
         "    border-radius: 8px;"
         "    padding: 5px;"
 
         "}"
         "QPushButton:hover {"
-        "    background-color: rgba(50, 50, 70, 170);"
-        "    border: 2px solid purple;"
+        "    background-color: rgba(10, 90, 10, 50);"
+        "    border: 2px solid rgba(0,175,0,120);"
         "}"
         "QPushButton:pressed {"
         "    background-color: rgba(35, 35, 55, 160);"

@@ -172,10 +172,22 @@ void Circuit::onClear() {
         }
     }
 
+    // for (Gate* node : inputNodes) {
+    //     if (node) {
+    //         node->disconnectAll();
+    //         delete node;
+    //     }
+    // }
+
     gates.clear();
     inputNodes.clear();
     connections.clear();
     output = nullptr;
+
+    qDebug() << "Number of Gates: "<< gates.size();
+    qDebug() << "Number of Inputs: "<< inputNodes.size();
+    qDebug() << "Number of Connections: "<< connections.size();
+
 }
 
 void Circuit::registerGate(DraggableButton* button) {
