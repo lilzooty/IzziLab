@@ -88,10 +88,6 @@ public slots:
      */
     void onXorGateClicked();
 
-    /**
-     * @brief Slot that creates a draggable button/node that represents an XNOR logic gate.
-     */
-    void onXnorGateClicked();
 
     /**
      * @brief Slot that creates an draggable button/node that represents an INPUT gate.
@@ -169,7 +165,7 @@ private:
     b2World* physicsWorld;
     QTimer* physicsTimer;
     float pixelsPerMeter = 30.0f;
-    int GATE_SIZE = 50;
+    int GATE_SIZE = 64;
     vector<vector<bool>> grid;
 
     int currentLevel;
@@ -184,8 +180,7 @@ private:
     /**
      * @brief Stores all of the buttons currently displayed.
      */
-    vector<draggableGate*> draggableButtons;
-    vector<draggableGate*> inputOutputButtons;
+    vector<draggableGate*> draggableGates;
 
     //physics methods
     /**

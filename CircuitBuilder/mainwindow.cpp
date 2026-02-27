@@ -11,11 +11,30 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow), circuit{Circuit(parent)}, draggableButtons{}
+    , ui(new Ui::MainWindow), circuit{Circuit(parent)}, draggableGates{}
 {
+
     ui->setupUi(this);
 
+    //
 
+    // Get screen geometry
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->availableGeometry();
+
+    // Calculate 80% size
+    int width = screenGeometry.width() * 0.9;
+    int height = screenGeometry.height() * 0.9;
+
+    // Resize and center
+    resize(width, height);
+
+    // Center on screen
+    int x = (screenGeometry.width() - width) / 2 + screenGeometry.x();
+    int y = (screenGeometry.height() - height) / 2 + screenGeometry.y();
+    move(x, y);
+
+    //create pointers for toolbar buttons except delete gate and add wire
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
     QAction* inverter = ui->actionInverter;
@@ -23,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
     QAction* nandGate = ui->actionNandGate;
     QAction* norGate = ui->actionNorGate;
     QAction* xorGate = ui->actionXorGate;
-    QAction* xnorGate = ui->actionXnorGate;
     QAction* inputGate = ui->actionInputGate;
     QAction* outputGate = ui->actionOutputGate;
 
@@ -34,7 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(nandGate);
     group->addAction(norGate);
     group->addAction(xorGate);
-    group->addAction(xnorGate);
     group->addAction(inverter);
     group->addAction(clear);
     group->addAction(inputGate);
@@ -52,7 +69,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionNandGate, &QAction::triggered, this, &MainWindow::onNandGateClicked);
     connect(ui->actionNorGate, &QAction::triggered, this, &MainWindow::onNorGateClicked);
     connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
-    connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
     connect(ui->actionInputGate, &QAction::triggered, this, &MainWindow::onInputGateClicked);
     connect(ui->actionOutputGate, &QAction::triggered, this, &MainWindow::onOutputGateClicked);
     connect(&circuit, &Circuit::evaluationAnimation, this, &MainWindow::evaluationAnimation);
@@ -95,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent)
     backgroundGridLabel->setScaledContents(true);
 
     // Bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
-    ui->textEdit->raise();
+    ui->welcomeText->raise();
     ui->startButton->raise();
     ui->EvaluateButton->raise();
     ui->EvaluateButton->hide();
@@ -127,49 +143,45 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::onAndGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
-    qDebug() << "added AND Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
+    qDebug() << "added AND Gate. There are: " << draggableGates.size() << "total gates in circuit";
 }
 void MainWindow::onOrGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
-    qDebug() << "added OR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
+    qDebug() << "added OR Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 void MainWindow::onInverterClicked(){
-    draggableButtons.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
-    qDebug() << "added NOT Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
+    qDebug() << "added NOT Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 
 }
 void MainWindow::onNandGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
-    qDebug() << "added NAND Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
+    qDebug() << "added NAND Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 void MainWindow::onNorGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
-    qDebug() << "added NOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
+    qDebug() << "added NOR Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 void MainWindow::onXorGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
-    qDebug() << "added XOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
+    qDebug() << "added XOR Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
-void MainWindow::onXnorGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::XNOR_GATE, ui->actionXnorGate->icon()));
-    qDebug() << "added XNOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
 
-}
 void MainWindow::onInputGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::INPUT, ui->actionInputGate->icon()));
-    qDebug() << "added IN Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::INPUT, ui->actionInputGate->icon()));
+    qDebug() << "added IN Gate. There are: " << draggableGates.size() << "total gates in circuit";
 }
 
 
 void MainWindow::onOutputGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::OUTPUT, ui->actionOutputGate->icon()));
-    qDebug() << "added OUT Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::OUTPUT, ui->actionOutputGate->icon()));
+    qDebug() << "added OUT Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 
@@ -218,18 +230,18 @@ void MainWindow::updatePhysics() {
         }
     };
 
-    updateButtons(draggableButtons);
+    updateButtons(draggableGates);
 }
 
 void MainWindow::onClearClicked() {
     // Update all buttons gravity
-    for (auto button : draggableButtons) {
+    for (auto button : draggableGates) {
         button->buttonDelete();
     }
     // QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
-    draggableButtons.clear();
+    draggableGates.clear();
     emit clearCircuit();
-    qDebug() << "buttons deleted. There are now " << draggableButtons.size() << "buttons left in the cirucuit";
+    qDebug() << "buttons deleted. There are now " << draggableGates.size() << "buttons left in the cirucuit";
 }
 
 draggableGate* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
@@ -386,9 +398,9 @@ void MainWindow::onDeleteClicked(bool checked){
 
 void MainWindow::handleNodeDeleted(draggableGate* button) {
     // Remove from vector
-    draggableButtons.erase(
-        std::remove(draggableButtons.begin(), draggableButtons.end(), button),
-        draggableButtons.end()
+    draggableGates.erase(
+        std::remove(draggableGates.begin(), draggableGates.end(), button),
+        draggableGates.end()
     );
 }
 
@@ -401,7 +413,7 @@ void MainWindow::startGame() {
     ui->startButton->hide();
     // ui->gridLayoutWidget->hide();
 
-    ui->textEdit->hide();
+    ui->welcomeText->hide();
     ui->EvaluateButton->show();
     ui->EvaluateButton->setEnabled(true);
     emit nextLevel(currentLevel);
@@ -421,7 +433,6 @@ void MainWindow::enableToolBarActions() {
     ui->actionOrGate->setEnabled(true);
     ui->actionNorGate->setEnabled(true);
     ui->actionXorGate->setEnabled(true);
-    ui->actionXnorGate->setEnabled(true);
     ui->actionNandGate->setEnabled(true);
     ui->actionInverter->setEnabled(true);
     ui->actionWire->setEnabled(true);
@@ -437,7 +448,6 @@ void MainWindow::disableToolBarActions() {
     ui->actionOrGate->setEnabled(false);
     ui->actionNorGate->setEnabled(false);
     ui->actionXorGate->setEnabled(false);
-    ui->actionXnorGate->setEnabled(false);
     ui->actionNandGate->setEnabled(false);
     ui->actionInverter->setEnabled(false);
     ui->actionWire->setEnabled(false);
@@ -659,20 +669,16 @@ void MainWindow::returnToMenu(){
     backgroundGridLabel->setScaledContents(true);
 
     // bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
-    ui->textEdit->raise();
-    ui->textEdit->show();
+    ui->welcomeText->raise();
+    ui->welcomeText->show();
     ui->startButton->show();
     // ui->gridLayoutWidget->show();
     ui->startButton->raise();
     ui->EvaluateButton->raise();
     // ui->gridLayoutWidget->raise();
 
-    //cleanup Buttons
-    for( draggableGate* button : inputOutputButtons){
-        button->hide();
 
-    }
-    inputOutputButtons.clear();
+
 
 }
 

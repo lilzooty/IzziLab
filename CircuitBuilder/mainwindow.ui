@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1644</width>
+    <height>898</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -33,83 +33,57 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QPushButton" name="startButton">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>270</y>
-      <width>171</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>32</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	border-style: solid;
-	border-width:5px;
-	border-radius:10px;
-	border-color:rgb(100, 0, 167);
-	padding: 10 10 10 10;
-	background-color:qlineargradient(spread:pad, x1:4, y1:4, x1:4, y1:4, stop:0 rgb(255, 255, 255), stop:1 rgb(106, 78, 153));
-	color:white;
-}
+   <property name="layoutDirection">
+    <enum>Qt::LayoutDirection::LeftToRight</enum>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0" rowspan="5">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="logoLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="rsc.qrc">:/LOGOS/izzilab-logo.svg</pixmap>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="welcomeText">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTextEdit{
 
-QPushButton:hover {
-	background-color: rgba(50, 50, 70, 170);
-	border: 5px solid white;
-}
-QPushButton:pressed {
-	background-color: rgba(35, 35, 55, 160);
-	border: 5px solid rgba(60, 80, 255, 120);
-}</string>
-    </property>
-    <property name="text">
-     <string>START</string>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>171</width>
-      <height>81</height>
-     </size>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>90</y>
-      <width>401</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QTextEdit{
-	border-style: solid;
-	border-width:5px;
-	border-radius:10px;
-	border-color:rgb(100, 0, 167);
+	
+	border-radius:30;
 	padding: 10 10 10 10;
-	background-color:qlineargradient(spread:pad, x1:4, y1:4, x1:4, y1:4, stop:0 rgb(255, 255, 255), stop:1 rgb(106, 78, 153));
-	color:white;
+	
+	background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.75, fx:0.5, fy:0.5, stop:0 rgba(210, 255, 208, 255), stop:1 rgba(255, 255, 255, 255));
+
+	color:black;
+
+	
 }
 
 </string>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
@@ -120,19 +94,21 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;WILL ADD BELOW FUNCTIONALITY LATER&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Press &amp;quot;Build New Circuit&amp;quot; or &amp;quot;Open Circuit&amp;quot;&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="EvaluateButton">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>471</y>
-      <width>121</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="10" column="0">
+     <widget class="QPushButton" name="EvaluateButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
 	border-style: solid;
 	border-width:5px;
 	border-radius:10px;
@@ -150,18 +126,64 @@ QPushButton:pressed {
 	background-color: rgba(35, 35, 55, 160);
 	border: 5px solid rgba(60, 80, 255, 120);
 }</string>
-    </property>
-    <property name="text">
-     <string>Evaluate Circuit</string>
-    </property>
-   </widget>
+      </property>
+      <property name="text">
+       <string>Evaluate Circuit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QPushButton" name="startButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>32</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	border-style: solid;
+	border-width:5px;
+	border-radius:10px;
+	border-color:rgb(100, 0, 167);
+	padding: 10 10 10 10;
+	background-color:qlineargradient(spread:pad, x1:4, y1:4, x1:4, y1:4, stop:0 rgb(255, 255, 255), stop:1 rgb(106, 78, 153));
+	color:white;
+}
+
+QPushButton:hover {
+	background-color: rgba(50, 50, 70, 170);
+	border: 5px solid white;
+}
+QPushButton:pressed {
+	background-color: rgba(35, 35, 55, 160);
+	border: 5px solid rgba(60, 80, 255, 120);
+}</string>
+      </property>
+      <property name="text">
+       <string>START</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>171</width>
+        <height>81</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1644</width>
      <height>22</height>
     </rect>
    </property>
@@ -191,19 +213,18 @@ QPushButton:pressed {
    <addaction name="actionInputGate"/>
    <addaction name="actionOutputGate"/>
    <addaction name="actionInverter"/>
-   <addaction name="actionOrGate"/>
    <addaction name="actionAndGate"/>
-   <addaction name="actionNorGate"/>
    <addaction name="actionNandGate"/>
+   <addaction name="actionOrGate"/>
+   <addaction name="actionNorGate"/>
    <addaction name="actionXorGate"/>
-   <addaction name="actionXnorGate"/>
    <addaction name="actionClear"/>
    <addaction name="actionMENU"/>
   </widget>
   <action name="actionAndGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/AND.png</normaloff>:/GATES/AND.png</iconset>
+     <normaloff>:/GATES/AND.svg</normaloff>:/GATES/AND.svg</iconset>
    </property>
    <property name="text">
     <string>AndGate</string>
@@ -215,7 +236,7 @@ QPushButton:pressed {
   <action name="actionOrGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/OR.png</normaloff>:/GATES/OR.png</iconset>
+     <normaloff>:/GATES/OR.svg</normaloff>:/GATES/OR.svg</iconset>
    </property>
    <property name="text">
     <string>OrGate</string>
@@ -227,7 +248,7 @@ QPushButton:pressed {
   <action name="actionInverter">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/NOT.png</normaloff>:/GATES/NOT.png</iconset>
+     <normaloff>:/GATES/NOT.svg</normaloff>:/GATES/NOT.svg</iconset>
    </property>
    <property name="text">
     <string>Inverter</string>
@@ -253,7 +274,7 @@ QPushButton:pressed {
   <action name="actionNandGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/NAND.png</normaloff>:/GATES/NAND.png</iconset>
+     <normaloff>:/GATES/NAND.svg</normaloff>:/GATES/NAND.svg</iconset>
    </property>
    <property name="text">
     <string>NandGate</string>
@@ -265,7 +286,7 @@ QPushButton:pressed {
   <action name="actionNorGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/NOR.png</normaloff>:/GATES/NOR.png</iconset>
+     <normaloff>:/GATES/NOR.svg</normaloff>:/GATES/NOR.svg</iconset>
    </property>
    <property name="text">
     <string>NorGate</string>
@@ -275,24 +296,15 @@ QPushButton:pressed {
    </property>
   </action>
   <action name="actionXorGate">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/XOR.png</normaloff>:/GATES/XOR.png</iconset>
+     <normaloff>:/GATES/XOR.svg</normaloff>:/GATES/XOR.svg</iconset>
    </property>
    <property name="text">
     <string>XorGate</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::MenuRole::NoRole</enum>
-   </property>
-  </action>
-  <action name="actionXnorGate">
-   <property name="icon">
-    <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/XNOR.png</normaloff>:/GATES/XNOR.png</iconset>
-   </property>
-   <property name="text">
-    <string>XnorGate</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -326,10 +338,10 @@ QPushButton:pressed {
   <action name="actionInputGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/INPUT-ICON.png</normaloff>:/GATES/INPUT-ICON.png</iconset>
+     <normaloff>:/GATES/INPUT-ICON.svg</normaloff>:/GATES/INPUT-ICON.svg</iconset>
    </property>
    <property name="text">
-    <string>InputGate</string>
+    <string>Input</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -352,10 +364,10 @@ QPushButton:pressed {
    </property>
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/OUTPUT-ICON.png</normaloff>:/GATES/OUTPUT-ICON.png</iconset>
+     <normaloff>:/GATES/OUTPUT-ICON.svg</normaloff>:/GATES/OUTPUT-ICON.svg</iconset>
    </property>
    <property name="text">
-    <string>OUT Gate</string>
+    <string>Output</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

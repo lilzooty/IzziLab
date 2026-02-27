@@ -3,16 +3,22 @@
 draggableGate::draggableGate() {
 }
 
-draggableGate::draggableGate(GateType gateType, QWidget *parent, Gate* gate)
-    : QPushButton(parent),
-    input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
-    gate(gate), gateType(gateType), onIcon(":/GATES/INPUT-ON.png"), offIcon(":/GATES/INPUT-OFF.png"), isDelete(false)
+draggableGate::draggableGate(GateType gateType, QWidget *parent, Gate* gate) :
+    QPushButton(parent),
+    gateType(gateType),
+    onIcon(":/GATES/INPUT-ON.svg"),
+    offIcon(":/GATES/INPUT-OFF.svg"),
+    isDelete(false),
+    input1{QPushButton("1", this)},
+    input2{QPushButton("2", this)},
+    output{QPushButton("out", this)},
+    gate(gate)
 {
-    this->setStyleSheet(mainButtonStyle);
+    // this->setStyleSheet(mainButtonStyle);
 
-    input1.setStyleSheet(buttonStyle);
-    input2.setStyleSheet(buttonStyle);
-    output.setStyleSheet(buttonStyle);
+    // input1.setStyleSheet(buttonStyle);
+    // input2.setStyleSheet(buttonStyle);
+    // output.setStyleSheet(buttonStyle);
 
     input1.setFixedSize(18, 18);
     input2.setFixedSize(18, 18);

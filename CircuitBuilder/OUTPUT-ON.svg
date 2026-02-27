@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <filter id="ds">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000044" flood-opacity="0.45"/>
+    </filter>
+    <radialGradient id="bg" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#b8ffd0"/>
+      <stop offset="55%" stop-color="#28d870"/>
+      <stop offset="100%" stop-color="#057a30"/>
+    </radialGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Main circle -->
+  <circle cx="32" cy="32" r="26" fill="url(#bg)" stroke="#057030" stroke-width="1.4" filter="url(#ds)"/>
+
+  <!-- Gloss top -->
+  <ellipse cx="32" cy="23" rx="16" ry="10" fill="url(#gloss)" opacity="0.85"/>
+
+  <!-- Specular highlight -->
+  <ellipse cx="26" cy="20" rx="5" ry="3" fill="white" opacity="0.7"/>
+
+  <!-- Letter -->
+  <text x="32" y="40" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-size="26" font-weight="900" text-anchor="middle"
+    fill="white" opacity="0.95"
+    style="filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.4))">O</text>
+</svg>
