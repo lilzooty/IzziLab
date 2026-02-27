@@ -1,4 +1,4 @@
-#include "Gate.h"
+#include "gate.h"
 
 Gate::Gate(GateType type): gateType(type), input1(nullptr), input2(nullptr), output(nullptr), signal(false){}
 

@@ -5,10 +5,10 @@
 #include <QIcon>
 #include <QTimer>
 #include <Box2D/Box2D.h>
-#include "Gate.h"
+#include "gate.h"
 
 
-class DraggableButton : public QPushButton
+class draggableGate : public QPushButton
 {
     Q_OBJECT
 
@@ -63,7 +63,7 @@ private:
     void updatePhysicsBody(QPoint& newPos);
 
     /**
-     * @brief Is the logical component represented by the DraggableButton class.
+     * @brief Is the logical component represented by the draggableGate class.
      */
     Gate* gate;
 
@@ -115,13 +115,13 @@ protected:
 public:
 
     // Base constuctor
-    DraggableButton();
+    draggableGate();
 
     /**
      * @brief Creates a button of gateType. Requires an actual gate as param.
      * Instantiates input buttons based on the gateType.
      */
-    DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
+    draggableGate(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
 
     /**
      * @brief buttonDelete Used to send the deletMe signal and run a delete animation for the button.
@@ -138,7 +138,7 @@ public:
     b2Body* getPhysicsBody();
 
     /**
-     * @return The gate object the DraggableButton is representing.
+     * @return The gate object the draggableGate is representing.
      */
     Gate* getGate();
 
@@ -177,7 +177,7 @@ signals:
      * @param input 1 if input1, 2 if input2, 3 if output.
      * @param deletingWire True if the delete tool is active, false otherwise.
      */
-    void sendButton(DraggableButton *button, int input, bool deletingWire);
+    void sendButton(draggableGate *button, int input, bool deletingWire);
 
 
 
@@ -186,17 +186,17 @@ signals:
      * @brief Sent to Circuit to indicate a button has been moved.
      */
 
-    void onButtonMoved(DraggableButton* button);
+    void onButtonMoved(draggableGate* button);
 
     /**
      * @brief Sent to Circuit when the param button needs to be deleted.
      */
-    void deleteMe(DraggableButton*);
+    void deleteMe(draggableGate*);
 
     /**
      * @brief When an input gate is clicked, this tells Circuit to flip the input gates signal.
      */
-    void toggleSignal(DraggableButton*);
+    void toggleSignal(draggableGate*);
 
 };
 

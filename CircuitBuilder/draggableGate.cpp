@@ -1,9 +1,9 @@
-#include "draggablebutton.h"
+#include "draggableGate.h"
 
-DraggableButton::DraggableButton() {
+draggableGate::draggableGate() {
 }
 
-DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
+draggableGate::draggableGate(GateType gateType, QWidget *parent, Gate* gate)
     : QPushButton(parent),
     input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
     gate(gate), gateType(gateType), onIcon(":/GATES/INPUT-ON.png"), offIcon(":/GATES/INPUT-OFF.png"), isDelete(false)
@@ -26,30 +26,30 @@ DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     if (gateType == INVERTER){
         input2.hide();
         input1.move(0, 5);
-        connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
-        connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+        connect(&input1, &QPushButton::clicked, this, &draggableGate::input1Clicked);
+        connect(&output, &QPushButton::clicked, this, &draggableGate::outputClicked);
     }
     else if(gateType == INPUT){
         input1.hide();
         input2.hide();
-        connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+        connect(&output, &QPushButton::clicked, this, &draggableGate::outputClicked);
     }
     else if (gateType == OUTPUT){
         input2.hide();
         output.hide();
-        connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
+        connect(&input1, &QPushButton::clicked, this, &draggableGate::input1Clicked);
     }
     else{
 
-        connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
-        connect(&input2, &QPushButton::clicked, this, &DraggableButton::input2Clicked);
-        connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
+        connect(&input1, &QPushButton::clicked, this, &draggableGate::input1Clicked);
+        connect(&input2, &QPushButton::clicked, this, &draggableGate::input2Clicked);
+        connect(&output, &QPushButton::clicked, this, &draggableGate::outputClicked);
     }
 
 }
 
 
-void DraggableButton::mousePressEvent(QMouseEvent *event)
+void draggableGate::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         dragStartPos = event->pos();
@@ -71,7 +71,7 @@ void DraggableButton::mousePressEvent(QMouseEvent *event)
     }
     }
 
-void DraggableButton::mouseMoveEvent(QMouseEvent *event)
+void draggableGate::mouseMoveEvent(QMouseEvent *event)
 {
     // if (gateType != INPUT && gateType != OUTPUT){
         if (event->buttons() & Qt::LeftButton) {
@@ -88,7 +88,7 @@ void DraggableButton::mouseMoveEvent(QMouseEvent *event)
 // }
 
 
-void DraggableButton::input1Clicked(){
+void draggableGate::input1Clicked(){
 
     if (isDelete){
         emit sendButton(this, 1, true);
@@ -99,7 +99,7 @@ void DraggableButton::input1Clicked(){
     }
 
 }
-void DraggableButton::input2Clicked(){
+void draggableGate::input2Clicked(){
 
     if (isDelete){
         emit sendButton(this, 2, true);
@@ -110,7 +110,7 @@ void DraggableButton::input2Clicked(){
     }
 
 }
-void DraggableButton::outputClicked(){
+void draggableGate::outputClicked(){
 
     if (isDelete){
         emit sendButton(this, 3, true);
@@ -122,7 +122,7 @@ void DraggableButton::outputClicked(){
 
 }
 
-QPoint DraggableButton::snapToGrid( QPoint& point)
+QPoint draggableGate::snapToGrid( QPoint& point)
 {
     // assume closest Grid Cell is up and left
     // round to that Grid Cell
@@ -142,12 +142,12 @@ QPoint DraggableButton::snapToGrid( QPoint& point)
     return QPoint(relativeX, relativeY);
 }
 
-b2Body* DraggableButton::getPhysicsBody()
+b2Body* draggableGate::getPhysicsBody()
 {
     return body;
 }
 
-void DraggableButton::updatePhysicsBody(QPoint& newPos)
+void draggableGate::updatePhysicsBody(QPoint& newPos)
 {
     if (b2Body* body = getPhysicsBody()) {
         b2Vec2 physicsPos(newPos.x() / PIXELS_PER_METER,
@@ -157,24 +157,24 @@ void DraggableButton::updatePhysicsBody(QPoint& newPos)
     }
 }
 
-void DraggableButton::setWireMode(bool isWireMode) {
+void draggableGate::setWireMode(bool isWireMode) {
     this->wireModeOn = isWireMode;
 
 }
 
-void DraggableButton::setDeleteMode(bool isDelete){
+void draggableGate::setDeleteMode(bool isDelete){
     this->isDelete = isDelete;
 }
 
-Gate* DraggableButton::getGate(){
+Gate* draggableGate::getGate(){
     return gate;
 }
-void DraggableButton::setPosition(QPoint &pos){
+void draggableGate::setPosition(QPoint &pos){
     if(currentPos != pos)
         emit onButtonMoved(this);
     currentPos = pos;
 }
-void DraggableButton::buttonDelete(){
+void draggableGate::buttonDelete(){
         // if (gateType != OUTPUT && gateType != INPUT){
             float angle = (float)(rand() % 360) * M_PI / 180.0f;
             float magnitude = 24.0f;

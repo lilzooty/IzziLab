@@ -55,10 +55,10 @@ SOURCES += \
     Box2D/Dynamics/b2World.cpp \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
     Box2D/Rope/b2Rope.cpp \
-    Circuit.cpp \
-    Gate.cpp \
     TruthTable.cpp \
-    draggablebutton.cpp \
+    circuit.cpp \
+    draggableGate.cpp \
+    gate.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -110,10 +110,10 @@ HEADERS += \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
-    Circuit.h \
-    Gate.h \
     TruthTable.h \
-    draggablebutton.h \
+    circuit.h \
+    draggableGate.h \
+    gate.h \
     mainwindow.h
 
 FORMS += \

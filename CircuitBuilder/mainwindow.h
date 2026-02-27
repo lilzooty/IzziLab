@@ -3,12 +3,12 @@
 
 #include <QMainWindow>
 #include <vector>
-#include <draggablebutton.h>
+#include <draggableGate.h>
 #include <QTimer>
 #include<Box2D/Box2D.h>
 #include <QLabel>
-#include "Gate.h"
-#include "Circuit.h"
+#include "gate.h"
+#include "circuit.h"
 
 using std::vector;
 
@@ -130,13 +130,13 @@ public slots:
      * @brief Draws a wire to visualize a connection between two nodes.
      * @param connections - Vector of connections that the connection will be added to.
      */
-    void drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+    void drawWire(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections);
 
     /**
      * @brief When a node is deleted, this removes it from the window.
      * @param button - Button/node to be deleted.
      */
-    void handleNodeDeleted(DraggableButton* button);
+    void handleNodeDeleted(draggableGate* button);
 
     /**
      * Connected to Circuit::sendEvaluate, used to get the next level upon completion.
@@ -146,7 +146,7 @@ public slots:
     /**
      * @brief Animates the circuit being solved.
      */
-    void evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+    void evaluationAnimation(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections);
 
 
     /**
@@ -184,8 +184,8 @@ private:
     /**
      * @brief Stores all of the buttons currently displayed.
      */
-    vector<DraggableButton*> draggableButtons;
-    vector<DraggableButton*> inputOutputButtons;
+    vector<draggableGate*> draggableButtons;
+    vector<draggableGate*> inputOutputButtons;
 
     //physics methods
     /**
@@ -197,7 +197,7 @@ private:
      * @brief Creates a physics body with a button.
      * @param button - Button to become a physics body.
      */
-    void createPhysicsBody(DraggableButton* button);
+    void createPhysicsBody(draggableGate* button);
 
     /**
      * @brief Creates a button based on a gatetype to be added to the member variable.
@@ -205,7 +205,7 @@ private:
      * @param icon - Image to put over top of the button.
      * @return - A draggable button based on the gatetype.
      */
-    DraggableButton* createGateButton(GateType gateType, const QIcon& icon);
+    draggableGate* createGateButton(GateType gateType, const QIcon& icon);
 
     /**
      * @brief QLabel that represents the background where our grid is and will have a pixmap overtop of it.
@@ -264,7 +264,7 @@ signals:
      * @param button - Button two create a gate from.
      * @param gateType - Gate type to be used to create a Gate.
      */
-    void addButtonToCircuit(DraggableButton* button, GateType gateType);
+    void addGateToCircuit(draggableGate* button, GateType gateType);
 
     /**
      * @brief Sent to Circuit to indicate the View is ready for the next level.

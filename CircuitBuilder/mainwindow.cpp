@@ -5,7 +5,7 @@
 #include <QPainter>
 #include <QActionGroup>
 #include <QPushButton>
-#include "draggablebutton.h"
+#include "draggableGate.h"
 #include <QMessageBox>
 #include <qtoolbutton.h>
 
@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
     connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
     connect(ui->actionInputGate, &QAction::triggered, this, &MainWindow::onInputGateClicked);
+    connect(ui->actionOutputGate, &QAction::triggered, this, &MainWindow::onOutputGateClicked);
     connect(&circuit, &Circuit::evaluationAnimation, this, &MainWindow::evaluationAnimation);
 
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
@@ -62,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
     connect(this, &MainWindow::clearCircuit, &circuit, &Circuit::onClear);
 
-    connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
+    connect(this, &MainWindow::addGateToCircuit, &circuit, &Circuit::addButton);
 
     connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
 
@@ -172,7 +173,7 @@ void MainWindow::onOutputGateClicked(){
 
 }
 
-void MainWindow::createPhysicsBody(DraggableButton* button) {
+void MainWindow::createPhysicsBody(draggableGate* button) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
 
@@ -204,7 +205,7 @@ void MainWindow::updatePhysics() {
     physicsWorld->Step(1.0f/60.0f, 8, 3);  // Increase iteration counts
 
     // Update all buttons positions
-    auto updateButtons = [this](const vector<DraggableButton*>& buttons) {
+    auto updateButtons = [this](const vector<draggableGate*>& buttons) {
         for (auto button : buttons) {
             if (b2Body* body = (b2Body*)button->property("physicsBody").value<void*>()) {
                 b2Vec2 position = body->GetPosition();
@@ -231,11 +232,11 @@ void MainWindow::onClearClicked() {
     qDebug() << "buttons deleted. There are now " << draggableButtons.size() << "buttons left in the cirucuit";
 }
 
-DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
+draggableGate* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
     Gate* gate = new Gate(gateType);
-    DraggableButton* newButton = new DraggableButton(gateType, this, gate);
+    draggableGate* newButton = new draggableGate(gateType, this, gate);
 
-    emit addButtonToCircuit(newButton, gateType);
+    emit addGateToCircuit(newButton, gateType);
 
     QPoint globalMousePos = QCursor::pos() + QPoint(25,-17);
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
@@ -247,22 +248,22 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     newButton->setIconSize(QSize(GATE_SIZE, GATE_SIZE));
     newButton->setIcon(icon);
 
-    connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
-    connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
+    connect(ui->actionWire, &QAction::triggered, newButton, &draggableGate::setWireMode);
+    connect(ui->actionDelete, &QAction::triggered, newButton, &draggableGate::setDeleteMode);
 
     return newButton;
 }
 
-void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections) {
+void MainWindow::drawWire(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections) {
     backgroundPixmap->fill(Qt::transparent);
 
     // Loop through each starting button and its wires
-    for (DraggableButton* sourceButton : connections.keys()) {
+    for (draggableGate* sourceButton : connections.keys()) {
         QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
         // Loop over each connection for source button
         for (const auto& connection : connections.value(sourceButton)) {
-            DraggableButton* targetButton = connection.first;
+            draggableGate* targetButton = connection.first;
             int inputPort = connection.second;
 
             // Calculate end position with input port offset
@@ -383,7 +384,7 @@ void MainWindow::onDeleteClicked(bool checked){
 }
 
 
-void MainWindow::handleNodeDeleted(DraggableButton* button) {
+void MainWindow::handleNodeDeleted(draggableGate* button) {
     // Remove from vector
     draggableButtons.erase(
         std::remove(draggableButtons.begin(), draggableButtons.end(), button),
@@ -548,15 +549,15 @@ void MainWindow::disableToolBarActions() {
 //     }
 // }
 
-void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections) {
+void MainWindow::evaluationAnimation(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections) {
     QVector<QPair<QPoint,QPoint>> wireSegments;
 
     // Collect all wire segments
-    for (DraggableButton* sourceButton : connections.keys()) {
+    for (draggableGate* sourceButton : connections.keys()) {
         QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
         for (const auto& connection : connections.value(sourceButton)) {
-            DraggableButton* targetButton = connection.first;
+            draggableGate* targetButton = connection.first;
             int inputPort = connection.second;
 
             QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
@@ -667,7 +668,7 @@ void MainWindow::returnToMenu(){
     // ui->gridLayoutWidget->raise();
 
     //cleanup Buttons
-    for( DraggableButton* button : inputOutputButtons){
+    for( draggableGate* button : inputOutputButtons){
         button->hide();
 
     }

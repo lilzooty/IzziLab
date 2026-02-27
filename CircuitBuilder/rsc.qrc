@@ -9,6 +9,10 @@
         <file>XOR.png</file>
         <file>INPUT-ON.png</file>
         <file>INPUT-OFF.png</file>
+        <file>INPUT-ICON.png</file>
+        <file>OUTPUT-ON.png</file>
+        <file>OUTPUT-OFF.png</file>
+        <file>OUTPUT-ICON.png</file>
     </qresource>
     <qresource prefix="/BACKGROUND">
         <file>BGgrid.jpg</file>
