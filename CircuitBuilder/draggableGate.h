@@ -67,37 +67,28 @@ private:
      */
     Gate* gate;
 
-    // QString buttonStyle =
-    //     "QPushButton {"
-    //     "    background-color: transparent;"
-    //     "    border: 1px solid transparent;"
-    //     "    border-radius: 7px;"
-    //     "    color: white;"
-    //     "    min-width: 15px;"
-    //     "    min-height: 15px;"
-    //     "    padding: 0px;"
-    //     "}"
-    //     "QPushButton:hover {"
-    //     "    border: 1px solid white;"
-    //     "    background-color: rgba(255, 255, 255, 30);"
-    //     "}";
+    QString buttonStyle =
+        "QPushButton {"
+            "background-color: rgb(255, 227, 69);"
 
-    // QString mainButtonStyle =
-    //     "QPushButton {"
-    //     "    background-color: rgba(40, 40, 60, 25);"
-    //     "    border: 2px solid rgba(80, 100, 255, 120);"
-    //     "    border-radius: 8px;"
-    //     "    padding: 5px;"
+        "}"
+        "QPushButton:hover {"
+            "border: 1px solid white;"
+            "background-color: light green);"
+        "}";
 
-    //     "}"
-    //     "QPushButton:hover {"
-    //     "    background-color: rgba(10, 90, 10, 50);"
-    //     "    border: 2px solid rgba(0,175,0,120);"
-    //     "}"
-    //     "QPushButton:pressed {"
-    //     "    background-color: rgba(35, 35, 55, 160);"
-    //     "    border: 2px solid rgba(60, 80, 255, 120);"
-    //     "}";
+    QString mainButtonStyle =
+        "QPushButton {"
+            "background-color: rgba(0, 0, 0, 0);"
+            "border: none;"
+        "}"
+        "QPushButton:hover {"
+            "background-color: rgba(0, 0, 0, 50);"
+        "}"
+        "QPushButton:pressed {"
+            "background-color: rgba(0, 0, 0, 100);"
+
+        "}";
 
 
 protected:

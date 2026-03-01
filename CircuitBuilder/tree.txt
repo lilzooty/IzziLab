@@ -1,0 +1,1057 @@
+Folder PATH listing for volume OS
+Volume serial number is EAC3-C55B
+C:.
+¦   .gitignore
+¦   AND.svg
+¦   BGgrid.jpg
+¦   circuit.cpp
+¦   circuit.h
+¦   CircuitBuilder.pro
+¦   CircuitBuilder.pro.user
+¦   draggableGate.cpp
+¦   draggableGate.h
+¦   gate.cpp
+¦   gate.h
+¦   godenel.png
+¦   HOME.svg
+¦   INPUT-ICON.svg
+¦   INPUT-OFF.svg
+¦   INPUT-ON.svg
+¦   izzilab-logo.svg
+¦   loadingbackground.jpg
+¦   logic gates project backlog.pdf
+¦   main.cpp
+¦   mainwindow.cpp
+¦   mainwindow.h
+¦   mainwindow.ui
+¦   NAND.svg
+¦   NOR.svg
+¦   NOT.svg
+¦   OR.svg
+¦   OUTPUT-ICON.svg
+¦   OUTPUT-OFF.svg
+¦   OUTPUT-ON.svg
+¦   rsc.qrc
+¦   StartButton.png
+¦   TestCircuitEvaluation.cpp
+¦   TRASH.svg
+¦   tree.txt
+¦   TruthTable.cpp
+¦   TruthTable.h
+¦   WIRE.svg
+¦   XOR.svg
+¦   
++---Box2D
+¦   ¦   Box2D.h
+¦   ¦   Box2DConfig.cmake
+¦   ¦   CMakeLists.txt
+¦   ¦   
+¦   +---Collision
+¦   ¦   ¦   b2BroadPhase.cpp
+¦   ¦   ¦   b2BroadPhase.h
+¦   ¦   ¦   b2CollideCircle.cpp
+¦   ¦   ¦   b2CollideEdge.cpp
+¦   ¦   ¦   b2CollidePolygon.cpp
+¦   ¦   ¦   b2Collision.cpp
+¦   ¦   ¦   b2Collision.h
+¦   ¦   ¦   b2Distance.cpp
+¦   ¦   ¦   b2Distance.h
+¦   ¦   ¦   b2DynamicTree.cpp
+¦   ¦   ¦   b2DynamicTree.h
+¦   ¦   ¦   b2TimeOfImpact.cpp
+¦   ¦   ¦   b2TimeOfImpact.h
+¦   ¦   ¦   
+¦   ¦   +---Shapes
+¦   ¦           b2ChainShape.cpp
+¦   ¦           b2ChainShape.h
+¦   ¦           b2CircleShape.cpp
+¦   ¦           b2CircleShape.h
+¦   ¦           b2EdgeShape.cpp
+¦   ¦           b2EdgeShape.h
+¦   ¦           b2PolygonShape.cpp
+¦   ¦           b2PolygonShape.h
+¦   ¦           b2Shape.h
+¦   ¦           
+¦   +---Common
+¦   ¦       b2BlockAllocator.cpp
+¦   ¦       b2BlockAllocator.h
+¦   ¦       b2Draw.cpp
+¦   ¦       b2Draw.h
+¦   ¦       b2GrowableStack.h
+¦   ¦       b2Math.cpp
+¦   ¦       b2Math.h
+¦   ¦       b2Settings.cpp
+¦   ¦       b2Settings.h
+¦   ¦       b2StackAllocator.cpp
+¦   ¦       b2StackAllocator.h
+¦   ¦       b2Timer.cpp
+¦   ¦       b2Timer.h
+¦   ¦       
+¦   +---Dynamics
+¦   ¦   ¦   b2Body.cpp
+¦   ¦   ¦   b2Body.h
+¦   ¦   ¦   b2ContactManager.cpp
+¦   ¦   ¦   b2ContactManager.h
+¦   ¦   ¦   b2Fixture.cpp
+¦   ¦   ¦   b2Fixture.h
+¦   ¦   ¦   b2Island.cpp
+¦   ¦   ¦   b2Island.h
+¦   ¦   ¦   b2TimeStep.h
+¦   ¦   ¦   b2World.cpp
+¦   ¦   ¦   b2World.h
+¦   ¦   ¦   b2WorldCallbacks.cpp
+¦   ¦   ¦   b2WorldCallbacks.h
+¦   ¦   ¦   
+¦   ¦   +---Contacts
+¦   ¦   ¦       b2ChainAndCircleContact.cpp
+¦   ¦   ¦       b2ChainAndCircleContact.h
+¦   ¦   ¦       b2ChainAndPolygonContact.cpp
+¦   ¦   ¦       b2ChainAndPolygonContact.h
+¦   ¦   ¦       b2CircleContact.cpp
+¦   ¦   ¦       b2CircleContact.h
+¦   ¦   ¦       b2Contact.cpp
+¦   ¦   ¦       b2Contact.h
+¦   ¦   ¦       b2ContactSolver.cpp
+¦   ¦   ¦       b2ContactSolver.h
+¦   ¦   ¦       b2EdgeAndCircleContact.cpp
+¦   ¦   ¦       b2EdgeAndCircleContact.h
+¦   ¦   ¦       b2EdgeAndPolygonContact.cpp
+¦   ¦   ¦       b2EdgeAndPolygonContact.h
+¦   ¦   ¦       b2PolygonAndCircleContact.cpp
+¦   ¦   ¦       b2PolygonAndCircleContact.h
+¦   ¦   ¦       b2PolygonContact.cpp
+¦   ¦   ¦       b2PolygonContact.h
+¦   ¦   ¦       
+¦   ¦   +---Joints
+¦   ¦           b2DistanceJoint.cpp
+¦   ¦           b2DistanceJoint.h
+¦   ¦           b2FrictionJoint.cpp
+¦   ¦           b2FrictionJoint.h
+¦   ¦           b2GearJoint.cpp
+¦   ¦           b2GearJoint.h
+¦   ¦           b2Joint.cpp
+¦   ¦           b2Joint.h
+¦   ¦           b2MotorJoint.cpp
+¦   ¦           b2MotorJoint.h
+¦   ¦           b2MouseJoint.cpp
+¦   ¦           b2MouseJoint.h
+¦   ¦           b2PrismaticJoint.cpp
+¦   ¦           b2PrismaticJoint.h
+¦   ¦           b2PulleyJoint.cpp
+¦   ¦           b2PulleyJoint.h
+¦   ¦           b2RevoluteJoint.cpp
+¦   ¦           b2RevoluteJoint.h
+¦   ¦           b2RopeJoint.cpp
+¦   ¦           b2RopeJoint.h
+¦   ¦           b2WeldJoint.cpp
+¦   ¦           b2WeldJoint.h
+¦   ¦           b2WheelJoint.cpp
+¦   ¦           b2WheelJoint.h
+¦   ¦           
+¦   +---Rope
+¦           b2Rope.cpp
+¦           b2Rope.h
+¦           
++---build
+    +---Desktop_Qt_6_9_3_MinGW_64_bit-Debug
+        ¦   .qmake.stash
+        ¦   Makefile
+        ¦   Makefile.Debug
+        ¦   Makefile.Release
+        ¦   ui_mainwindow.h
+        ¦   
+        +---.qtc_clangd
+        ¦   ¦   compile_commands.json
+        ¦   ¦   
+        ¦   +---.cache
+        ¦       +---clangd
+        ¦           +---index
+        ¦                   adcintrin.h.DCF1AF4CC2A00C39.idx
+        ¦                   adxintrin.h.CE39E7F0ADEC3C88.idx
+        ¦                   algorithm.CB1FC5AD5C655816.idx
+        ¦                   algorithmfwd.h.A904E77E6C47394A.idx
+        ¦                   align.h.D629FB1892154A46.idx
+        ¦                   aligned_buffer.h.FA047AEE8D2A56C5.idx
+        ¦                   allocated_ptr.h.F8CCEB98F48912BD.idx
+        ¦                   allocator.h.3528E95BE433B946.idx
+        ¦                   alloc_traits.h.3100A107490A0C59.idx
+        ¦                   alloc_traits.h.39E8D49443D56D43.idx
+        ¦                   ammintrin.h.4D77DD5104CA7CD6.idx
+        ¦                   amxavx512intrin.h.BBF2D9B3F0DAD87E.idx
+        ¦                   amxbf16transposeintrin.h.3755BC95AAB515F0.idx
+        ¦                   amxcomplexintrin.h.A1903029F0BBAC90.idx
+        ¦                   amxcomplextransposeintrin.h.0A9CBA8D824E099D.idx
+        ¦                   amxfp16intrin.h.1A97BF2D01F22E97.idx
+        ¦                   amxfp16transposeintrin.h.0BA8EAD919A6793E.idx
+        ¦                   amxfp8intrin.h.15297FFB9BA411FC.idx
+        ¦                   amxintrin.h.563235F897964BC9.idx
+        ¦                   amxmovrsintrin.h.E8A3C11BC1A8017C.idx
+        ¦                   amxmovrstransposeintrin.h.DE3BBCC2FA5F35DC.idx
+        ¦                   amxtf32intrin.h.F6D4A81EC5A0DE5F.idx
+        ¦                   amxtf32transposeintrin.h.906CD6A228522AC4.idx
+        ¦                   amxtransposeintrin.h.9AFE666F98B8A945.idx
+        ¦                   apiset.h.D5B7EF169040ADC7.idx
+        ¦                   apisetcconv.h.E3F8A2792F88793A.idx
+        ¦                   array.93F5246365BDEDB4.idx
+        ¦                   assert.h.AEACF222DA7EA651.idx
+        ¦                   assertions.h.B5E137D9CC1E78A7.idx
+        ¦                   atomic.656C9F6E4A7D34C5.idx
+        ¦                   atomicity.h.DE0A2156D098870E.idx
+        ¦                   atomic_base.h.81E33B8F552DFA63.idx
+        ¦                   atomic_lockfree_defines.h.8290691A01F05785.idx
+        ¦                   atomic_word.h.A3066FD96D148949.idx
+        ¦                   auto_ptr.h.3C8A9B67E3598E8B.idx
+        ¦                   avx10_2bf16intrin.h.BE6C00245D65AF17.idx
+        ¦                   avx10_2convertintrin.h.F21748F7A037A332.idx
+        ¦                   avx10_2copyintrin.h.37E1E66D577796BD.idx
+        ¦                   avx10_2minmaxintrin.h.A40D1AE655A731BD.idx
+        ¦                   avx10_2niintrin.h.0D1443E61C7FEBE6.idx
+        ¦                   avx10_2satcvtdsintrin.h.F05320348E3AC18A.idx
+        ¦                   avx10_2satcvtintrin.h.09252F969137EE56.idx
+        ¦                   avx10_2_512bf16intrin.h.D9C8D14AA8C0932B.idx
+        ¦                   avx10_2_512convertintrin.h.4A95EC5142F7972E.idx
+        ¦                   avx10_2_512minmaxintrin.h.C7EC2A25337C491B.idx
+        ¦                   avx10_2_512niintrin.h.583FB38EFCF77EB3.idx
+        ¦                   avx10_2_512satcvtdsintrin.h.D2123774E4861228.idx
+        ¦                   avx10_2_512satcvtintrin.h.5CE688783E4267B3.idx
+        ¦                   avx2intrin.h.13A43A97620BBA8D.idx
+        ¦                   avx512bf16intrin.h.79C207F7BE86BF50.idx
+        ¦                   avx512bitalgintrin.h.9768A2EADA695873.idx
+        ¦                   avx512bwintrin.h.11C88189929BB131.idx
+        ¦                   avx512cdintrin.h.E57027FE04DB7245.idx
+        ¦                   avx512dqintrin.h.E70A1966FAA0C398.idx
+        ¦                   avx512fintrin.h.57386503E16C57DF.idx
+        ¦                   avx512fp16intrin.h.F218A04E7F6EC8C2.idx
+        ¦                   avx512ifmaintrin.h.F86A89467E9531AA.idx
+        ¦                   avx512ifmavlintrin.h.5FE089DA0C2C718C.idx
+        ¦                   avx512vbmi2intrin.h.9C474AFCE4094C46.idx
+        ¦                   avx512vbmiintrin.h.B54655E245E66D9C.idx
+        ¦                   avx512vbmivlintrin.h.B72383F501B52588.idx
+        ¦                   avx512vlbf16intrin.h.21728A255E4695E1.idx
+        ¦                   avx512vlbitalgintrin.h.37DC081A6C1E773C.idx
+        ¦                   avx512vlbwintrin.h.5AC262EEA18F73B5.idx
+        ¦                   avx512vlcdintrin.h.7026AEBA6FDDA644.idx
+        ¦                   avx512vldqintrin.h.8F37432E4BF174AB.idx
+        ¦                   avx512vlfp16intrin.h.4A84950AC24DAED0.idx
+        ¦                   avx512vlintrin.h.CD7D6B4FF480CC40.idx
+        ¦                   avx512vlvbmi2intrin.h.8E71E5B7D21C6824.idx
+        ¦                   avx512vlvnniintrin.h.1273820FC578E4FC.idx
+        ¦                   avx512vlvp2intersectintrin.h.BEC39B2C170C8536.idx
+        ¦                   avx512vnniintrin.h.B3C4E68D424455DD.idx
+        ¦                   avx512vp2intersectintrin.h.6C69AB942C5B061E.idx
+        ¦                   avx512vpopcntdqintrin.h.29E31C3FBDE3FC27.idx
+        ¦                   avx512vpopcntdqvlintrin.h.71DD17E643FA0024.idx
+        ¦                   avxifmaintrin.h.7BBD7DCBF038594C.idx
+        ¦                   avxintrin.h.4DB7E70722BE3B7C.idx
+        ¦                   avxneconvertintrin.h.BBE801154F35611B.idx
+        ¦                   avxvnniint16intrin.h.FB9752F7D09CDA79.idx
+        ¦                   avxvnniint8intrin.h.A765127555C29521.idx
+        ¦                   avxvnniintrin.h.323D31978C821324.idx
+        ¦                   b2BlockAllocator.cpp.E8BFFC1B200C8602.idx
+        ¦                   b2BlockAllocator.h.28F44E4CECAD9EAE.idx
+        ¦                   b2Body.cpp.BD9CCB5540ED48DA.idx
+        ¦                   b2Body.h.43C7228845EE1D00.idx
+        ¦                   b2BroadPhase.cpp.8406045116CDDC27.idx
+        ¦                   b2BroadPhase.h.7A053844B4361E4A.idx
+        ¦                   b2ChainAndCircleContact.cpp.53A42C56E898547A.idx
+        ¦                   b2ChainAndCircleContact.h.9CF496D3F3D3E38C.idx
+        ¦                   b2ChainAndPolygonContact.cpp.3F3F149428F55945.idx
+        ¦                   b2ChainAndPolygonContact.h.DCB82670CD93AF78.idx
+        ¦                   b2ChainShape.cpp.82DD2CA4286B58AF.idx
+        ¦                   b2ChainShape.h.3A9D3542BF8AC069.idx
+        ¦                   b2CircleContact.cpp.E3216CC4042B0430.idx
+        ¦                   b2CircleContact.h.767F30CFDF446D2A.idx
+        ¦                   b2CircleShape.cpp.430E44C3EC33ECDF.idx
+        ¦                   b2CircleShape.h.DCC6B6344DAD6F7C.idx
+        ¦                   b2CollideCircle.cpp.FDBED45B4131B003.idx
+        ¦                   b2CollideEdge.cpp.746B64D1EA2E5414.idx
+        ¦                   b2CollidePolygon.cpp.038DAF9FFE0DBB6A.idx
+        ¦                   b2Collision.cpp.6D9EDF0865502A65.idx
+        ¦                   b2Collision.h.C9817F32E5D685BA.idx
+        ¦                   b2Contact.cpp.BD220C689323CB89.idx
+        ¦                   b2Contact.h.ABEB7137D5E7210E.idx
+        ¦                   b2ContactManager.cpp.0B07BF3F44DD5A40.idx
+        ¦                   b2ContactManager.h.C2BE087D67A002AE.idx
+        ¦                   b2ContactSolver.cpp.F5A138721ACCF9BE.idx
+        ¦                   b2ContactSolver.h.2A23D3D37CDA9BA2.idx
+        ¦                   b2Distance.cpp.1D8F73C22FB84A64.idx
+        ¦                   b2Distance.h.3D9E6E5800E52B22.idx
+        ¦                   b2DistanceJoint.cpp.4759AF008995EA56.idx
+        ¦                   b2DistanceJoint.h.13CCEDE920CE7FCC.idx
+        ¦                   b2Draw.cpp.22B991F98C4BD7A0.idx
+        ¦                   b2Draw.h.63BD6C45DF0E437E.idx
+        ¦                   b2DynamicTree.cpp.9E44A7A7CA3255FB.idx
+        ¦                   b2DynamicTree.h.72DB14F85D2C54D2.idx
+        ¦                   b2EdgeAndCircleContact.cpp.88D14E8DDD847A26.idx
+        ¦                   b2EdgeAndCircleContact.h.8B3C3E71DCF42DF3.idx
+        ¦                   b2EdgeAndPolygonContact.cpp.02D4E5643ED39FDA.idx
+        ¦                   b2EdgeAndPolygonContact.h.7F4D039D17FEC90A.idx
+        ¦                   b2EdgeShape.cpp.31F7EADAC0F5007E.idx
+        ¦                   b2EdgeShape.h.5ACD33D6AFA379CD.idx
+        ¦                   b2Fixture.cpp.068A905E8300039E.idx
+        ¦                   b2Fixture.h.2CE0893D66DA4F56.idx
+        ¦                   b2FrictionJoint.cpp.05DC8A33497BAE5E.idx
+        ¦                   b2FrictionJoint.h.03B17A13CB3176E7.idx
+        ¦                   b2GearJoint.cpp.F8DC218D7279CECE.idx
+        ¦                   b2GearJoint.h.AA7A2393AB27154B.idx
+        ¦                   b2GrowableStack.h.90EA3E7F43A0892B.idx
+        ¦                   b2Island.cpp.AA7D68931E970055.idx
+        ¦                   b2Island.h.C22534DE76094C5B.idx
+        ¦                   b2Joint.cpp.0B87D004363A59CB.idx
+        ¦                   b2Joint.h.B1BBB18AF649CB43.idx
+        ¦                   b2Math.cpp.9635527BA402DEA9.idx
+        ¦                   b2Math.h.59ECE480C1BD7973.idx
+        ¦                   b2MotorJoint.cpp.66B8D3665C649C22.idx
+        ¦                   b2MotorJoint.h.CF044D721F01B85F.idx
+        ¦                   b2MouseJoint.cpp.700C34AD294C6B02.idx
+        ¦                   b2MouseJoint.h.1B23252359054AF4.idx
+        ¦                   b2PolygonAndCircleContact.cpp.ED7EF7EF871E9C75.idx
+        ¦                   b2PolygonAndCircleContact.h.1C6ED14391E53130.idx
+        ¦                   b2PolygonContact.cpp.3E71512A13B83B6D.idx
+        ¦                   b2PolygonContact.h.BD3EDEEA8C5407DE.idx
+        ¦                   b2PolygonShape.cpp.64BB78FDEDC50D8F.idx
+        ¦                   b2PolygonShape.h.8C88DA98AF8A47BA.idx
+        ¦                   b2PrismaticJoint.cpp.C67F8A764B8E0EEE.idx
+        ¦                   b2PrismaticJoint.h.59234CFEC3A24553.idx
+        ¦                   b2PulleyJoint.cpp.103B4A1CF1C811DF.idx
+        ¦                   b2PulleyJoint.h.F4E7EA242A25DFC9.idx
+        ¦                   b2RevoluteJoint.cpp.6C0D7FA269B04CAD.idx
+        ¦                   b2RevoluteJoint.h.559655858E278DB5.idx
+        ¦                   b2Rope.cpp.BC350056C29997FC.idx
+        ¦                   b2Rope.h.8F484077BDF205AF.idx
+        ¦                   b2RopeJoint.cpp.A4E6A4035622DDDB.idx
+        ¦                   b2RopeJoint.h.1FBF69EC37A787A9.idx
+        ¦                   b2Settings.cpp.AE365769311851F5.idx
+        ¦                   b2Settings.h.F7511191428A11DE.idx
+        ¦                   b2Shape.h.6B502B1E962CD653.idx
+        ¦                   b2StackAllocator.cpp.778EC5DA15999C3B.idx
+        ¦                   b2StackAllocator.h.48138F91325210C3.idx
+        ¦                   b2TimeOfImpact.cpp.5A5975B37453FEA8.idx
+        ¦                   b2TimeOfImpact.h.DA058184A7AB78D7.idx
+        ¦                   b2Timer.cpp.8568624526B7941A.idx
+        ¦                   b2Timer.h.1575FAE52B524744.idx
+        ¦                   b2TimeStep.h.295788A2FE65D35F.idx
+        ¦                   b2WeldJoint.cpp.6DEC9F7952DCA7AA.idx
+        ¦                   b2WeldJoint.h.5AC8BD613B6EFFAE.idx
+        ¦                   b2WheelJoint.cpp.CDA762C33D707550.idx
+        ¦                   b2WheelJoint.h.591B6C5E1D1EC20F.idx
+        ¦                   b2World.cpp.B0E8BA8290146B35.idx
+        ¦                   b2World.h.C5C882A76BE4493C.idx
+        ¦                   b2WorldCallbacks.cpp.6CF3053E2F7BA4D5.idx
+        ¦                   b2WorldCallbacks.h.0F7350127124D1C6.idx
+        ¦                   basetsd.h.EB5093129874ED57.idx
+        ¦                   basic_string.h.FE2DD9887C1926B0.idx
+        ¦                   basic_string.tcc.9973823818759A74.idx
+        ¦                   bemapiset.h.3951C6D0F6847791.idx
+        ¦                   bessel_function.tcc.F07A291051A8C707.idx
+        ¦                   beta_function.tcc.A70573792A73DFD6.idx
+        ¦                   binders.h.13B1461C83697357.idx
+        ¦                   bit.9020096EEED18E5F.idx
+        ¦                   bmi2intrin.h.85BD18191D9E1A44.idx
+        ¦                   bmiintrin.h.1BC7277FA0CC7BD8.idx
+        ¦                   Box2D.h.BFB37BD82AFADF0E.idx
+        ¦                   c++allocator.h.0C1627E592BE3B52.idx
+        ¦                   c++config.h.339B6EC7598E45C7.idx
+        ¦                   c++locale.h.A3AFF2DA1733D48E.idx
+        ¦                   cassert.6592479108247959.idx
+        ¦                   cctype.F4BBFB7F4FB2D116.idx
+        ¦                   cerrno.18DC87B9E2AD3707.idx
+        ¦                   cetintrin.h.339DF388FC01F22D.idx
+        ¦                   charconv.h.AEE5A8180065531A.idx
+        ¦                   char_traits.h.8F47DCF9406B05FF.idx
+        ¦                   chrono.22F7071D423CBAAB.idx
+        ¦                   chrono.h.DF80F7DE88E9E17A.idx
+        ¦                   Circuit.cpp.0522F90E0C2856E0.idx
+        ¦                   circuit.cpp.D874A4547922E215.idx
+        ¦                   Circuit.h.BFDC562720DCED36.idx
+        ¦                   circuit.h.E3CF5B14B9102274.idx
+        ¦                   cldemoteintrin.h.BB2F9A847EADB6BC.idx
+        ¦                   clflushoptintrin.h.CF47DA7AD3F63887.idx
+        ¦                   climits.6BE3F2C0B8C44507.idx
+        ¦                   clocale.F1AE24DFD49AC580.idx
+        ¦                   clwbintrin.h.B84268A1827E8B7C.idx
+        ¦                   clzerointrin.h.4CC90A128A0D2F56.idx
+        ¦                   cmath.721CC9010021D929.idx
+        ¦                   cmpccxaddintrin.h.BD9C3E610A552603.idx
+        ¦                   compare.108DCE1806FD6FAC.idx
+        ¦                   concept_check.h.15DE0542D29CA6F3.idx
+        ¦                   concurrence.h.F93C17495033DDA4.idx
+        ¦                   concurrencysal.h.7933DDD1031265F5.idx
+        ¦                   corecrt.h.329F34859DFCB9BD.idx
+        ¦                   corecrt_startup.h.53B8CFE4BCAE9E34.idx
+        ¦                   corecrt_stdio_config.h.7196444CE7296B11.idx
+        ¦                   corecrt_wstdlib.h.ED41D2B5DCAF1A93.idx
+        ¦                   cpp_type_traits.h.9538E0FEFF5CB4EB.idx
+        ¦                   cpu_defines.h.831C389AD53C4663.idx
+        ¦                   crc32intrin.h.65BC7400175995EA.idx
+        ¦                   crtdefs.h.DEBC4C9E3433B5A2.idx
+        ¦                   cstddef.EFD46A9151C49AFC.idx
+        ¦                   cstdint.94C21D16D1C4E1AC.idx
+        ¦                   cstdio.7BC25B390838B081.idx
+        ¦                   cstdlib.D47EBA22DB37A306.idx
+        ¦                   cstring.E42BBD537B4E937C.idx
+        ¦                   ctime.628D80926D1F752F.idx
+        ¦                   ctype.h.329CBA12D47A6DFE.idx
+        ¦                   cwchar.80C346A05F820761.idx
+        ¦                   cxxabi_forced.h.CF395411A7A6A0D2.idx
+        ¦                   cxxabi_init_exception.h.D9C8EDEDAE0499FF.idx
+        ¦                   datetimeapi.h.748C44353A076388.idx
+        ¦                   debug.h.82C55EA1A0E29118.idx
+        ¦                   debugapi.h.A495DA17CD59BA97.idx
+        ¦                   draggablebutton.cpp.F4F45A0F0C27AACE.idx
+        ¦                   draggablebutton.h.0D90F684EB66A84A.idx
+        ¦                   draggableGate.cpp.23FDE9B39952C319.idx
+        ¦                   draggableGate.h.1182B2E1B6AC9F6B.idx
+        ¦                   draggableGateh.9FA3E6D1E442E097.idx
+        ¦                   driverspecs.h.95C62F492A8D54C8.idx
+        ¦                   ell_integral.tcc.4232CF6F7A87545A.idx
+        ¦                   emmintrin.h.BACDBE8F3515774E.idx
+        ¦                   enable_special_members.h.C9527C7D798E01F6.idx
+        ¦                   enqcmdintrin.h.41DF8D32B662FC00.idx
+        ¦                   erase_if.h.5CE793EF5BF53B07.idx
+        ¦                   errhandlingapi.h.BB54970EAA29EBF2.idx
+        ¦                   errno.h.1AACF9C1BC0BA500.idx
+        ¦                   error_constants.h.B8F1E44FE59546CD.idx
+        ¦                   exception.AB7DF26C7F731713.idx
+        ¦                   exception.h.E9CB1EE9CE94DB03.idx
+        ¦                   exception_defines.h.D502913D65DA3F4B.idx
+        ¦                   exception_ptr.h.59AAD25BBCE185B9.idx
+        ¦                   excpt.h.4925D20A663DAD39.idx
+        ¦                   execution_defs.h.D3AB772ADEAF5AD6.idx
+        ¦                   exp_integral.tcc.7F881030D9E17843.idx
+        ¦                   f16cintrin.h.2A1479FBF7707BFD.idx
+        ¦                   fibersapi.h.10225ADBB82ED10C.idx
+        ¦                   fileapi.h.7056DC454DFAC6A4.idx
+        ¦                   float.h.36F06127F266400E.idx
+        ¦                   float.h.7C4ABE08A85FF770.idx
+        ¦                   float.h.FF836B62BB4C9C78.idx
+        ¦                   fltwinerror.h.7E4CDD120DC7A079.idx
+        ¦                   fma4intrin.h.BEF9505471FDBBE2.idx
+        ¦                   fmaintrin.h.19736B63B0EDF190.idx
+        ¦                   functexcept.h.B52CA4A779F10210.idx
+        ¦                   functional.F01993B643422286.idx
+        ¦                   functional_hash.h.6E68A3610C2D5C51.idx
+        ¦                   fxsrintrin.h.AE99A320AC10C6E6.idx
+        ¦                   gamma.tcc.3465CD9CB5FF9DF8.idx
+        ¦                   gate.cpp.19541AEBA0E6B3BC.idx
+        ¦                   Gate.cpp.F3B69D64F20234D5.idx
+        ¦                   gate.h.3F8BDB71D08077A3.idx
+        ¦                   Gate.h.429E6EDF5D0BDF53.idx
+        ¦                   gfniintrin.h.191DE1F90818E4A0.idx
+        ¦                   glue_algorithm_defs.h.51711CC21169F267.idx
+        ¦                   glue_memory_defs.h.EABF017632086945.idx
+        ¦                   glue_numeric_defs.h.BE182CE98A9F5C12.idx
+        ¦                   gthr-default.h.5B7C1A11E4ECC266.idx
+        ¦                   gthr.h.488F2E67B59EA191.idx
+        ¦                   guiddef.h.9FC70F502BDE5F31.idx
+        ¦                   handleapi.h.AC93106472A3F8EE.idx
+        ¦                   hashtable.h.F790BD1D98CF0C15.idx
+        ¦                   hashtable_policy.h.D6FD2E2E62C3C194.idx
+        ¦                   hash_bytes.h.C1FE96E3102C1380.idx
+        ¦                   heapapi.h.557EE6DD66650E0C.idx
+        ¦                   hresetintrin.h.3139C89E698155FA.idx
+        ¦                   hypergeometric.tcc.FB1DEED4703EF10F.idx
+        ¦                   ia32intrin.h.645F4C802ACF9240.idx
+        ¦                   imm.h.A5D77DCC43F93223.idx
+        ¦                   immintrin.h.2F91CEBAC26C9587.idx
+        ¦                   initializer_list.15D6E210A358DB2A.idx
+        ¦                   interlockedapi.h.B1AA96CA3E58DB04.idx
+        ¦                   intrin-impl.h.8FACA74C92C03859.idx
+        ¦                   invoke.h.E706E6CC6678E66C.idx
+        ¦                   invpcidintrin.h.D8C26DC5C695C39C.idx
+        ¦                   ioapiset.h.801040CF350F390A.idx
+        ¦                   iosfwd.5DC15DF68BEBD875.idx
+        ¦                   ios_base.h.3F7C002A57CC7228.idx
+        ¦                   iterator.B3A346AEA2E70AEB.idx
+        ¦                   jobapi.h.E70FB56E83F37508.idx
+        ¦                   keylockerintrin.h.2B1672C4AA8A74E7.idx
+        ¦                   ktmtypes.h.1F7AF28DCD24CED7.idx
+        ¦                   legendre_function.tcc.9C4BAD92D98042CF.idx
+        ¦                   libloaderapi.h.BDB5E3A20189CB96.idx
+        ¦                   limits.16CD5D94825E2C97.idx
+        ¦                   limits.h.B92009119DC766CD.idx
+        ¦                   limits.h.F76C102ED5A1EE8E.idx
+        ¦                   list.69715E9EAC03F26C.idx
+        ¦                   list.tcc.0FEDBF0E1C4E96FC.idx
+        ¦                   locale.h.C4EB9393F94BC68B.idx
+        ¦                   localefwd.h.7FF6A37B56A36B1C.idx
+        ¦                   locale_classes.h.A7561B1EE691B42C.idx
+        ¦                   locale_classes.tcc.4E3C2B900839D2EC.idx
+        ¦                   lwpintrin.h.9EBE57F75F20A259.idx
+        ¦                   lzcntintrin.h.9EF683232D3D5CDB.idx
+        ¦                   main.cpp.103880FAABC56036.idx
+        ¦                   mainwindow.cpp.2C17235131A24A29.idx
+        ¦                   mainwindow.h.1A248C6AB362360F.idx
+        ¦                   malloc.h.D78FA8CA98128CCC.idx
+        ¦                   map.A847B3C8B38EEF8D.idx
+        ¦                   math.h.94FA03EAC9E928D3.idx
+        ¦                   math.h.98811954BC0A847C.idx
+        ¦                   mcx.h.68AF9D6B0301FCA2.idx
+        ¦                   memory.C62949F332EFCB4F.idx
+        ¦                   memory.h.B5154B8A49D763A3.idx
+        ¦                   memoryapi.h.E0879053EE54C598.idx
+        ¦                   memoryfwd.h.5DB637DAC5D33F50.idx
+        ¦                   memory_resource.h.E6EE7C1B4F9320C2.idx
+        ¦                   minwinbase.h.912BEA522CC0BD42.idx
+        ¦                   minwindef.h.5F1AA787E5434B6E.idx
+        ¦                   mmintrin.h.C0B1636E1F4A3901.idx
+        ¦                   mm_malloc.h.F3173B9705D36751.idx
+        ¦                   modified_bessel_func.tcc.F2D6D1C3411E2F4D.idx
+        ¦                   movdirintrin.h.972F0736CFCCCE1D.idx
+        ¦                   move.h.5A8A7761792003E8.idx
+        ¦                   movrsintrin.h.0E2DD427CE5E0327.idx
+        ¦                   movrs_avx10_2intrin.h.20FD324DD143A287.idx
+        ¦                   movrs_avx10_2_512intrin.h.E75D71E7E43147E9.idx
+        ¦                   mwaitxintrin.h.45D197970EE57208.idx
+        ¦                   namedpipeapi.h.30ECC453F8DE7218.idx
+        ¦                   namespaceapi.h.4F4508357ED4B0B5.idx
+        ¦                   nested_exception.h.455AFAA6E052D26F.idx
+        ¦                   new.5FE68897D07E063C.idx
+        ¦                   new_allocator.h.EAF379153C0F593B.idx
+        ¦                   node_handle.h.1620D24CF60BDF98.idx
+        ¦                   numeric.B64A29391E59D851.idx
+        ¦                   numeric_traits.h.DF6C23AF6CEBECBE.idx
+        ¦                   optional.A6F7CB71AF42399F.idx
+        ¦                   ostream_insert.h.7E8805BCBAAF77FC.idx
+        ¦                   os_defines.h.BBEED96A606F5804.idx
+        ¦                   parse_numbers.h.5BEF3B07FDCCEB4C.idx
+        ¦                   pconfigintrin.h.7E6523CD3D701921.idx
+        ¦                   pkuintrin.h.59CF92F1C247B363.idx
+        ¦                   pmmintrin.h.E32C0F0E8F580829.idx
+        ¦                   poly_hermite.tcc.384147B1CF59F68E.idx
+        ¦                   poly_laguerre.tcc.C9816377DCDED38F.idx
+        ¦                   popcntintrin.h.1FF64C342B61D5E4.idx
+        ¦                   poppack.h.6B30C2FA12733C0C.idx
+        ¦                   postypes.h.E5790FDB75F4E22F.idx
+        ¦                   predefined_ops.h.39E163D87374A011.idx
+        ¦                   prfchiintrin.h.69FB17E5E37D55C3.idx
+        ¦                   prfchwintrin.h.5C73B6B0596278F7.idx
+        ¦                   process.h.D76E8290E23D56B2.idx
+        ¦                   processenv.h.7320F0A6A011E06C.idx
+        ¦                   processthreadsapi.h.91C5DA7834575FA9.idx
+        ¦                   processtopologyapi.h.FD251CEB77292994.idx
+        ¦                   profileapi.h.409C384B18D2561F.idx
+        ¦                   pshpack1.h.96AF85EBA47A350A.idx
+        ¦                   pshpack2.h.73A0EE3727023BD5.idx
+        ¦                   pshpack4.h.8FC9D8F3D9153293.idx
+        ¦                   pshpack8.h.8796C3F9033ED726.idx
+        ¦                   pstl_config.h.70D987E4D310CA36.idx
+        ¦                   pthread.h.AD59153453CCAF11.idx
+        ¦                   pthread_compat.h.4C122923046631D6.idx
+        ¦                   pthread_signal.h.1A935FF706FF925F.idx
+        ¦                   pthread_time.h.11AE498ED5E2984C.idx
+        ¦                   pthread_unistd.h.955982286DE66490.idx
+        ¦                   ptr_traits.h.B7655F6777D9A90F.idx
+        ¦                   ptwriteintrin.h.EAC855FD768F0524.idx
+        ¦                   q17memory.h.00579AE32A7C3DA0.idx
+        ¦                   q20functional.h.7688E511A8DE52D4.idx
+        ¦                   q20iterator.h.1D4F665FBC79A760.idx
+        ¦                   q20memory.h.1359A25039C35780.idx
+        ¦                   q20type_traits.h.8F0C133AA0B48C5C.idx
+        ¦                   q20utility.h.EC096B15D9789AAA.idx
+        ¦                   q23utility.h.DA3BF987C1856FC0.idx
+        ¦                   qabstractbutton.h.601699FD318C92A7.idx
+        ¦                   qabstracteventdispatcher.h.620217898AC0BF01.idx
+        ¦                   qabstractitemdelegate.h.18CFB11225F9D49C.idx
+        ¦                   qabstractitemmodel.h.840C61164E3104A7.idx
+        ¦                   qabstractitemview.h.06DF68A9BF4E52E6.idx
+        ¦                   qabstractscrollarea.h.F364CE3E468CABBF.idx
+        ¦                   qabstractslider.h.C1EAE5FF373162D1.idx
+        ¦                   qabstractspinbox.h.1586E117E24F0CAF.idx
+        ¦                   QAction.30AF1F23AAC02A88.idx
+        ¦                   qaction.h.A0D3AA36AE4643D6.idx
+        ¦                   QActionGroup.E53222A6F6F06208.idx
+        ¦                   qactiongroup.h.70A1597003C06A78.idx
+        ¦                   qalgorithms.h.6DF6E15AB0A96558.idx
+        ¦                   qanystringview.h.F8776C64E1FAD7B7.idx
+        ¦                   QApplication.93A8026B28883BA2.idx
+        ¦                   qapplication.h.1C49463787B7CC4F.idx
+        ¦                   qarraydata.h.F2674D30F7D84632.idx
+        ¦                   qarraydataops.h.BBB632067C6F603D.idx
+        ¦                   qarraydatapointer.h.5A2CFAF2B45AECA9.idx
+        ¦                   qassert.h.486977D1C23DE5E5.idx
+        ¦                   qatomic.h.C40A43DB7276AE84.idx
+        ¦                   qatomic_cxx11.h.E4CBD6B69A54E250.idx
+        ¦                   qbasicatomic.h.02C50FF4EA2FD6D3.idx
+        ¦                   qbasictimer.h.E6310E9FA87040E5.idx
+        ¦                   qbindingstorage.h.95210892FD9099F3.idx
+        ¦                   qbitmap.h.158CF2F38D893174.idx
+        ¦                   qboxlayout.h.133AB977D40CCFDB.idx
+        ¦                   qbrush.h.6B56ECB127DC1FCD.idx
+        ¦                   qbytearray.h.6BB570231D95169A.idx
+        ¦                   qbytearrayalgorithms.h.73DD51FEDA2D6930.idx
+        ¦                   qbytearraylist.h.2229B2A7A160F2FF.idx
+        ¦                   qbytearrayview.h.C1D7C9008D902D62.idx
+        ¦                   qchar.h.69C958DC03D6946E.idx
+        ¦                   qcolor.h.BF8B29285B0FC5A8.idx
+        ¦                   qcompare.h.A64B0E1E60D57657.idx
+        ¦                   qcomparehelpers.h.93F3883E45173B28.idx
+        ¦                   qcompare_impl.h.ECB0283D59FF7A73.idx
+        ¦                   qcompilerdetection.h.0F5DDA5E5E7DDC9A.idx
+        ¦                   qconfig.h.BED603EC29EF01CF.idx
+        ¦                   qconstructormacros.h.4CEA21EE308043A2.idx
+        ¦                   qcontainerfwd.h.EEAC4A7C1085C446.idx
+        ¦                   qcontainerinfo.h.86B78D3738324100.idx
+        ¦                   qcontainertools_impl.h.EA9333FB6B9990DE.idx
+        ¦                   qcontiguouscache.h.652ACAF2553B7D71.idx
+        ¦                   qcoreapplication.h.FD416D8643BB53D6.idx
+        ¦                   qcoreapplication_platform.h.F19A9B126534F07F.idx
+        ¦                   qcoreevent.h.4CF2D12BD295F4E1.idx
+        ¦                   qcursor.h.D1B81187B946BD87.idx
+        ¦                   qdarwinhelpers.h.C7C29526E6399EE6.idx
+        ¦                   qdatastream.h.75529D7E02F0BBFB.idx
+        ¦                   qdeadlinetimer.h.BFD3F320824C295F.idx
+        ¦                   qdebug.h.F12DCC5135E7CACC.idx
+        ¦                   qdialog.h.11F8F761B0185428.idx
+        ¦                   qdialogbuttonbox.h.0B314D780DE88116.idx
+        ¦                   qelapsedtimer.h.DF46B4DD7FDD9630.idx
+        ¦                   qendian.h.8D77D28A06A9BA44.idx
+        ¦                   qevent.h.A821FAB87252853A.idx
+        ¦                   qeventloop.h.4C447940AA803955.idx
+        ¦                   qeventpoint.h.2764F6A9D7EBB0E7.idx
+        ¦                   qexceptionhandling.h.AC2B3E74B163D9CF.idx
+        ¦                   qflags.h.22D10BED29542903.idx
+        ¦                   qfloat16.h.3B0CB102917253DB.idx
+        ¦                   qfont.h.8F4D666C3AF07D79.idx
+        ¦                   qfontinfo.h.0AE0F874C11628DB.idx
+        ¦                   qfontmetrics.h.40850DF924724487.idx
+        ¦                   qfontvariableaxis.h.FF1473C3582F5781.idx
+        ¦                   qforeach.h.CE549D3F93BBF6B8.idx
+        ¦                   QFrame.2096A9CCF3794199.idx
+        ¦                   qframe.h.EEBBE13196FB77C1.idx
+        ¦                   qfunctionaltools_impl.h.1F774877C4CD8F3D.idx
+        ¦                   qfunctionpointer.h.32ACFAB106E5ED44.idx
+        ¦                   qgenericatomic.h.D3D6D5A5B818FC62.idx
+        ¦                   qglobal.h.EB57E6D7285B5B60.idx
+        ¦                   qglobalstatic.h.A6C0AE2A17243A2E.idx
+        ¦                   qgraphicsscene.h.6204FC1514D13681.idx
+        ¦                   QGraphicsView.1516800E16B020D1.idx
+        ¦                   qgraphicsview.h.6C8EF53896767F9A.idx
+        ¦                   QGridLayout.D0106BF12261A472.idx
+        ¦                   qgridlayout.h.507ECE2B82673502.idx
+        ¦                   qguiapplication.h.5C64C494E5E9978B.idx
+        ¦                   qguiapplication_platform.h.C0650FEA71738390.idx
+        ¦                   qhash.h.4D47C58E98610028.idx
+        ¦                   qhashfunctions.h.5FB6BA8D78AE6589.idx
+        ¦                   QHBoxLayout.9C6430DBAC9EE556.idx
+        ¦                   QIcon.A5D4A38E1F669DEE.idx
+        ¦                   qicon.h.6768132EFEF93F8E.idx
+        ¦                   qimage.h.7509304B7B8436AC.idx
+        ¦                   qinputdevice.h.9D8AE808B59325C9.idx
+        ¦                   qinputmethod.h.677686993C05385D.idx
+        ¦                   qiodevice.h.1C0E4EC6162B1B92.idx
+        ¦                   qiodevicebase.h.D56093C86124334B.idx
+        ¦                   qitemselectionmodel.h.088D99BB40B37BD5.idx
+        ¦                   qiterable.h.7BF56A7DD8FDA9D7.idx
+        ¦                   qiterator.h.CD1151FCB5958238.idx
+        ¦                   qkeysequence.h.5A27144331C24D0C.idx
+        ¦                   QLabel.64C9E41A4F885D52.idx
+        ¦                   qlabel.h.3F3B27954B38C492.idx
+        ¦                   qlatin1stringview.h.5A79896D69ADFF48.idx
+        ¦                   qlayout.h.253A0B61169E8C6A.idx
+        ¦                   qlayoutitem.h.7C4FF21E6C1B80D9.idx
+        ¦                   qline.h.FAB3AFE45982FAE4.idx
+        ¦                   QList.6DDED93A98D52339.idx
+        ¦                   qlist.h.7E26AE5C80F4AC63.idx
+        ¦                   qlistview.h.75E5BBD7FCE3B845.idx
+        ¦                   QListWidget.D964F3923FBDF3E3.idx
+        ¦                   qlistwidget.h.1BEFBFE3B12A8D1C.idx
+        ¦                   qlocale.h.6C9AC3BE9B9C53D9.idx
+        ¦                   qlogging.h.106886612259FA2A.idx
+        ¦                   QMainWindow.3848705272FD7EFA.idx
+        ¦                   qmainwindow.h.A835795460802397.idx
+        ¦                   qmalloc.h.262DB38C4E882A0D.idx
+        ¦                   QMap.9E90466ED3D4C44B.idx
+        ¦                   qmap.h.83D649E412486457.idx
+        ¦                   qmargins.h.AEAAE5CF3A341E26.idx
+        ¦                   qmath.h.867795624902007C.idx
+        ¦                   qmenu.h.70C3E2E90835F7FB.idx
+        ¦                   QMenuBar.88FE76823D4BA624.idx
+        ¦                   qmenubar.h.3CC7E8D48FD60B65.idx
+        ¦                   QMessageBox.67CE8F5F1ECB8527.idx
+        ¦                   qmessagebox.h.0A5B5E7CA844EDE5.idx
+        ¦                   qmetacontainer.h.3AFC87031119DB51.idx
+        ¦                   qmetatype.h.F8DFE3D8EA9626C0.idx
+        ¦                   qminmax.h.30D71D081509F256.idx
+        ¦                   QMouseEvent.A203B9FAA4083AF5.idx
+        ¦                   qnamespace.h.C1005C8980515BF1.idx
+        ¦                   qnativeinterface.h.2F10110D6BF221F3.idx
+        ¦                   qnumeric.h.B1F35DE4CC10C411.idx
+        ¦                   QObject.66350BC2EE0D9A4E.idx
+        ¦                   qobject.h.00DC5B2B4FD5601B.idx
+        ¦                   qobjectdefs.h.2DAE0DC82FA067DA.idx
+        ¦                   qobjectdefs.h.96D53E1D21E4D6A6.idx
+        ¦                   qobjectdefs_impl.h.E3A090244A5453EF.idx
+        ¦                   qobject_impl.h.AD13AA8185720169.idx
+        ¦                   qoverload.h.B4FDB2B264077A9C.idx
+        ¦                   qpaintdevice.h.692197622EF79DB0.idx
+        ¦                   QPainter.FA07EA10B6315C89.idx
+        ¦                   qpainter.h.4BA539843CDDB077.idx
+        ¦                   qpair.h.CBB2E46C7D247DF8.idx
+        ¦                   qpalette.h.E14B3533E4493E1E.idx
+        ¦                   qpen.h.921DDA136E916A68.idx
+        ¦                   qpicture.h.24D4F3EABAA0322F.idx
+        ¦                   qpixelformat.h.62416484D4A0AF4E.idx
+        ¦                   qpixmap.h.8106FC471481216B.idx
+        ¦                   qpoint.h.97945601F91FED9A.idx
+        ¦                   qpointingdevice.h.98A4370F27704316.idx
+        ¦                   qpolygon.h.20EAC5AC8B39122E.idx
+        ¦                   qprocessordetection.h.32883F945C91BA57.idx
+        ¦                   QPushButton.D1285D7662BF6067.idx
+        ¦                   qpushbutton.h.55747B4BE5A5C3A9.idx
+        ¦                   QRect.1A97A9127CE01CCD.idx
+        ¦                   qrect.h.6CA0A091F0EB60FA.idx
+        ¦                   qrefcount.h.07F9BB32F69690C0.idx
+        ¦                   qregion.h.907D39893700E2E1.idx
+        ¦                   qregularexpression.h.0E0B023095C741C3.idx
+        ¦                   qrgb.h.F1DB93F6AD5F8F65.idx
+        ¦                   qrgba64.h.2E2FD5CF2A324EF3.idx
+        ¦                   qrubberband.h.7B8D9EC475837E7B.idx
+        ¦                   qscopedpointer.h.89BFB5F9C2FCBEB5.idx
+        ¦                   qscopeguard.h.361F965FE0C9550D.idx
+        ¦                   qscreen.h.A7318EAA61330880.idx
+        ¦                   qscreen_platform.h.A91760BB743A0EFE.idx
+        ¦                   qscrollarea.h.A716379720BCE3C5.idx
+        ¦                   qset.h.8C7A88F404495DCF.idx
+        ¦                   qshareddata.h.8A82274C3A3B38F4.idx
+        ¦                   qshareddata_impl.h.5024D14FC417A995.idx
+        ¦                   qsharedpointer.h.668FF596DCDB6EC4.idx
+        ¦                   qsharedpointer_impl.h.992E84BAF4FA911C.idx
+        ¦                   QSize.3BE4A24BAB1F9BD2.idx
+        ¦                   qsize.h.BE4BF418915DD537.idx
+        ¦                   QSizeF.D978B23875517743.idx
+        ¦                   qsizepolicy.h.259652729F77A4F1.idx
+        ¦                   qslider.h.FAC1EF69F62F1164.idx
+        ¦                   QSpacerItem.A01E4FCC19C6D755.idx
+        ¦                   qspan.h.E12BE769D9AFE24B.idx
+        ¦                   QStatusBar.05F11D8FE5EA0E6F.idx
+        ¦                   qstatusbar.h.1436AE14964CE897.idx
+        ¦                   qstdlibdetection.h.BD3C7F59D7B0E52B.idx
+        ¦                   qstring.h.6C322DDC182D9ABC.idx
+        ¦                   qstringalgorithms.h.B60A91726FE16515.idx
+        ¦                   qstringbuilder.h.19720C629F511487.idx
+        ¦                   qstringconverter.h.4C202939ADF34E48.idx
+        ¦                   qstringconverter_base.h.2C4F95E6CED1D2AE.idx
+        ¦                   qstringfwd.h.F6CB8266F5F803F4.idx
+        ¦                   qstringlist.h.EA0CBA46F4204F93.idx
+        ¦                   qstringliteral.h.0D0931896CC04D6B.idx
+        ¦                   qstringmatcher.h.DFEC2D1E93A039E6.idx
+        ¦                   qstringtokenizer.h.4AF048E39E1EDA26.idx
+        ¦                   qstringview.h.492BECC0988B8A70.idx
+        ¦                   qstyle.h.BA2503EB0CE62703.idx
+        ¦                   qstyleoption.h.4272B9B3E93543E0.idx
+        ¦                   qswap.h.B4C73085E5709D5B.idx
+        ¦                   qsysinfo.h.89587A8871BB0413.idx
+        ¦                   qsystemdetection.h.E42CAA475DCB1FFB.idx
+        ¦                   qtabbar.h.D41F102B983D5A65.idx
+        ¦                   qtabwidget.h.0E85C0EB31919773.idx
+        ¦                   qtaggedpointer.h.D910C540F60A764D.idx
+        ¦                   qtclasshelpermacros.h.FC181971501DDE9E.idx
+        ¦                   qtconfiginclude.h.1B64D544A99D2DBC.idx
+        ¦                   qtconfigmacros.h.71210E91F3E822A7.idx
+        ¦                   qtcore-config.h.CEC7BF1F9DAB1B2E.idx
+        ¦                   qtcoreexports.h.0B4217A217419ACC.idx
+        ¦                   qtcoreglobal.h.C8D2E4E29923E580.idx
+        ¦                   qtdeprecationdefinitions.h.3713B63938E2400D.idx
+        ¦                   qtdeprecationmarkers.h.C44D88DC15708FAF.idx
+        ¦                   qtenvironmentvariables.h.616A96202EB6C8A8.idx
+        ¦                   qtextcursor.h.98BAB0E458BD52EA.idx
+        ¦                   qtextdocument.h.B775BCD7F664D0B3.idx
+        ¦                   QTextEdit.9CA4EC8E5A823F45.idx
+        ¦                   qtextedit.h.2921BA214841685F.idx
+        ¦                   qtextformat.h.1E2C01FD57F0852A.idx
+        ¦                   qtextoption.h.9DF99967A40A1999.idx
+        ¦                   qtextstream.h.F0AA8FEE844C5FF8.idx
+        ¦                   qtformat_impl.h.A539C4A099EDC9A8.idx
+        ¦                   qtgui-config.h.8E8798210A381690.idx
+        ¦                   qtguiexports.h.A614D73F75D042D3.idx
+        ¦                   qtguiglobal.h.3EC99C0D074E93C7.idx
+        ¦                   QTimer.454573D4BEC1BDC6.idx
+        ¦                   qtimer.h.17EEA112A2EEE53E.idx
+        ¦                   qtmetamacros.h.FBB336678D2078DC.idx
+        ¦                   qtnoop.h.ABD49A815E8093E9.idx
+        ¦                   QToolBar.759ED8F04557FC2D.idx
+        ¦                   qtoolbar.h.DFE6400A7A075BB4.idx
+        ¦                   qtoolbutton.h.C1D3AF75DF736E1A.idx
+        ¦                   qtpreprocessorsupport.h.05A9B8CF42AACAC8.idx
+        ¦                   QTransform.F79665F7DF838636.idx
+        ¦                   qtransform.h.C9B5FD2C1FA9CD87.idx
+        ¦                   qtresource.h.5FAC19D134D659B8.idx
+        ¦                   qttranslation.h.7D716673A966EC28.idx
+        ¦                   qttypetraits.h.32D30A76CFD48361.idx
+        ¦                   qtversion.h.0E3884FF73E969D1.idx
+        ¦                   qtversionchecks.h.70E0BC22565EEF67.idx
+        ¦                   qtwidgets-config.h.6E0DB2A1D0C07338.idx
+        ¦                   qtwidgetsexports.h.40844F2F6AC0AEBA.idx
+        ¦                   qtwidgetsglobal.h.099D4FF53FEE9D33.idx
+        ¦                   qtypeinfo.h.6E11140C37A571A8.idx
+        ¦                   qtypes.h.130ED5374B1B3237.idx
+        ¦                   qurl.h.F5DD45ED8DB7E194.idx
+        ¦                   qutf8stringview.h.5B473CB6C555A6FC.idx
+        ¦                   qvalidator.h.31AB45650D034271.idx
+        ¦                   QVariant.1B840132B5DAD5D9.idx
+        ¦                   qvariant.h.62716A000EB48DB1.idx
+        ¦                   qvarlengtharray.h.5F9A03922A162EB7.idx
+        ¦                   QVector.3C4DD7DE6D27F8D2.idx
+        ¦                   qvector.h.7402527A64C587FA.idx
+        ¦                   qvector2d.h.CB455BE914351DFA.idx
+        ¦                   qvectornd.h.40DE28C81F0DBFAF.idx
+        ¦                   qversiontagging.h.BC075D52DF0FA6AF.idx
+        ¦                   QWidget.62CAABA1ED798D40.idx
+        ¦                   qwidget.h.790D2B839BCFE3B5.idx
+        ¦                   qwindowdefs.h.0F909223D44460C1.idx
+        ¦                   qwindowdefs_win.h.99FE6978CFBFFEE0.idx
+        ¦                   qxptype_traits.h.41B9D853363E9F65.idx
+        ¦                   qyieldcpu.h.A6F0921A2EEF0EDB.idx
+        ¦                   range_access.h.482E92A81EF1491D.idx
+        ¦                   raointintrin.h.51D05BE01C0F82F3.idx
+        ¦                   ratio.B8DF4E4F0C3798ED.idx
+        ¦                   rdpruintrin.h.EE477043BBE0BAEE.idx
+        ¦                   rdseedintrin.h.CB6B1473C78AEC1F.idx
+        ¦                   realtimeapiset.h.EF240E6BF3F506FD.idx
+        ¦                   reason.h.523DF11A147A8101.idx
+        ¦                   refwrap.h.E15A1F05B5F9EECB.idx
+        ¦                   requires_hosted.h.B5CA194EE81130C4.idx
+        ¦                   riemann_zeta.tcc.A2D60B1690A6F89B.idx
+        ¦                   rtmintrin.h.BDCEAF75D5D0E3DF.idx
+        ¦                   sal.h.796559CA392373B9.idx
+        ¦                   sdkddkver.h.0F9726140153863F.idx
+        ¦                   securityappcontainer.h.1B5DC2936A17348C.idx
+        ¦                   securitybaseapi.h.FC7307A7B447536A.idx
+        ¦                   serializeintrin.h.8F8874B2ADF11DDF.idx
+        ¦                   set.92C8EA8B28BC8EBB.idx
+        ¦                   sgxintrin.h.8C22D82C2D1E8E8A.idx
+        ¦                   sha512intrin.h.1F35A3E9B6A27EF6.idx
+        ¦                   shaintrin.h.8AB0F04FDF9DB16C.idx
+        ¦                   shared_ptr.h.2BA8007FFE117722.idx
+        ¦                   shared_ptr_atomic.h.963888A9FF9AAF80.idx
+        ¦                   shared_ptr_base.h.2CE840290B6C81CD.idx
+        ¦                   signal.h.D5C0C9F311512F72.idx
+        ¦                   sm3intrin.h.97DF77DA0F0867D6.idx
+        ¦                   sm4evexintrin.h.E439C251B2A7E552.idx
+        ¦                   sm4intrin.h.9C059DFCC54EA8BE.idx
+        ¦                   smmintrin.h.2B4D993D9573CC00.idx
+        ¦                   specfun.h.FC02DDB4CD72036C.idx
+        ¦                   special_function_util.h.416C058AD9DE4EE8.idx
+        ¦                   specstrings.h.BA2614C99B2C555F.idx
+        ¦                   stdarg.h.FA494FF463A41B23.idx
+        ¦                   stdbool.h.44E60C01D1FE755E.idx
+        ¦                   stddef.h.4361ED25CBF08C6D.idx
+        ¦                   stdexcept.E9EBE44ED527B5C7.idx
+        ¦                   stdint.h.E05A5D1C87F81382.idx
+        ¦                   stdint.h.F3EBABFA66223690.idx
+        ¦                   stdio.h.6161A73ABAE1B9AD.idx
+        ¦                   stdio_s.h.15F0A7538BF42604.idx
+        ¦                   stdlib.h.40C242EC6012DF6F.idx
+        ¦                   stdlib.h.CA318BC42FB4DB5B.idx
+        ¦                   stdlib_s.h.E8E9E362084EF8E0.idx
+        ¦                   std_abs.h.11E695252809F8AB.idx
+        ¦                   std_function.h.BE0A8BDE1AF4E873.idx
+        ¦                   stl_algo.h.706E05B7B75F248A.idx
+        ¦                   stl_algobase.h.16501BAB7C3C763B.idx
+        ¦                   stl_bvector.h.F9CF42BE1FCD50D1.idx
+        ¦                   stl_construct.h.0537456E4E9EAC88.idx
+        ¦                   stl_function.h.BD4A274E2BB6518D.idx
+        ¦                   stl_heap.h.4C4D286406BEE7AD.idx
+        ¦                   stl_iterator.h.D8121138DDB2A09A.idx
+        ¦                   stl_iterator_base_funcs.h.7AF257A036666D0C.idx
+        ¦                   stl_iterator_base_types.h.B2CD24B9A14D2476.idx
+        ¦                   stl_list.h.C372895505FBD44A.idx
+        ¦                   stl_map.h.E0CD504E66EAC53C.idx
+        ¦                   stl_multimap.h.932CE543B85C6511.idx
+        ¦                   stl_multiset.h.4B655CEDD9D2D547.idx
+        ¦                   stl_numeric.h.462C96BE1D7BC60B.idx
+        ¦                   stl_pair.h.54E759BE20E3C9EA.idx
+        ¦                   stl_raw_storage_iter.h.5C0E4F724FE46101.idx
+        ¦                   stl_relops.h.81A9C1D9B2C498A6.idx
+        ¦                   stl_set.h.C481A46E94B5F263.idx
+        ¦                   stl_tempbuf.h.168172B05085D379.idx
+        ¦                   stl_tree.h.8B9EED0EF93F834E.idx
+        ¦                   stl_uninitialized.h.50EF4F1798BEC0EC.idx
+        ¦                   stl_vector.h.EC809BC15CBD0966.idx
+        ¦                   stralign.h.09DB0A56E9C0D433.idx
+        ¦                   stralign_s.h.5FF12255C6DCC13B.idx
+        ¦                   streambuf.6AD10CE34D58A92A.idx
+        ¦                   streambuf.tcc.7C72E947A1FCA04E.idx
+        ¦                   streambuf_iterator.h.AE83B0972D304C8C.idx
+        ¦                   stream_iterator.h.DE2C8577A21DD11D.idx
+        ¦                   string.86286D8BC2B0B7D3.idx
+        ¦                   string.h.8E0C15365E562277.idx
+        ¦                   stringapiset.h.53A8D4C75AB32B00.idx
+        ¦                   stringfwd.h.DE1C64705D0FAFE4.idx
+        ¦                   string_conversions.h.62B5B055BE3774BE.idx
+        ¦                   string_s.h.72B5AEF86ECE0F8D.idx
+        ¦                   string_view.0593AB001E790B99.idx
+        ¦                   string_view.tcc.9F494E5CC37E8BB5.idx
+        ¦                   swprintf.inl.43ED4C7CB00B92B7.idx
+        ¦                   synchapi.h.A7EDBCFFD9ABD951.idx
+        ¦                   sysinfoapi.h.769EEC3218023C94.idx
+        ¦                   systemtopologyapi.h.A98935196421EC9C.idx
+        ¦                   system_error.CA5848863D10B66C.idx
+        ¦                   tbmintrin.h.B6F09D1281EFA1EF.idx
+        ¦                   threadpoolapiset.h.70903B25CB5EE363.idx
+        ¦                   threadpoollegacyapiset.h.9170FF7A04BE724D.idx
+        ¦                   time.h.A1B12F65E4B04B1C.idx
+        ¦                   timeb.h.179B169910652C0E.idx
+        ¦                   timeb_s.h.D76A2B06B5707D30.idx
+        ¦                   timezoneapi.h.9C40866D6582547C.idx
+        ¦                   tmmintrin.h.583503B2CC256046.idx
+        ¦                   TruthTable.cpp.A2570BB87A55B8F3.idx
+        ¦                   TruthTable.h.C9DBD64101F33930.idx
+        ¦                   tsxldtrkintrin.h.AAE7F350A307A546.idx
+        ¦                   tuple.08DC1F632254D8B7.idx
+        ¦                   tvout.h.B297EB744D8CA97D.idx
+        ¦                   typeinfo.4B0CDF3356F7DC62.idx
+        ¦                   types.h.58F5E863204A8B12.idx
+        ¦                   type_traits.AAC5687D10722995.idx
+        ¦                   type_traits.h.FE12CF02D6AE8D49.idx
+        ¦                   uintrintrin.h.B04705DFA8CEE5E4.idx
+        ¦                   ui_mainwindow.h.1E96DA9AD942D8C6.idx
+        ¦                   uniform_int_dist.h.D4C31FF9B7AD9B89.idx
+        ¦                   unique_ptr.h.7B08C27FFC8337B6.idx
+        ¦                   unordered_map.CB92D5F0F1CFBAF2.idx
+        ¦                   unordered_map.h.9B8D1F5ABF3EABE4.idx
+        ¦                   unordered_set.5858B1E3719EA04C.idx
+        ¦                   unordered_set.h.1C2BCAA45525CE61.idx
+        ¦                   usermsrintrin.h.1DDD4538B67E8FA1.idx
+        ¦                   uses_allocator.h.1A4915A1B33C6DAA.idx
+        ¦                   uses_allocator_args.h.2FBCE512A37BF250.idx
+        ¦                   utilapiset.h.9896DB5E821E66E2.idx
+        ¦                   utility.FA90F407DB18A1EF.idx
+        ¦                   utility.h.A204C3AB302CBAC8.idx
+        ¦                   vadefs.h.A4B722760C35B316.idx
+        ¦                   vadefs.h.BD581EFB78ADCA3D.idx
+        ¦                   vaesintrin.h.1A336C8486267EC1.idx
+        ¦                   variant.4141388F112CAA34.idx
+        ¦                   vector.60C3EF002E47F12E.idx
+        ¦                   vector.tcc.3CD0D16578A22DB9.idx
+        ¦                   version.06EAC55300566173.idx
+        ¦                   virtdisk.h.8AA389FCC515ECC5.idx
+        ¦                   vpclmulqdqintrin.h.6BD3A81FE20BC144.idx
+        ¦                   waitpkgintrin.h.74B764005DD828D6.idx
+        ¦                   wbnoinvdintrin.h.B4493E51A553AC13.idx
+        ¦                   wchar.h.B0FF1C12568FD85D.idx
+        ¦                   wchar_s.h.5B5D65DBFE7DAE80.idx
+        ¦                   winapifamily.h.1AD6BDF863A4D9C0.idx
+        ¦                   winbase.h.C085FE199053A421.idx
+        ¦                   wincon.h.63C364A66E742565.idx
+        ¦                   windef.h.0A6D27ECE881828D.idx
+        ¦                   windows.h.46DE1CBC78BFC544.idx
+        ¦                   winerror.h.8F098824A803962B.idx
+        ¦                   wingdi.h.D12B967E1E41A33B.idx
+        ¦                   winnetwk.h.75A779D3B4E542D7.idx
+        ¦                   winnls.h.5E407BDF9081B0AA.idx
+        ¦                   winnt.h.2A853CE47A0B9DFE.idx
+        ¦                   winreg.h.877293BAA92EDFF1.idx
+        ¦                   winsvc.h.96E8A3889D1F65C1.idx
+        ¦                   winuser.h.84F8B92006127303.idx
+        ¦                   winver.h.28A8CB3CC9A9A879.idx
+        ¦                   wmmintrin.h.DBB7E217951EE620.idx
+        ¦                   wnnc.h.CDFAA5C41303F36A.idx
+        ¦                   wow64apiset.h.88967CB2E51426E4.idx
+        ¦                   x86gprintrin.h.CD1E108747C800C1.idx
+        ¦                   x86intrin.h.323619FFEBDFBFEF.idx
+        ¦                   xmmintrin.h.0B92EDB4E431996F.idx
+        ¦                   xopintrin.h.05B5926B97CE7F27.idx
+        ¦                   xsavecintrin.h.A0A767D0E1769650.idx
+        ¦                   xsaveintrin.h.6AAC7F1D2DDF2A14.idx
+        ¦                   xsaveoptintrin.h.7D293E465FBB671B.idx
+        ¦                   xsavesintrin.h.9BF88C8499DEA6C4.idx
+        ¦                   xtestintrin.h.2B32DE1D307306B9.idx
+        ¦                   _mingw.h.DC6E4837D49CB943.idx
+        ¦                   _mingw_ddk.h.6D771DBE59C9DD3C.idx
+        ¦                   _mingw_mac.h.132EDE270412F0D6.idx
+        ¦                   _mingw_off_t.h.4966DDF127D2AA17.idx
+        ¦                   _mingw_secapi.h.2A73AC5100334DA8.idx
+        ¦                   _mingw_stat64.h.617ADE7529285FB0.idx
+        ¦                   _mingw_unicode.h.E114597D3B048835.idx
+        ¦                   _timeval.h.A153182C6A546535.idx
+        ¦                   __stdarg_header_macro.h.E0421E89EBB63C35.idx
+        ¦                   __stdarg_va_arg.h.D101A7137CEE844A.idx
+        ¦                   __stdarg_va_copy.h.05BD405B6DFB0867.idx
+        ¦                   __stdarg_va_list.h.DF36992C3C8F2E80.idx
+        ¦                   __stdarg___gnuc_va_list.h.72E5E2A3EDDDABE8.idx
+        ¦                   __stdarg___va_copy.h.D525C907C67B4BCE.idx
+        ¦                   __stddef_header_macro.h.677179BC2413822C.idx
+        ¦                   __stddef_max_align_t.h.B8220EF5BA9D1B0C.idx
+        ¦                   __stddef_null.h.EEDFABA041F0D714.idx
+        ¦                   __stddef_nullptr_t.h.C7C5D04D3AB95145.idx
+        ¦                   __stddef_offsetof.h.58CB040ABA510397.idx
+        ¦                   __stddef_ptrdiff_t.h.6CBBDFC710FB20B0.idx
+        ¦                   __stddef_size_t.h.C1CA6364FC108304.idx
+        ¦                   __stddef_wchar_t.h.F7BD7701C6494EC2.idx
+        ¦                   __stddef_wint_t.h.594215EF17602404.idx
+        ¦                   __wmmintrin_aes.h.AB8A8D1C0FEBB08C.idx
+        ¦                   __wmmintrin_pclmul.h.5ABDB7175FC6B184.idx
+        ¦                   
+        +---debug
+        ¦       b2BlockAllocator.o
+        ¦       b2Body.o
+        ¦       b2BroadPhase.o
+        ¦       b2ChainAndCircleContact.o
+        ¦       b2ChainAndPolygonContact.o
+        ¦       b2ChainShape.o
+        ¦       b2CircleContact.o
+        ¦       b2CircleShape.o
+        ¦       b2CollideCircle.o
+        ¦       b2CollideEdge.o
+        ¦       b2CollidePolygon.o
+        ¦       b2Collision.o
+        ¦       b2Contact.o
+        ¦       b2ContactManager.o
+        ¦       b2ContactSolver.o
+        ¦       b2Distance.o
+        ¦       b2DistanceJoint.o
+        ¦       b2Draw.o
+        ¦       b2DynamicTree.o
+        ¦       b2EdgeAndCircleContact.o
+        ¦       b2EdgeAndPolygonContact.o
+        ¦       b2EdgeShape.o
+        ¦       b2Fixture.o
+        ¦       b2FrictionJoint.o
+        ¦       b2GearJoint.o
+        ¦       b2Island.o
+        ¦       b2Joint.o
+        ¦       b2Math.o
+        ¦       b2MotorJoint.o
+        ¦       b2MouseJoint.o
+        ¦       b2PolygonAndCircleContact.o
+        ¦       b2PolygonContact.o
+        ¦       b2PolygonShape.o
+        ¦       b2PrismaticJoint.o
+        ¦       b2PulleyJoint.o
+        ¦       b2RevoluteJoint.o
+        ¦       b2Rope.o
+        ¦       b2RopeJoint.o
+        ¦       b2Settings.o
+        ¦       b2StackAllocator.o
+        ¦       b2TimeOfImpact.o
+        ¦       b2Timer.o
+        ¦       b2WeldJoint.o
+        ¦       b2WheelJoint.o
+        ¦       b2World.o
+        ¦       b2WorldCallbacks.o
+        ¦       circuit.o
+        ¦       CircuitBuilder.exe
+        ¦       draggablebutton.o
+        ¦       draggableGate.o
+        ¦       gate.o
+        ¦       main.o
+        ¦       mainwindow.o
+        ¦       moc_Circuit.cpp
+        ¦       moc_circuit.o
+        ¦       moc_draggablebutton.cpp
+        ¦       moc_draggablebutton.o
+        ¦       moc_draggableGate.cpp
+        ¦       moc_draggableGate.o
+        ¦       moc_mainwindow.cpp
+        ¦       moc_mainwindow.o
+        ¦       moc_predefs.h
+        ¦       object_script.CircuitBuilder.Debug
+        ¦       qrc_rsc.cpp
+        ¦       qrc_rsc.o
+        ¦       TruthTable.o
+        ¦       
+        +---release
+                object_script.CircuitBuilder.Release
+                

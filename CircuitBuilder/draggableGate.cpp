@@ -9,38 +9,41 @@ draggableGate::draggableGate(GateType gateType, QWidget *parent, Gate* gate) :
     onIcon(":/ICONS/GATES/INPUT-ON.svg"),
     offIcon(":/ICONS/GATES/INPUT-OFF.svg"),
     isDelete(false),
-    input1{QPushButton("1", this)},
-    input2{QPushButton("2", this)},
-    output{QPushButton("out", this)},
+    input1{QPushButton(this)},
+    input2{QPushButton(this)},
+    output{QPushButton(this)},
     gate(gate)
 {
-    // this->setStyleSheet(mainButtonStyle);
+    this->setStyleSheet(mainButtonStyle);
+    input1.setStyleSheet(buttonStyle);
+    input2.setStyleSheet(buttonStyle);
+    output.setStyleSheet(buttonStyle);
 
-    // input1.setStyleSheet(buttonStyle);
-    // input2.setStyleSheet(buttonStyle);
-    // output.setStyleSheet(buttonStyle);
+    input1.setFixedSize(15, 5);
+    input2.setFixedSize(15, 5);
+    output.setFixedSize(15, 5);
 
-    input1.setFixedSize(18, 18);
-    input2.setFixedSize(18, 18);
-    output.setFixedSize(22, 20);
-
-    input1.move(0, 5);
-    input2.move(0, 25);
-    output.move(28, 15);
+    input1.move(0, 20);
+    input2.move(0, 40);
+    output.move(50, 30);
 
 
     if (gateType == INVERTER){
         input2.hide();
-        input1.move(0, 5);
+        input2.setEnabled(false);
+        input1.move(0, 30);
         connect(&input1, &QPushButton::clicked, this, &draggableGate::input1Clicked);
         connect(&output, &QPushButton::clicked, this, &draggableGate::outputClicked);
     }
     else if(gateType == INPUT){
         input1.hide();
+        input1.setEnabled(false);
         input2.hide();
+        input2.setEnabled(false);
         connect(&output, &QPushButton::clicked, this, &draggableGate::outputClicked);
     }
     else if (gateType == OUTPUT){
+        input1.move(0, 30);
         input2.hide();
         output.hide();
         connect(&input1, &QPushButton::clicked, this, &draggableGate::input1Clicked);

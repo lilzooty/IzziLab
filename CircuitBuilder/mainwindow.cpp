@@ -292,7 +292,10 @@ void MainWindow::drawWire(QMap<draggableGate*, QVector<QPair<draggableGate*, int
 
     // Loop through each starting button and its wires
     for (draggableGate* sourceButton : connections.keys()) {
-        QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+        // QPoint startPos = sourceButton->pos();
+        QPoint startPos = sourceButton->pos();
+        QPoint startOffset = QPoint(GATE_SIZE / 2, GATE_SIZE / 2);
+        startPos += startOffset;
 
         // Loop over each connection for source button
         for (const auto& connection : connections.value(sourceButton)) {
@@ -300,12 +303,12 @@ void MainWindow::drawWire(QMap<draggableGate*, QVector<QPair<draggableGate*, int
             int inputPort = connection.second;
 
             // Calculate end position with input port offset
-            QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+            QPoint endPos = targetButton->pos();
             QPoint offset;
             switch (inputPort) {
-            case 1: offset = QPoint(-10, -12); break;
-            case 2: offset = QPoint(-10, 12); break;
-            default: offset = QPoint(0, 0); break;
+            case 1: offset = QPoint(-GATE_SIZE/2, GATE_SIZE/2); break;
+            case 2: offset = QPoint(0, GATE_SIZE * 0.65); break;
+            default: offset = QPoint(-GATE_SIZE/2, GATE_SIZE/2); break;
             }
             endPos += offset;
 
