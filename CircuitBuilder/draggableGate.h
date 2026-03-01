@@ -5,10 +5,10 @@
 #include <QIcon>
 #include <QTimer>
 #include <Box2D/Box2D.h>
-#include "Gate.h"
+#include "gate.h"
 
 
-class DraggableButton : public QPushButton
+class draggableGate : public QPushButton
 {
     Q_OBJECT
 
@@ -63,40 +63,31 @@ private:
     void updatePhysicsBody(QPoint& newPos);
 
     /**
-     * @brief Is the logical component represented by the DraggableButton class.
+     * @brief Is the logical component represented by the draggableGate class.
      */
     Gate* gate;
 
     QString buttonStyle =
         "QPushButton {"
-        "    background-color: transparent;"
-        "    border: 1px solid transparent;"
-        "    border-radius: 7px;"
-        "    color: white;"
-        "    min-width: 15px;"
-        "    min-height: 15px;"
-        "    padding: 0px;"
+            "background-color: rgb(255, 227, 69);"
+
         "}"
         "QPushButton:hover {"
-        "    border: 1px solid white;"
-        "    background-color: rgba(255, 255, 255, 30);"
+            "border: 1px solid white;"
+            "background-color: light green);"
         "}";
 
     QString mainButtonStyle =
         "QPushButton {"
-        "    background-color: rgba(40, 40, 60, 25);"
-        "    border: 2px solid rgba(80, 100, 255, 120);"
-        "    border-radius: 8px;"
-        "    padding: 5px;"
-
+            "background-color: rgba(0, 0, 0, 0);"
+            "border: none;"
         "}"
         "QPushButton:hover {"
-        "    background-color: rgba(10, 90, 10, 50);"
-        "    border: 2px solid rgba(0,175,0,120);"
+            "background-color: rgba(0, 0, 0, 50);"
         "}"
         "QPushButton:pressed {"
-        "    background-color: rgba(35, 35, 55, 160);"
-        "    border: 2px solid rgba(60, 80, 255, 120);"
+            "background-color: rgba(0, 0, 0, 100);"
+
         "}";
 
 
@@ -115,13 +106,13 @@ protected:
 public:
 
     // Base constuctor
-    DraggableButton();
+    draggableGate();
 
     /**
      * @brief Creates a button of gateType. Requires an actual gate as param.
      * Instantiates input buttons based on the gateType.
      */
-    DraggableButton(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
+    draggableGate(GateType gateType, QWidget *parent = nullptr, Gate* gate = nullptr);
 
     /**
      * @brief buttonDelete Used to send the deletMe signal and run a delete animation for the button.
@@ -138,7 +129,7 @@ public:
     b2Body* getPhysicsBody();
 
     /**
-     * @return The gate object the DraggableButton is representing.
+     * @return The gate object the draggableGate is representing.
      */
     Gate* getGate();
 
@@ -177,7 +168,7 @@ signals:
      * @param input 1 if input1, 2 if input2, 3 if output.
      * @param deletingWire True if the delete tool is active, false otherwise.
      */
-    void sendButton(DraggableButton *button, int input, bool deletingWire);
+    void sendButton(draggableGate *button, int input, bool deletingWire);
 
 
 
@@ -186,17 +177,17 @@ signals:
      * @brief Sent to Circuit to indicate a button has been moved.
      */
 
-    void onButtonMoved(DraggableButton* button);
+    void onButtonMoved(draggableGate* button);
 
     /**
      * @brief Sent to Circuit when the param button needs to be deleted.
      */
-    void deleteMe(DraggableButton*);
+    void deleteMe(draggableGate*);
 
     /**
      * @brief When an input gate is clicked, this tells Circuit to flip the input gates signal.
      */
-    void toggleSignal(DraggableButton*);
+    void toggleSignal(draggableGate*);
 
 };
 

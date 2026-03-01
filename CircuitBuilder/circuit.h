@@ -1,10 +1,10 @@
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
 
-#include "Gate.h"
+#include "gate.h"
 #include "QVector"
 #include "TruthTable.h"
-#include "draggablebutton.h"
+#include "draggableGate.h"
 #include <vector>
 #include <QTimer>
 #include <QObject>
@@ -66,13 +66,13 @@ public :
      * @param input - Which input was pressed.
      * @param deletingWire - if the connection should be deleted
      */
-    void updateOutputButton(DraggableButton *button, int input, bool deletingWire);
+    void updateOutputButton(draggableGate *button, int input, bool deletingWire);
 
     /**
      * @brief Adds a button to the circuits vector of buttons through a connection with draggable button.
      * @param button - Button to be added.
      */
-    void addButton(DraggableButton *button);
+    void addButton(draggableGate *button);
 
     /**
       * @brief Handles the connections of different nodes within the builder to keep track of.
@@ -80,7 +80,7 @@ public :
       * @param toButton - Child connection button.
       * @param input - Which input on the child button.
       */
-     void onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
+     void onConnectNode(draggableGate* fromButton, draggableGate* toButton, int input);
 
 private:
      /**
@@ -91,9 +91,14 @@ private:
      /**
      * @brief The child nodes.
      */
-    std::vector<Gate*> inputNodes;
+    std::vector<Gate*> inputGates;
 
-    /**
+     /**
+     * @brief output gates
+     */
+    std::vector<Gate*> outputGates;
+
+     /**
      * @brief The output node of the circuit. Used to traverse the circuit graph structure
      * for evaluation.
      */
@@ -107,12 +112,12 @@ private:
     /**
      * @brief This represents the connections of nodes which will be used to evaluate.
      */
-    QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections;
+    QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections;
 
     /**
      * @brief The most recently clicked output/root button clicked so that we can connect the two if a inpput/child button is clicked.
      */
-    DraggableButton *mostRecentOutput = nullptr;
+    draggableGate *mostRecentOutput = nullptr;
 
     /**
      * @brief Table of easy circuit problems.
@@ -139,7 +144,7 @@ public slots:
      * @brief Registers a gate to the vector of gates.
      * @param button
      */
-    void registerGate(DraggableButton* button);
+    void registerGate(draggableGate* button);
 
     /**
      * @brief slot for when a button is moved. This method sends a signal of the
@@ -153,13 +158,13 @@ public slots:
      * @param toButton - Child/input button.
      * @param input - the connection on the gate to be disconnected
      */
-    void onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input);
+    void onDisconnectNode(draggableGate* fromButton, draggableGate* toButton, int input);
 
     /**
      * @brief When a node is deleted we need to update the state of the model.
      * @param button - Button to be deleted.
      */
-    void onDeleteNode(DraggableButton* button);
+    void onDeleteNode(draggableGate* button);
 
     /**
      * @brief When a clear is pressed, we need to reset the program to it's inital state.
@@ -169,7 +174,7 @@ public slots:
     /**
      * @brief Changes the output of an input gate when its button is clicked.
      */
-    void toggleInputSignal(DraggableButton* inputButton);
+    void toggleInputSignal(draggableGate* inputButton);
 
 
 
@@ -195,23 +200,23 @@ signals:
      * @param button - Button that is the new output/root button.
      * @param input - Input of the child node.
      */
-    void mostRecentOutputUpdated(DraggableButton *button, int input);
+    void mostRecentOutputUpdated(draggableGate *button, int input);
 
     /**
      * @brief send to Mainwindow to indicate that the node is deleted so that mainwindow can remove from its vector of buttons.
      */
-    void nodeDeleted(DraggableButton* button);
+    void nodeDeleted(draggableGate* button);
 
     /**
      * @brief Animates the circuit being solved.
      */
-    void evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+    void evaluationAnimation(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections);
 
     /**
      * @brief Sent to MainWindow. Used to indicate every connection a DraggableButton has so wires
      * can be drawn.
      */
-    void allConnections(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+    void allConnections(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections);
 
     /**
      * Sends the info need to create a new level in mainwindow

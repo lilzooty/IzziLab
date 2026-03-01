@@ -5,17 +5,36 @@
 #include <QPainter>
 #include <QActionGroup>
 #include <QPushButton>
-#include "draggablebutton.h"
+#include "draggableGate.h"
 #include <QMessageBox>
 #include <qtoolbutton.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow), circuit{Circuit(parent)}, draggableButtons{}
+    , ui(new Ui::MainWindow), circuit{Circuit(parent)}, draggableGates{}
 {
+
     ui->setupUi(this);
 
+    //
 
+    // Get screen geometry
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->availableGeometry();
+
+    // Calculate 80% size
+    int width = screenGeometry.width() * 0.9;
+    int height = screenGeometry.height() * 0.9;
+
+    // Resize and center
+    resize(width, height);
+
+    // Center on screen
+    int x = (screenGeometry.width() - width) / 2 + screenGeometry.x();
+    int y = (screenGeometry.height() - height) / 2 + screenGeometry.y();
+    move(x, y);
+
+    //create pointers for toolbar buttons except delete gate and add wire
     QAction* andGate = ui->actionAndGate;
     QAction* orGate = ui->actionOrGate;
     QAction* inverter = ui->actionInverter;
@@ -23,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
     QAction* nandGate = ui->actionNandGate;
     QAction* norGate = ui->actionNorGate;
     QAction* xorGate = ui->actionXorGate;
-    QAction* xnorGate = ui->actionXnorGate;
     QAction* inputGate = ui->actionInputGate;
     QAction* outputGate = ui->actionOutputGate;
 
@@ -34,7 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     group->addAction(nandGate);
     group->addAction(norGate);
     group->addAction(xorGate);
-    group->addAction(xnorGate);
     group->addAction(inverter);
     group->addAction(clear);
     group->addAction(inputGate);
@@ -44,7 +61,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&circuit, &Circuit::nodeDeleted, this, &MainWindow::handleNodeDeleted);
 
-    connect(ui->EvaluateButton, &QPushButton::pressed, &circuit, &Circuit::onEvaluate);
 
     connect(ui->actionAndGate, &QAction::triggered, this, &MainWindow::onAndGateClicked);
     connect(ui->actionOrGate, &QAction::triggered, this, &MainWindow::onOrGateClicked);
@@ -52,8 +68,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionNandGate, &QAction::triggered, this, &MainWindow::onNandGateClicked);
     connect(ui->actionNorGate, &QAction::triggered, this, &MainWindow::onNorGateClicked);
     connect(ui->actionXorGate, &QAction::triggered, this, &MainWindow::onXorGateClicked);
-    connect(ui->actionXnorGate, &QAction::triggered, this, &MainWindow::onXnorGateClicked);
     connect(ui->actionInputGate, &QAction::triggered, this, &MainWindow::onInputGateClicked);
+    connect(ui->actionOutputGate, &QAction::triggered, this, &MainWindow::onOutputGateClicked);
     connect(&circuit, &Circuit::evaluationAnimation, this, &MainWindow::evaluationAnimation);
 
     connect(ui->actionWire, &QAction::triggered, this, &MainWindow::onWireClicked);
@@ -62,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionClear, &QAction::triggered, this, &MainWindow::onClearClicked);
     connect(this, &MainWindow::clearCircuit, &circuit, &Circuit::onClear);
 
-    connect(this, &MainWindow::addButtonToCircuit, &circuit, &Circuit::addButton);
+    connect(this, &MainWindow::addGateToCircuit, &circuit, &Circuit::addButton);
 
     connect(&circuit, &Circuit::allConnections, this, &MainWindow::drawWire);
 
@@ -70,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent)
     // connect(this, &MainWindow::nextLevel, &circuit, &Circuit::levelUp);
     // connect(&circuit, &Circuit::sendLevel, this, &MainWindow::drawNewLevel);
     // connect(&circuit, &Circuit::sendDescription, this, &MainWindow::displayLevelDescription);
-    connect(&circuit, &Circuit::endGame, this, &MainWindow::gameOver);
+    // connect(&circuit, &Circuit::endGame, this, &MainWindow::gameOver);
 
 
 
@@ -84,7 +100,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Background label
     backgroundGridLabel = new QLabel(ui->centralwidget);
-    backgroundGridLabel->setGeometry(0, 0, 800, 600);
+    backgroundGridLabel->setGeometry(0, 0, this->width(), this->height());
     backgroundGridLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
 
 
@@ -94,10 +110,11 @@ MainWindow::MainWindow(QWidget *parent)
     backgroundGridLabel->setScaledContents(true);
 
     // Bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
-    ui->textEdit->raise();
+    ui->welcomeText->raise();
     ui->startButton->raise();
-    ui->EvaluateButton->raise();
-    ui->EvaluateButton->hide();
+    ui->projectsList->raise();
+    ui->logoLabel->raise();
+
     // ui->gridLayoutWidget->raise();
 
 
@@ -126,53 +143,67 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::onAndGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
-    qDebug() << "added AND Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::AND_GATE, ui->actionAndGate->icon()));
+    qDebug() << "added AND Gate. There are: " << draggableGates.size() << "total gates in circuit";
 }
 void MainWindow::onOrGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
-    qDebug() << "added OR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::OR_GATE, ui->actionOrGate->icon()));
+    qDebug() << "added OR Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 void MainWindow::onInverterClicked(){
-    draggableButtons.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
-    qDebug() << "added NOT Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::INVERTER, ui->actionInverter->icon()));
+    qDebug() << "added NOT Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 
 }
 void MainWindow::onNandGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
-    qDebug() << "added NAND Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::NAND_GATE, ui->actionNandGate->icon()));
+    qDebug() << "added NAND Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 void MainWindow::onNorGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
-    qDebug() << "added NOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::NOR_GATE, ui->actionNorGate->icon()));
+    qDebug() << "added NOR Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 void MainWindow::onXorGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
-    qDebug() << "added XOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::XOR_GATE, ui->actionXorGate->icon()));
+    qDebug() << "added XOR Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
-void MainWindow::onXnorGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::XNOR_GATE, ui->actionXnorGate->icon()));
-    qDebug() << "added XNOR Gate. There are: " << draggableButtons.size() << "total gates in circuit";
 
-}
 void MainWindow::onInputGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::INPUT, ui->actionInputGate->icon()));
-    qDebug() << "added IN Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::INPUT, ui->actionInputGate->icon()));
+    qDebug() << "added IN Gate. There are: " << draggableGates.size() << "total gates in circuit";
 }
 
 
 void MainWindow::onOutputGateClicked(){
-    draggableButtons.push_back(createGateButton(GateType::OUTPUT, ui->actionOutputGate->icon()));
-    qDebug() << "added OUT Gate. There are: " << draggableButtons.size() << "total gates in circuit";
+    draggableGates.push_back(createGateButton(GateType::OUTPUT, ui->actionOutputGate->icon()));
+    qDebug() << "added OUT Gate. There are: " << draggableGates.size() << "total gates in circuit";
 
 }
 
-void MainWindow::createPhysicsBody(DraggableButton* button) {
+void MainWindow::on_startButton_clicked()
+{
+    startGame();
+}
+
+void MainWindow::startGame() {
+    enableToolBarActions();
+    // fix zoom
+    backgroundPixmap = new QPixmap(backgroundGridLabel->size());
+    backgroundGridLabel->setScaledContents(false);
+
+    // hide home/main view UI components
+    ui->startButton->hide();
+    ui->logoLabel->hide();
+    ui->welcomeText->hide();
+    ui->projectsList->hide();
+}
+
+void MainWindow::createPhysicsBody(draggableGate* button) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
 
@@ -204,7 +235,7 @@ void MainWindow::updatePhysics() {
     physicsWorld->Step(1.0f/60.0f, 8, 3);  // Increase iteration counts
 
     // Update all buttons positions
-    auto updateButtons = [this](const vector<DraggableButton*>& buttons) {
+    auto updateButtons = [this](const vector<draggableGate*>& buttons) {
         for (auto button : buttons) {
             if (b2Body* body = (b2Body*)button->property("physicsBody").value<void*>()) {
                 b2Vec2 position = body->GetPosition();
@@ -217,25 +248,28 @@ void MainWindow::updatePhysics() {
         }
     };
 
-    updateButtons(draggableButtons);
+    updateButtons(draggableGates);
 }
 
 void MainWindow::onClearClicked() {
     // Update all buttons gravity
-    for (auto button : draggableButtons) {
-        button->buttonDelete();
-    }
-    // QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
-    draggableButtons.clear();
+    // for (auto button : draggableGates) {
+    //     button->buttonDelete();
+    // }
+    // QTimer::singleShot(3000, this, [this]() {draggableGates.clear();});
+    draggableGates.clear();
+
+    // eventually lets make the circuit not a part of the mainwindow class itself, rather for an 'editorview'
     emit clearCircuit();
-    qDebug() << "buttons deleted. There are now " << draggableButtons.size() << "buttons left in the cirucuit";
+
+    qDebug() << "buttons deleted. There are now " << draggableGates.size() << "buttons left in the cirucuit";
 }
 
-DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
+draggableGate* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
     Gate* gate = new Gate(gateType);
-    DraggableButton* newButton = new DraggableButton(gateType, this, gate);
+    draggableGate* newButton = new draggableGate(gateType, this, gate);
 
-    emit addButtonToCircuit(newButton, gateType);
+    emit addGateToCircuit(newButton, gateType);
 
     QPoint globalMousePos = QCursor::pos() + QPoint(25,-17);
     QPoint widgetPos = this->mapFromGlobal(globalMousePos);
@@ -247,31 +281,34 @@ DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIc
     newButton->setIconSize(QSize(GATE_SIZE, GATE_SIZE));
     newButton->setIcon(icon);
 
-    connect(ui->actionWire, &QAction::triggered, newButton, &DraggableButton::setWireMode);
-    connect(ui->actionDelete, &QAction::triggered, newButton, &DraggableButton::setDeleteMode);
+    connect(ui->actionWire, &QAction::triggered, newButton, &draggableGate::setWireMode);
+    connect(ui->actionDelete, &QAction::triggered, newButton, &draggableGate::setDeleteMode);
 
     return newButton;
 }
 
-void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections) {
+void MainWindow::drawWire(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections) {
     backgroundPixmap->fill(Qt::transparent);
 
     // Loop through each starting button and its wires
-    for (DraggableButton* sourceButton : connections.keys()) {
-        QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+    for (draggableGate* sourceButton : connections.keys()) {
+        // QPoint startPos = sourceButton->pos();
+        QPoint startPos = sourceButton->pos();
+        QPoint startOffset = QPoint(GATE_SIZE / 2, GATE_SIZE / 2);
+        startPos += startOffset;
 
         // Loop over each connection for source button
         for (const auto& connection : connections.value(sourceButton)) {
-            DraggableButton* targetButton = connection.first;
+            draggableGate* targetButton = connection.first;
             int inputPort = connection.second;
 
             // Calculate end position with input port offset
-            QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+            QPoint endPos = targetButton->pos();
             QPoint offset;
             switch (inputPort) {
-            case 1: offset = QPoint(-10, -12); break;
-            case 2: offset = QPoint(-10, 12); break;
-            default: offset = QPoint(0, 0); break;
+            case 1: offset = QPoint(-GATE_SIZE/2, GATE_SIZE/2); break;
+            case 2: offset = QPoint(0, GATE_SIZE * 0.65); break;
+            default: offset = QPoint(-GATE_SIZE/2, GATE_SIZE/2); break;
             }
             endPos += offset;
 
@@ -294,8 +331,8 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
                 // Draw third and fourth segments
                 QPoint p3(endPos.x() - GATE_SIZE, endPos.y());
                 QPoint p4(p3.x(), p3.y() - verticalOffset);
-                drawWireArrow(p4, p3, false);
-                drawWireArrow(p3, endPos, false);
+                drawWireArrow(p4, p3, true);
+                drawWireArrow(p3, endPos, true);
 
                 // Updated position to draw connecting 3 wires
                 endPos = p4;
@@ -306,9 +343,9 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
                 QPoint p1(midX, startPos.y());
                 QPoint p2(midX, endPos.y());
 
-                drawWireArrow(startPos, p1, false);
-                drawWireArrow(p1, p2, false);
-                drawWireArrow(p2, endPos, false);
+                drawWireArrow(startPos, p1, true);
+                drawWireArrow(p1, p2, true);
+                drawWireArrow(p2, endPos, true);
 
         }
     }
@@ -383,36 +420,14 @@ void MainWindow::onDeleteClicked(bool checked){
 }
 
 
-void MainWindow::handleNodeDeleted(DraggableButton* button) {
+void MainWindow::handleNodeDeleted(draggableGate* button) {
     // Remove from vector
-    draggableButtons.erase(
-        std::remove(draggableButtons.begin(), draggableButtons.end(), button),
-        draggableButtons.end()
+    draggableGates.erase(
+        std::remove(draggableGates.begin(), draggableGates.end(), button),
+        draggableGates.end()
     );
 }
 
-void MainWindow::startGame() {
-    enableToolBarActions();
-    // fix zoom
-    backgroundPixmap = new QPixmap(backgroundGridLabel->size());
-    backgroundGridLabel->setScaledContents(false);
-
-    ui->startButton->hide();
-    // ui->gridLayoutWidget->hide();
-
-    ui->textEdit->hide();
-    ui->EvaluateButton->show();
-    ui->EvaluateButton->setEnabled(true);
-    emit nextLevel(currentLevel);
-
-}
-// void MainWindow::startLevel(int level)
-// {
-//     qDebug() << "Starting level:" << level;
-//     currentLevel = level-1;
-//     startGame();
-
-// }
 
 
 void MainWindow::enableToolBarActions() {
@@ -420,7 +435,6 @@ void MainWindow::enableToolBarActions() {
     ui->actionOrGate->setEnabled(true);
     ui->actionNorGate->setEnabled(true);
     ui->actionXorGate->setEnabled(true);
-    ui->actionXnorGate->setEnabled(true);
     ui->actionNandGate->setEnabled(true);
     ui->actionInverter->setEnabled(true);
     ui->actionWire->setEnabled(true);
@@ -436,7 +450,6 @@ void MainWindow::disableToolBarActions() {
     ui->actionOrGate->setEnabled(false);
     ui->actionNorGate->setEnabled(false);
     ui->actionXorGate->setEnabled(false);
-    ui->actionXnorGate->setEnabled(false);
     ui->actionNandGate->setEnabled(false);
     ui->actionInverter->setEnabled(false);
     ui->actionWire->setEnabled(false);
@@ -447,116 +460,16 @@ void MainWindow::disableToolBarActions() {
 
 }
 
-// void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
-    // ui->actionWire->setChecked(false);
-    // ui->actionDelete->setChecked(false);
-    // enableToolBarActions();
 
-//     QPoint p;
-
-//     backgroundPixmap->fill(Qt::transparent);
-//     backgroundGridLabel->setPixmap(*backgroundPixmap);
-
-//     for (int i = 0; i < inputs; i++){
-//         DraggableButton* input = createGateButton(GateType::INPUT, ui->actionInputGate->icon());
-//         p = QPoint(100, 100*i+ 100);
-
-//         input->move(p);
-//         inputOutputButtons.push_back(input);
-//     }
-//   p = QPoint(600,300);
-//     DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionAndGate->icon());
-//     output->move(p);
-//     inputOutputButtons.push_back(output);
-//     // Pull data out of truthtable
-//     // QTableWidget* tableWidget = ui->previewTableWidget;
-//     // tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-//     QList tableRows = newTable->getRows();
-
-//     int rowCount = tableRows.size();
-//     int inputCount = tableRows[0].first.size();
-//     int colCount = inputCount + 1;
-
-
-//     // tableWidget->setRowCount(rowCount);
-//     // tableWidget->setColumnCount(colCount);
-
-//     // Headers
-//     QStringList headers;
-//     for (int i = 0; i < inputCount; ++i)
-//         headers << QString("In%1").arg(i + 1);
-//     headers << "Out";
-//     // tableWidget->setHorizontalHeaderLabels(headers);
-
-//     // Fill
-//     for (int row = 0; row < rowCount; ++row) {
-//         const QVector<int>& inputs = tableRows[row].first;
-//         int output = tableRows[row].second;
-
-//         for (int col = 0; col < inputCount; ++col) {
-//             // QTableWidgetItem* item = new QTableWidgetItem(QString::number(inputs[col]));
-//             // item->setTextAlignment(Qt::AlignCenter);
-//             // tableWidget->setItem(row, col, item);
-//             // ui->previewTableWidget->show();
-
-//         }
-
-//         // QTableWidgetItem* outItem = new QTableWidgetItem(QString::number(output));
-//         // outItem->setTextAlignment(Qt::AlignCenter);
-//         // tableWidget->setItem(row, inputCount, outItem);
-//     }
-//     ui->EvaluateButton->show();
-//     ui->EvaluateButton->setEnabled(true);
-// }
-
-// void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
-//     if (levelComplete){
-//         QMessageBox msgBox;
-//         msgBox.setWindowTitle("That's Correct!");
-//         msgBox.setIcon(QMessageBox::Warning);
-//         msgBox.setText("Wow! Great Job!");
-//         msgBox.setInformativeText("Click 'Ok' to continue to the next level!");
-//         msgBox.setStandardButtons(QMessageBox::Ok);
-//         msgBox.exec();
-//         //clean up input + output buttons
-//         for(DraggableButton* button: inputOutputButtons){
-//             button->hide();
-//             button->deleteLater();
-//         }
-//         inputOutputButtons.clear();
-
-//         currentLevel++;
-//         if(currentLevel >= 12){
-//             currentLevel = 100;
-//         }
-//         emit nextLevel(currentLevel);
-//     }
-//     else
-//     {
-//         // Display try again message.
-//         QMessageBox msgBox;
-//         msgBox.setWindowTitle("Incorrect Solution");
-//         msgBox.setIcon(QMessageBox::Warning);
-//         msgBox.setText("Oops! That solution isn't correct.");
-//         msgBox.setInformativeText("Hint: " + currentTable->getHint());
-//         msgBox.setStandardButtons(QMessageBox::Ok);
-//         msgBox.exec();
-//         ui->EvaluateButton->setEnabled(true);
-
-//         return;
-//     }
-// }
-
-void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections) {
+void MainWindow::evaluationAnimation(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections) {
     QVector<QPair<QPoint,QPoint>> wireSegments;
 
     // Collect all wire segments
-    for (DraggableButton* sourceButton : connections.keys()) {
+    for (draggableGate* sourceButton : connections.keys()) {
         QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
 
         for (const auto& connection : connections.value(sourceButton)) {
-            DraggableButton* targetButton = connection.first;
+            draggableGate* targetButton = connection.first;
             int inputPort = connection.second;
 
             QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
@@ -627,52 +540,28 @@ void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<Dragga
     animationTimer->start(400);
 }
 
-void MainWindow::displayLevelDescription(QString description) {
-    // QLabel *textLabel = ui->tipDescription;
-    // textLabel->setText(description);
-    // textLabel->show();
-}
-
-void MainWindow::disableEvaluate() {
-    ui->EvaluateButton->setEnabled(false);
-}
 
 
 
-void MainWindow::on_startButton_clicked()
-{
-    startGame();
-}
+
+
 
 void MainWindow::returnToMenu(){
-    //clear buttons
-    // ui->previewTableWidget->hide();
-    ui->EvaluateButton->hide();
-
+    //clear gates on screen
+    onClearClicked();
+    //disable toolbar
     disableToolBarActions();
 
-    // // Create  pixmap
+    // Create  pixmap
     backgroundPixmap = new QPixmap();
-
     backgroundGridLabel->setPixmap(*backgroundPixmap);
     backgroundGridLabel->setScaledContents(true);
 
-    // bring others forward IF BUTTONS ARE NOT WORKING THIS COULD BE WHY
-    ui->textEdit->raise();
-    ui->textEdit->show();
+    // show home/main view UI components
+    ui->welcomeText->show();
     ui->startButton->show();
-    // ui->gridLayoutWidget->show();
-    ui->startButton->raise();
-    ui->EvaluateButton->raise();
-    // ui->gridLayoutWidget->raise();
-
-    //cleanup Buttons
-    for( DraggableButton* button : inputOutputButtons){
-        button->hide();
-
-    }
-    inputOutputButtons.clear();
-
+    ui->projectsList->show();
+    ui->logoLabel->show();
 }
 
 void MainWindow::on_actionMENU_triggered()
@@ -681,23 +570,6 @@ void MainWindow::on_actionMENU_triggered()
 }
 
 
-void MainWindow::gameOver() {
-    disableToolBarActions();
-    ui->EvaluateButton->setEnabled(false);
-    QTextEdit *messageBox = new QTextEdit(this);
-    messageBox->setReadOnly(true);
-    messageBox->setGeometry(150, 150, 450, 300);
-    messageBox->setStyleSheet("background-color: white;");
-    messageBox->setHtml(
-        "<div align='center'>"
-        "<h1 style='color:green;'>Congrats, You Won!</h1>"
-        "<p style='font-size:14pt;'>You may close out of the game!</p>"
-        "</div>"
-        );
-    messageBox->show();
-    ui->actionMENU->setEnabled(false);
-    currentLevel =1;
-}
 
 
 

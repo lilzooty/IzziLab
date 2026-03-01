@@ -3,12 +3,12 @@
 
 #include <QMainWindow>
 #include <vector>
-#include <draggablebutton.h>
+#include <draggableGate.h>
 #include <QTimer>
 #include<Box2D/Box2D.h>
 #include <QLabel>
-#include "Gate.h"
-#include "Circuit.h"
+#include "gate.h"
+#include "circuit.h"
 
 using std::vector;
 
@@ -38,21 +38,20 @@ public:
 public slots:
 
     /**
-     * @brief If last level is reached, ends the game with a message.
+     * @brief returns UI to Menu screen
      */
-    void gameOver();
+    void returnToMenu();
 
+    // /**
+    //  * @brief If last level is reached, ends the game with a message.
+    //  */
+    // void gameOver();
 
-    /**
-     * @brief Disables the evaluate button once it is pressed.
-     */
-    void disableEvaluate();
-
-    /**
-     * @brief Displays a helpful description based on the level.
-     * @param Description to be displayed.
-     */
-    void displayLevelDescription(QString description);
+    // /**
+    //  * @brief Displays a helpful description based on the level.
+    //  * @param Description to be displayed.
+    //  */
+    // void displayLevelDescription(QString description);
 
     /**
      * @brief Starts the game at the level.
@@ -88,10 +87,6 @@ public slots:
      */
     void onXorGateClicked();
 
-    /**
-     * @brief Slot that creates a draggable button/node that represents an XNOR logic gate.
-     */
-    void onXnorGateClicked();
 
     /**
      * @brief Slot that creates an draggable button/node that represents an INPUT gate.
@@ -130,23 +125,19 @@ public slots:
      * @brief Draws a wire to visualize a connection between two nodes.
      * @param connections - Vector of connections that the connection will be added to.
      */
-    void drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+    void drawWire(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections);
 
     /**
      * @brief When a node is deleted, this removes it from the window.
      * @param button - Button/node to be deleted.
      */
-    void handleNodeDeleted(DraggableButton* button);
-
-    /**
-     * Connected to Circuit::sendEvaluate, used to get the next level upon completion.
-     */
-    // void getNextLevel(bool levelComplete, TruthTable *currentTable);
+    void handleNodeDeleted(draggableGate* button);
 
     /**
      * @brief Animates the circuit being solved.
+     * @todo - MAKE IT EVALUATE CIRCUIT QUICKLY AS USER CONNECTS CIRCUITS
      */
-    void evaluationAnimation(QMap<DraggableButton*, QVector<QPair<DraggableButton*, int>>> connections);
+    void evaluationAnimation(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections);
 
 
     /**
@@ -158,34 +149,63 @@ public slots:
     // void drawNewLevel(int inputs, TruthTable* newTable);
 
 private:
+    //prob delete currentLevel
+    /**
+     * @brief currentLevel tracks current level (obv)
+     * @todo prob dont need this and should prob delete
+     */
+    int currentLevel;
+
+    //view members
     /**
      * @brief The User Interface for our mainwindow.
      */
     Ui::MainWindow *ui;
 
+
     /**
-     * @brief All of our physics members.
+     * @brief Pixmap that is placed on the QLabel that is used to draw wires.
+     */
+    QPixmap* backgroundPixmap;
+
+    /**
+     * @brief Stores all of the buttons currently displayed. (I think draggableGates are technically views, gates are models)
+     */
+    vector<draggableGate*> draggableGates;
+
+
+    //physics members
+    /**
+     * @brief TODO
      */
     b2World* physicsWorld;
+
+    /**
+     * @brief TODO
+     */
     QTimer* physicsTimer;
+
+    /**
+     * @brief TODO
+     */
     float pixelsPerMeter = 30.0f;
-    int GATE_SIZE = 50;
+
+    /**
+     * @brief TODO
+     */
+    int GATE_SIZE = 64;
+
+    //we might not need this one (its a physics member but it isnt referenced at all??)
     vector<vector<bool>> grid;
 
-    int currentLevel;
-    void returnToMenu();
+
     // The Model
     /**
      * @brief Our circuit model which will be used to update mainwindow.
      */
     Circuit circuit;
 
-    // stores all buttons currently displayed
-    /**
-     * @brief Stores all of the buttons currently displayed.
-     */
-    vector<DraggableButton*> draggableButtons;
-    vector<DraggableButton*> inputOutputButtons;
+
 
     //physics methods
     /**
@@ -197,7 +217,7 @@ private:
      * @brief Creates a physics body with a button.
      * @param button - Button to become a physics body.
      */
-    void createPhysicsBody(DraggableButton* button);
+    void createPhysicsBody(draggableGate* button);
 
     /**
      * @brief Creates a button based on a gatetype to be added to the member variable.
@@ -205,17 +225,14 @@ private:
      * @param icon - Image to put over top of the button.
      * @return - A draggable button based on the gatetype.
      */
-    DraggableButton* createGateButton(GateType gateType, const QIcon& icon);
+    draggableGate* createGateButton(GateType gateType, const QIcon& icon);
 
     /**
      * @brief QLabel that represents the background where our grid is and will have a pixmap overtop of it.
      */
     QLabel* backgroundGridLabel;
 
-    /**
-     * @brief Pixmap that is placed on the QLabel that is used to draw wires.
-     */
-    QPixmap* backgroundPixmap;
+
 
     /**
      * @brief Enables the toolbar actions.
@@ -234,23 +251,6 @@ private:
     void drawWireArrow(QPoint start,  QPoint end, bool animating);
 
     /**
-     * @brief levelButtonStyle for level buttons
-     */
-    QString levelButtonStyle =
-        "QPushButton {"
-        "    background-color: rgba(40, 40, 60, 150);"
-        "    border: 2px solid rgba(80, 100, 255, 120);"
-
-        "}"
-        "QPushButton:hover {"
-        "    background-color: rgba(50, 50, 70, 170);"
-        "    border: 2px solid white;"
-        "}"
-        "QPushButton:pressed {"
-        "    background-color: rgba(35, 35, 55, 160);"
-        "    border: 2px solid rgba(60, 80, 255, 120);"
-        "}";
-    /**
      * @brief Starts the game and initalizes first level.
      */
     void startGame();
@@ -264,7 +264,7 @@ signals:
      * @param button - Button two create a gate from.
      * @param gateType - Gate type to be used to create a Gate.
      */
-    void addButtonToCircuit(DraggableButton* button, GateType gateType);
+    void addGateToCircuit(draggableGate* button, GateType gateType);
 
     /**
      * @brief Sent to Circuit to indicate the View is ready for the next level.

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <filter id="ds">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#001122" flood-opacity="0.4"/>
+    </filter>
+    <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8b880"/>
+      <stop offset="45%" stop-color="#c07830"/>
+      <stop offset="100%" stop-color="#804010"/>
+    </linearGradient>
+    <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff8e8"/>
+      <stop offset="45%" stop-color="#f0d898"/>
+      <stop offset="100%" stop-color="#c8a850"/>
+    </linearGradient>
+    <linearGradient id="doorGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8c080"/>
+      <stop offset="100%" stop-color="#a06020"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Roof -->
+  <path d="M8,30 L32,8 L56,30 Z"
+    fill="url(#roofGrad)" stroke="#804010" stroke-width="1.3" filter="url(#ds)"/>
+  <path d="M10,30 L32,10 L44,22 L32,16 Z"
+    fill="url(#gloss)" opacity="0.7"/>
+
+  <!-- Chimney -->
+  <rect x="40" y="10" width="7" height="12" rx="1.5"
+    fill="url(#roofGrad)" stroke="#804010" stroke-width="1"/>
+  <rect x="41" y="11" width="5" height="4" rx="1" fill="white" opacity="0.4"/>
+
+  <!-- Walls -->
+  <rect x="14" y="29" width="36" height="26" rx="2"
+    fill="url(#wallGrad)" stroke="#c0902a" stroke-width="1.3" filter="url(#ds)"/>
+  <rect x="15" y="30" width="34" height="10" rx="1" fill="url(#gloss)" opacity="0.7"/>
+
+  <!-- Door -->
+  <rect x="26" y="42" width="12" height="13" rx="2"
+    fill="url(#doorGrad)" stroke="#804010" stroke-width="1"/>
+  <rect x="27" y="43" width="10" height="5" rx="1" fill="white" opacity="0.4"/>
+  <circle cx="35" cy="49" r="1.5" fill="white" opacity="0.8"/>
+
+  <!-- Windows -->
+  <rect x="16" y="34" width="10" height="9" rx="2"
+    fill="#c8eeff" stroke="#5090c0" stroke-width="1" opacity="0.9"/>
+  <rect x="17" y="35" width="8" height="3.5" rx="1" fill="white" opacity="0.55"/>
+
+  <rect x="38" y="34" width="10" height="9" rx="2"
+    fill="#c8eeff" stroke="#5090c0" stroke-width="1" opacity="0.9"/>
+  <rect x="39" y="35" width="8" height="3.5" rx="1" fill="white" opacity="0.55"/>
+</svg>

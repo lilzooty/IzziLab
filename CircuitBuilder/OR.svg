@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <filter id="ds">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000044" flood-opacity="0.45"/>
+    </filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8ffd0"/>
+      <stop offset="48%" stop-color="#28d870"/>
+      <stop offset="100%" stop-color="#057a30"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.92"/>
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <line x1="2" y1="22" x2="14" y2="22" stroke="#70f0a0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="2" y1="42" x2="14" y2="42" stroke="#70f0a0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="48" y1="32" x2="62" y2="32" stroke="#70f0a0" stroke-width="2" stroke-linecap="round"/>
+
+  <path d="M12,52 Q28,52 48,32 Q28,12 12,12 Q19,22 19,32 Q19,42 12,52 Z"
+    fill="url(#bg)" stroke="#057030" stroke-width="1.4" filter="url(#ds)"/>
+  <path d="M12,12 Q28,12 48,32 Q36,22 19,18 Q16,14 12,12 Z"
+    fill="url(#gloss)" opacity="0.7"/>
+</svg>

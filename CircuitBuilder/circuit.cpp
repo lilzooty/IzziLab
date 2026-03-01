@@ -1,6 +1,6 @@
-#include "Circuit.h"
+#include "circuit.h"
 
-Circuit::Circuit() : inputNodes(), output(nullptr), gates{}{
+Circuit::Circuit() : inputGates(), outputGates(), gates{}{
 
 }
 
@@ -11,7 +11,7 @@ Circuit::Circuit(QObject *parent) : QObject{parent}, gates{} {
 
 
 bool Circuit::evaluateCircuit() {
-    if(!isAcyclic(output) || inputNodes.empty() || !output){
+    if(!isAcyclic(output) || inputGates.empty() || !output){
         return false;
     }
 
@@ -78,7 +78,7 @@ bool Circuit::evaluateNodeTree(Gate* node) {
     return node->evaluate();
 }
 
-void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input) {
+void Circuit::onConnectNode(draggableGate* fromButton, draggableGate* toButton, int input) {
     if(!fromButton || !toButton || fromButton == toButton) { // Do not allow circular connections
         return;
     }
@@ -90,14 +90,14 @@ void Circuit::onConnectNode(DraggableButton* fromButton, DraggableButton* toButt
 
     if (toNode->addInput(fromNode, input)) {
         // prevent stacking connections
-        QPair<DraggableButton*, int> newPair(toButton,input);
+        QPair<draggableGate*, int> newPair(toButton,input);
         if(!connections[fromButton].contains(newPair)){
             connections[fromButton].append(newPair);
         }
     }
 }
 
-void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toButton, int input) {
+void Circuit::onDisconnectNode(draggableGate* fromButton, draggableGate* toButton, int input) {
     Gate* fromNode = fromButton->getGate();
     Gate* toNode = toButton->getGate();
 
@@ -107,8 +107,8 @@ void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toB
     fromNode->removeOutput(toNode);
 
     if (connections.contains(fromButton)) {
-        QVector<QPair<DraggableButton*, int>>& vec = connections[fromButton];
-        QVector<QPair<DraggableButton*, int>> toRemove;
+        QVector<QPair<draggableGate*, int>>& vec = connections[fromButton];
+        QVector<QPair<draggableGate*, int>> toRemove;
 
         for (const auto& pair : vec) {
             if (pair.first == toButton) {
@@ -124,14 +124,14 @@ void Circuit::onDisconnectNode(DraggableButton* fromButton, DraggableButton* toB
 }
 
 
-void Circuit::onDeleteNode(DraggableButton* button){
+void Circuit::onDeleteNode(draggableGate* button){
     if(!button){
         return;
     }
 
     for (auto it = connections.begin(); it != connections.end(); ++it) {
-        QVector<QPair<DraggableButton*, int>>& targets = it.value();
-        QVector<QPair<DraggableButton*, int>> toRemove;
+        QVector<QPair<draggableGate*, int>>& targets = it.value();
+        QVector<QPair<draggableGate*, int>> toRemove;
 
         for (const auto& pair : targets) {
             if (pair.first == button) {
@@ -159,7 +159,7 @@ void Circuit::onDeleteNode(DraggableButton* button){
 }
 
 void Circuit::onClear() {
-    for(DraggableButton* db: connections.keys()){
+    for(draggableGate* db: connections.keys()){
         if(db){
             onDeleteNode(db);
         }
@@ -180,17 +180,17 @@ void Circuit::onClear() {
     // }
 
     gates.clear();
-    inputNodes.clear();
+    inputGates.clear();
     connections.clear();
     output = nullptr;
 
     qDebug() << "Number of Gates: "<< gates.size();
-    qDebug() << "Number of Inputs: "<< inputNodes.size();
+    qDebug() << "Number of Inputs: "<< inputGates.size();
     qDebug() << "Number of Connections: "<< connections.size();
 
 }
 
-void Circuit::registerGate(DraggableButton* button) {
+void Circuit::registerGate(draggableGate* button) {
     Gate* node = button->getGate();
     if (!node || gates.contains(node)) {
         return;
@@ -199,9 +199,9 @@ void Circuit::registerGate(DraggableButton* button) {
     gates.append(node);
 
     if (node->getGateType() == INPUT) {
-        inputNodes.push_back(node);
+        inputGates.push_back(node);
     } else if (node->getGateType() == OUTPUT) {
-        output = node;
+        outputGates.push_back(node);
     }
     connections[button];
 }
@@ -229,7 +229,7 @@ bool Circuit::isAcyclic(Gate* startNode) {
     return !hasCycle(startNode, visited, recStack);
 }
 
-void Circuit::updateOutputButton(DraggableButton *button, int input, bool deletingWire) {
+void Circuit::updateOutputButton(draggableGate *button, int input, bool deletingWire) {
     if (input == 3) {
         mostRecentOutput = button;
     } else if (input == 1 || input == 2) {
@@ -251,14 +251,14 @@ void Circuit::updateOutputButton(DraggableButton *button, int input, bool deleti
     }
 }
 
-void Circuit::addButton(DraggableButton *button){
+void Circuit::addButton(draggableGate *button){
     registerGate(button);
 
-    connect(button, &DraggableButton::sendButton, this, &Circuit::updateOutputButton);
-    connect(button, &DraggableButton::onButtonMoved, this, &Circuit::onButtonMoved);  // TO REDRAW WIRES
+    connect(button, &draggableGate::sendButton, this, &Circuit::updateOutputButton);
+    connect(button, &draggableGate::onButtonMoved, this, &Circuit::onButtonMoved);  // TO REDRAW WIRES
 
-    connect(button, &DraggableButton::deleteMe, this, &Circuit::onDeleteNode);
-    connect(button, &DraggableButton::toggleSignal  , this, &Circuit::toggleInputSignal);
+    connect(button, &draggableGate::deleteMe, this, &Circuit::onDeleteNode);
+    connect(button, &draggableGate::toggleSignal  , this, &Circuit::toggleInputSignal);
 }
 
 void Circuit::onButtonMoved(){
@@ -279,7 +279,7 @@ int Circuit::getInputButtonCount(int level){
     }
 }
 
-void Circuit::toggleInputSignal(DraggableButton* inputButton){
+void Circuit::toggleInputSignal(draggableGate* inputButton){
     // While dense, simply flips the bool that represents the signal of the gate.
     inputButton->getGate()->setSignal(!inputButton->getGate()->getSignal());
 }
