@@ -1,5 +1,5 @@
 // #include "TruthTable.h"
-
+//this will eventually be A silly feature like a pop up window that stays focused and is a visualization of the truth table of the circuit
 // TruthTable::TruthTable(const QVector<QVector<int>>& inputs, const QVector<int>& outputs, QString hint, QString levelDescription){
 //     for (int i = 0; i < inputs.size(); ++i) {
 //         tableRows.append(qMakePair(inputs[i], outputs[i]));
