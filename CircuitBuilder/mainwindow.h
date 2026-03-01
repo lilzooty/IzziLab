@@ -38,21 +38,20 @@ public:
 public slots:
 
     /**
-     * @brief If last level is reached, ends the game with a message.
+     * @brief returns UI to Menu screen
      */
-    void gameOver();
+    void returnToMenu();
 
+    // /**
+    //  * @brief If last level is reached, ends the game with a message.
+    //  */
+    // void gameOver();
 
-    /**
-     * @brief Disables the evaluate button once it is pressed.
-     */
-    void disableEvaluate();
-
-    /**
-     * @brief Displays a helpful description based on the level.
-     * @param Description to be displayed.
-     */
-    void displayLevelDescription(QString description);
+    // /**
+    //  * @brief Displays a helpful description based on the level.
+    //  * @param Description to be displayed.
+    //  */
+    // void displayLevelDescription(QString description);
 
     /**
      * @brief Starts the game at the level.
@@ -135,12 +134,8 @@ public slots:
     void handleNodeDeleted(draggableGate* button);
 
     /**
-     * Connected to Circuit::sendEvaluate, used to get the next level upon completion.
-     */
-    // void getNextLevel(bool levelComplete, TruthTable *currentTable);
-
-    /**
      * @brief Animates the circuit being solved.
+     * @todo - MAKE IT EVALUATE CIRCUIT QUICKLY AS USER CONNECTS CIRCUITS
      */
     void evaluationAnimation(QMap<draggableGate*, QVector<QPair<draggableGate*, int>>> connections);
 
@@ -154,33 +149,63 @@ public slots:
     // void drawNewLevel(int inputs, TruthTable* newTable);
 
 private:
+    //prob delete currentLevel
+    /**
+     * @brief currentLevel tracks current level (obv)
+     * @todo prob dont need this and should prob delete
+     */
+    int currentLevel;
+
+    //view members
     /**
      * @brief The User Interface for our mainwindow.
      */
     Ui::MainWindow *ui;
 
+
     /**
-     * @brief All of our physics members.
+     * @brief Pixmap that is placed on the QLabel that is used to draw wires.
+     */
+    QPixmap* backgroundPixmap;
+
+    /**
+     * @brief Stores all of the buttons currently displayed. (I think draggableGates are technically views, gates are models)
+     */
+    vector<draggableGate*> draggableGates;
+
+
+    //physics members
+    /**
+     * @brief TODO
      */
     b2World* physicsWorld;
+
+    /**
+     * @brief TODO
+     */
     QTimer* physicsTimer;
+
+    /**
+     * @brief TODO
+     */
     float pixelsPerMeter = 30.0f;
+
+    /**
+     * @brief TODO
+     */
     int GATE_SIZE = 64;
+
+    //we might not need this one (its a physics member but it isnt referenced at all??)
     vector<vector<bool>> grid;
 
-    int currentLevel;
-    void returnToMenu();
+
     // The Model
     /**
      * @brief Our circuit model which will be used to update mainwindow.
      */
     Circuit circuit;
 
-    // stores all buttons currently displayed
-    /**
-     * @brief Stores all of the buttons currently displayed.
-     */
-    vector<draggableGate*> draggableGates;
+
 
     //physics methods
     /**
@@ -207,10 +232,7 @@ private:
      */
     QLabel* backgroundGridLabel;
 
-    /**
-     * @brief Pixmap that is placed on the QLabel that is used to draw wires.
-     */
-    QPixmap* backgroundPixmap;
+
 
     /**
      * @brief Enables the toolbar actions.
@@ -228,23 +250,6 @@ private:
      */
     void drawWireArrow(QPoint start,  QPoint end, bool animating);
 
-    /**
-     * @brief levelButtonStyle for level buttons
-     */
-    QString levelButtonStyle =
-        "QPushButton {"
-        "    background-color: rgba(40, 40, 60, 150);"
-        "    border: 2px solid rgba(80, 100, 255, 120);"
-
-        "}"
-        "QPushButton:hover {"
-        "    background-color: rgba(50, 50, 70, 170);"
-        "    border: 2px solid white;"
-        "}"
-        "QPushButton:pressed {"
-        "    background-color: rgba(35, 35, 55, 160);"
-        "    border: 2px solid rgba(60, 80, 255, 120);"
-        "}";
     /**
      * @brief Starts the game and initalizes first level.
      */

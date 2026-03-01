@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <filter id="ds">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#003366" flood-opacity="0.4"/>
+    </filter>
+    <linearGradient id="wireGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8f0ff"/>
+      <stop offset="40%" stop-color="#38b8f5"/>
+      <stop offset="100%" stop-color="#0a6abf"/>
+    </linearGradient>
+    <linearGradient id="wireGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8f0ff"/>
+      <stop offset="40%" stop-color="#38b8f5"/>
+      <stop offset="100%" stop-color="#0a6abf"/>
+    </linearGradient>
+    <radialGradient id="dotGrad" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#a0e0ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1a80d0" stop-opacity="0.95"/>
+    </radialGradient>
+    <radialGradient id="dotGrad2" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#a0e0ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1a80d0" stop-opacity="0.95"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Wire: goes right, turns down, goes right — L-shaped path -->
+  <!-- Rendered as thick rounded tube with gloss -->
+
+  <!-- Wire shadow layer -->
+  <polyline points="10,24 38,24 38,40 54,40"
+    fill="none" stroke="#003366" stroke-width="7"
+    stroke-linecap="round" stroke-linejoin="round" opacity="0.25" filter="url(#ds)"/>
+
+  <!-- Main wire body -->
+  <polyline points="10,24 38,24 38,40 54,40"
+    fill="none" stroke="url(#wireGrad)" stroke-width="6"
+    stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Gloss shine on wire -->
+  <polyline points="10,22 38,22 38,38 54,38"
+    fill="none" stroke="white" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+
+  <!-- Left endpoint dot -->
+  <circle cx="10" cy="24" r="7" fill="url(#dotGrad)" stroke="#1a70c0" stroke-width="1.2" filter="url(#ds)"/>
+  <ellipse cx="8.5" cy="22" rx="2.5" ry="1.6" fill="white" opacity="0.8"/>
+
+  <!-- Right endpoint dot -->
+  <circle cx="54" cy="40" r="7" fill="url(#dotGrad2)" stroke="#1a70c0" stroke-width="1.2" filter="url(#ds)"/>
+  <ellipse cx="52.5" cy="38" rx="2.5" ry="1.6" fill="white" opacity="0.8"/>
+</svg>

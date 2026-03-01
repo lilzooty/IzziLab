@@ -1,8 +1,7 @@
 <RCC>
-    <qresource prefix="/GATES">
+    <qresource prefix="/ICONS/GATES">
         <file>NAND.svg</file>
         <file>NOR.svg</file>
-        <file>NOT.svg</file>
         <file>OUTPUT-ICON.svg</file>
         <file>OUTPUT-OFF.svg</file>
         <file>OUTPUT-ON.svg</file>
@@ -12,6 +11,7 @@
         <file>INPUT-ON.svg</file>
         <file>OR.svg</file>
         <file>XOR.svg</file>
+        <file>NOT.svg</file>
     </qresource>
     <qresource prefix="/BACKGROUND">
         <file>BGgrid.jpg</file>
@@ -21,7 +21,12 @@
     <qresource prefix="/WINDOW">
         <file>godenel.png</file>
     </qresource>
-    <qresource prefix="/LOGOS">
+    <qresource prefix="/ICONS/BRANDLOGOS">
         <file>izzilab-logo.svg</file>
+    </qresource>
+    <qresource prefix="/ICONS/TOOLS">
+        <file>HOME.svg</file>
+        <file>TRASH.svg</file>
+        <file>WIRE.svg</file>
     </qresource>
 </RCC>

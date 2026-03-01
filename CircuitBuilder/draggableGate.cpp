@@ -6,8 +6,8 @@ draggableGate::draggableGate() {
 draggableGate::draggableGate(GateType gateType, QWidget *parent, Gate* gate) :
     QPushButton(parent),
     gateType(gateType),
-    onIcon(":/GATES/INPUT-ON.svg"),
-    offIcon(":/GATES/INPUT-OFF.svg"),
+    onIcon(":/ICONS/GATES/INPUT-ON.svg"),
+    offIcon(":/ICONS/GATES/INPUT-OFF.svg"),
     isDelete(false),
     input1{QPushButton("1", this)},
     input2{QPushButton("2", this)},

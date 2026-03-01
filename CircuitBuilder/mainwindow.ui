@@ -26,9 +26,12 @@
    <iconset resource="rsc.qrc">
     <normaloff>:/WINDOW/godenel.png</normaloff>:/WINDOW/godenel.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
@@ -36,41 +39,74 @@
    <property name="layoutDirection">
     <enum>Qt::LayoutDirection::LeftToRight</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+background-color: rgba(0,0,0,0);
+}
+
+</string>
+   </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0" rowspan="5">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="logoLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="rsc.qrc">:/LOGOS/izzilab-logo.svg</pixmap>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="welcomeText">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>1</horstretch>
-          <verstretch>1</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QTextEdit{
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <item row="0" column="2">
+     <widget class="QFrame" name="horizontalFrame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="logoLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="rsc.qrc">:/ICONS/BRANDLOGOS/izzilab-logo.svg</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="welcomeText">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="mouseTracking">
+          <bool>true</bool>
+         </property>
+         <property name="whatsThis">
+          <string/>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QTextEdit{
 
 	
-	border-radius:30;
+	border-radius:50;
 	padding: 10 10 10 10;
-	
-	background-color: qradialgradient(spread:repeat, cx:0.5, cy:0.5, radius:0.75, fx:0.5, fy:0.5, stop:0 rgba(210, 255, 208, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(233, 248, 240,255)  stop:1 rgba(222, 255, 254, 25));
+
+		
 
 	color:black;
 
@@ -78,64 +114,75 @@
 }
 
 </string>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Welcome To IzziLab!&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;&lt;br /&gt;IzziLab is a digital logic circuit simulation sandbox, named after Saint Isidore of Seville, the patron saint of programmers. &lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;WILL ADD BELOW FUNCTIONALITY LATER&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Press &amp;quot;Build New Circuit&amp;quot; or &amp;quot;Open Circuit&amp;quot;&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="10" column="0">
-     <widget class="QPushButton" name="EvaluateButton">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-	border-style: solid;
-	border-width:5px;
-	border-radius:10px;
-	border-color:rgb(100, 0, 167);
-	padding: 10 10 10 10;
-	background-color:qlineargradient(spread:pad, x1:4, y1:4, x1:4, y1:4, stop:0 rgb(255, 255, 255), stop:1 rgb(106, 78, 153));
-	color:white;
-}
-
-QPushButton:hover {
-	background-color: rgba(50, 50, 70, 170);
-	border: 5px solid white;
-}
-QPushButton:pressed {
-	background-color: rgba(35, 35, 55, 160);
-	border: 5px solid rgba(60, 80, 255, 120);
-}</string>
-      </property>
-      <property name="text">
-       <string>Evaluate Circuit</string>
-      </property>
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;Welcome To IzziLab!&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:14pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;IzziLab is a digital logic circuit simulation sandbox, named after Saint Isidore of Seville, the patron saint of programmers. &lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Credits to Soren Fanning, Koen Sakamoto, Josh Thalathoty, and Gabe Tevis &lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
-    <item row="9" column="0">
+    <item row="1" column="2">
+     <widget class="QFrame" name="horizontalFrame_2">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QListWidget" name="projectsList">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding:20;
+alignment:center;
+
+	background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(233, 248, 240,255)  stop:1 rgba(222, 255, 254, 25));
+</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Project1 </string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Project2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Project3</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="2">
      <widget class="QPushButton" name="startButton">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -193,6 +240,10 @@ QPushButton:pressed {
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 127);
+background-color: rgb(254, 255, 193);</string>
+   </property>
    <property name="movable">
     <bool>false</bool>
    </property>
@@ -208,8 +259,9 @@ QPushButton:pressed {
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionWire"/>
+   <addaction name="actionMENU"/>
    <addaction name="actionDelete"/>
+   <addaction name="actionWire"/>
    <addaction name="actionInputGate"/>
    <addaction name="actionOutputGate"/>
    <addaction name="actionInverter"/>
@@ -219,12 +271,11 @@ QPushButton:pressed {
    <addaction name="actionNorGate"/>
    <addaction name="actionXorGate"/>
    <addaction name="actionClear"/>
-   <addaction name="actionMENU"/>
   </widget>
   <action name="actionAndGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/AND.svg</normaloff>:/GATES/AND.svg</iconset>
+     <normaloff>:/ICONS/GATES/AND.svg</normaloff>:/ICONS/GATES/AND.svg</iconset>
    </property>
    <property name="text">
     <string>AndGate</string>
@@ -236,7 +287,7 @@ QPushButton:pressed {
   <action name="actionOrGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/OR.svg</normaloff>:/GATES/OR.svg</iconset>
+     <normaloff>:/ICONS/GATES/OR.svg</normaloff>:/ICONS/GATES/OR.svg</iconset>
    </property>
    <property name="text">
     <string>OrGate</string>
@@ -248,7 +299,7 @@ QPushButton:pressed {
   <action name="actionInverter">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/NOT.svg</normaloff>:/GATES/NOT.svg</iconset>
+     <normaloff>:/ICONS/GATES/NOT.svg</normaloff>:/ICONS/GATES/NOT.svg</iconset>
    </property>
    <property name="text">
     <string>Inverter</string>
@@ -262,7 +313,8 @@ QPushButton:pressed {
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="QIcon::ThemeIcon::NetworkWired"/>
+    <iconset resource="rsc.qrc">
+     <normaloff>:/ICONS/TOOLS/WIRE.svg</normaloff>:/ICONS/TOOLS/WIRE.svg</iconset>
    </property>
    <property name="text">
     <string>Wire</string>
@@ -274,7 +326,7 @@ QPushButton:pressed {
   <action name="actionNandGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/NAND.svg</normaloff>:/GATES/NAND.svg</iconset>
+     <normaloff>:/ICONS/GATES/NAND.svg</normaloff>:/ICONS/GATES/NAND.svg</iconset>
    </property>
    <property name="text">
     <string>NandGate</string>
@@ -286,7 +338,7 @@ QPushButton:pressed {
   <action name="actionNorGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/NOR.svg</normaloff>:/GATES/NOR.svg</iconset>
+     <normaloff>:/ICONS/GATES/NOR.svg</normaloff>:/ICONS/GATES/NOR.svg</iconset>
    </property>
    <property name="text">
     <string>NorGate</string>
@@ -301,7 +353,7 @@ QPushButton:pressed {
    </property>
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/XOR.svg</normaloff>:/GATES/XOR.svg</iconset>
+     <normaloff>:/ICONS/GATES/XOR.svg</normaloff>:/ICONS/GATES/XOR.svg</iconset>
    </property>
    <property name="text">
     <string>XorGate</string>
@@ -311,6 +363,9 @@ QPushButton:pressed {
    </property>
   </action>
   <action name="actionClear">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::EditClear"/>
    </property>
@@ -326,7 +381,8 @@ QPushButton:pressed {
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="QIcon::ThemeIcon::EditDelete"/>
+    <iconset resource="rsc.qrc">
+     <normaloff>:/ICONS/TOOLS/TRASH.svg</normaloff>:/ICONS/TOOLS/TRASH.svg</iconset>
    </property>
    <property name="text">
     <string>Delete</string>
@@ -338,7 +394,7 @@ QPushButton:pressed {
   <action name="actionInputGate">
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/INPUT-ICON.svg</normaloff>:/GATES/INPUT-ICON.svg</iconset>
+     <normaloff>:/ICONS/GATES/INPUT-ICON.svg</normaloff>:/ICONS/GATES/INPUT-ICON.svg</iconset>
    </property>
    <property name="text">
     <string>Input</string>
@@ -349,7 +405,8 @@ QPushButton:pressed {
   </action>
   <action name="actionMENU">
    <property name="icon">
-    <iconset theme="QIcon::ThemeIcon::GoHome"/>
+    <iconset resource="rsc.qrc">
+     <normaloff>:/ICONS/TOOLS/HOME.svg</normaloff>:/ICONS/TOOLS/HOME.svg</iconset>
    </property>
    <property name="text">
     <string>MENU</string>
@@ -364,7 +421,7 @@ QPushButton:pressed {
    </property>
    <property name="icon">
     <iconset resource="rsc.qrc">
-     <normaloff>:/GATES/OUTPUT-ICON.svg</normaloff>:/GATES/OUTPUT-ICON.svg</iconset>
+     <normaloff>:/ICONS/GATES/OUTPUT-ICON.svg</normaloff>:/ICONS/GATES/OUTPUT-ICON.svg</iconset>
    </property>
    <property name="text">
     <string>Output</string>
